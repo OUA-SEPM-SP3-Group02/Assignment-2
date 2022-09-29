@@ -1,0 +1,4 @@
+id,issuer,email,level,status
+1,john doe,j.doe@sepm.com,low,open
+2,morgan cassar,m.cassar@sepm.com,medium,closed
+3,jack harris,j.harris@sepm.com,high,archived
