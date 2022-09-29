@@ -1,3 +1,5 @@
+package com.sepm.controller;
+
 public class main {
 
     public static void main (String[] args){
