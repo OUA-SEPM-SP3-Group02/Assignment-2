@@ -24,5 +24,7 @@ class Ticket {
         ticketSummary += this.ticketStatus;
         return ticketSummary;
     }
+
+    // Test to see if commits are working
 }
 
