@@ -25,6 +25,6 @@ class Ticket {
         return ticketSummary;
     }
 
-    // Test to see if commits are working
+    // Test to see if commits are working - Pete
 }
 
