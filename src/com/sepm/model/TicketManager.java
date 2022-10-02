@@ -1,7 +1,6 @@
 package com.sepm.model;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -14,9 +13,9 @@ public class TicketManager {
         this.numTickets = 0;
     }
 
-    private void addTicket(int ticketId, String issuer, String email, String level, String status) {
+    private void addTicket(int ticketId, String title, String description, String issuer, String email, String level, String status) {
         this.tickets = new Ticket[5];
-        this.tickets[this.numTickets] = new Ticket(ticketId, issuer, email, level, status);
+        this.tickets[this.numTickets] = new Ticket(ticketId, title, description, issuer, email, level, status);
         this.numTickets += 1;
     }
 
@@ -26,12 +25,14 @@ public class TicketManager {
         while (ticketFileLine != null) {
             String[] ticketFields = ticketFileLine.split(",");
             int ticketId = Integer.parseInt(ticketFields[0]);
-            String issuer = ticketFields[1];
-            String email = ticketFields[2];
-            String level = ticketFields[3];
-            String status = ticketFields[4];
+            String title = ticketFields[1];
+            String description = ticketFields[2];
+            String issuer = ticketFields[3];
+            String email = ticketFields[4];
+            String level = ticketFields[5];
+            String status = ticketFields[6];
 
-            addTicket(ticketId, issuer, email, level, status);
+            addTicket(ticketId, title, description, issuer, email, level, status);
             ticketFileLine = ticketFile.readLine();
         }
         ticketFile.close();

@@ -2,13 +2,17 @@ package com.sepm.model;
 
 class Ticket {
     private int ticketId;
+    private String ticketTitle;
+    private String ticketDescription;
     private String ticketIssuer;
     private String ticketEmail;
     private String ticketLevel;
     private String ticketStatus;
 
-    Ticket(int id, String issuer, String email, String level, String status) {
+    Ticket(int id, String title, String description, String issuer, String email, String level, String status) {
         this.ticketId = id;
+        this.ticketTitle = title;
+        this.ticketDescription = description;
         this.ticketIssuer = issuer;
         this.ticketEmail = email;
         this.ticketLevel = level;
@@ -18,6 +22,8 @@ class Ticket {
     public String toString() {
         String ticketSummary = "";
         ticketSummary += this.ticketId + ",";
+        ticketSummary += this.ticketTitle + ",";
+        ticketSummary += this.ticketDescription + ",";
         ticketSummary += this.ticketIssuer + ",";
         ticketSummary += this.ticketEmail + ",";
         ticketSummary += this.ticketLevel + ",";
