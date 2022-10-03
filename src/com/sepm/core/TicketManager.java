@@ -1,6 +1,7 @@
 package com.sepm.core;
 
 import com.sepm.controller.UserController;
+import com.sepm.model.Ticket;
 import com.sepm.service.TicketService;
 
 import java.util.HashMap;
@@ -13,9 +14,10 @@ public class TicketManager {
         this.controllers = new HashMap<>();
         this.controllers.put("userController", new UserController(this));
         this.activeController = "userController";
-        if (!TicketService.loadTicketsFromXMLFile("tickets.xml")) {
-            System.out.println("Failed to load tickets!");
-        }
+
+        //Bind our ticket data to our loaded tickets
+        Ticket.bindTicketData(TicketService.loadTicketsFromXMLFile("tickets.xml"));
+
         updateView(new Response());
     }
 
