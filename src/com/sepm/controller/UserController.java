@@ -4,7 +4,7 @@ import com.sepm.core.Controller;
 import com.sepm.core.Request;
 import com.sepm.core.Response;
 import com.sepm.core.TicketManager;
-import com.sepm.service.TicketService;
+import com.sepm.model.Ticket;
 import com.sepm.view.UserView;
 
 public class UserController extends Controller {
@@ -24,8 +24,10 @@ public class UserController extends Controller {
     @Override
     public void processInput(Request request) {
         Response response = new Response();
-        System.out.println(TicketService.getTickets().toArray().length);
-        response.add("tickets", TicketService.getTickets());
+
+        //Add our tickets to the response
+        response.add("tickets", Ticket.getAll());
+
         this.TM.updateView(response);
     }
 }
