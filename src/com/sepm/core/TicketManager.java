@@ -18,7 +18,7 @@ public class TicketManager {
         //Bind our ticket data to our loaded tickets
         Ticket.bindTicketData(TicketService.loadTicketsFromXMLFile("tickets.xml"));
 
-        updateView(new Response());
+        processInput(new Request());
     }
 
     public void processInput(Request request) {
