@@ -20,7 +20,7 @@ public class TicketService {
         return TicketService.tickets;
     }
 
-    public static boolean loadTicketsFromXMLFile(String xml) {
+    public static Ticket[] loadTicketsFromXMLFile(String xml) {
         String ticketId = "";
         String title = "";
         String description = "";
@@ -28,7 +28,7 @@ public class TicketService {
         String email = "";
         String level = "";
         String status = "";
-        boolean outcome = true;
+        ArrayList<Ticket> tickets = new ArrayList<>();
 
         try {
             // Defines a factory API that enables
@@ -64,16 +64,14 @@ public class TicketService {
                     level = tElement.getElementsByTagName("level").item(0).getTextContent();
                     status = tElement.getElementsByTagName("status").item(0).getTextContent();
 
-                    TicketService.tickets.add(new Ticket(ticketId, title, description, issuedBy, email, level, status));
+                    tickets.add(new Ticket(ticketId, title, description, issuedBy, email, level, status));
                 }
             }
-        } catch (ParserConfigurationException e) {
-            outcome = false;
-        } catch (IOException e) {
-            outcome = false;
-        } catch (SAXException e) {
-            outcome = false;
+        } catch (ParserConfigurationException | IOException | SAXException ignored) {
+            System.out.println("ERROR: Failed to load data");
         }
-        return outcome;
+
+        Ticket[] ticketData = new Ticket[0];
+        return tickets.toArray(ticketData);
     }
 }
