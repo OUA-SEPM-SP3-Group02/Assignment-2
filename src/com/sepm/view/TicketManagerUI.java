@@ -62,4 +62,18 @@ public class TicketManagerUI {
 
 
     }
+
+    public void createTicket() {
+        public int ticketId;
+        public String title;
+        public String description;
+        public String issuer;
+        public String email;
+        public String level;
+        public String status;
+        System.out.println("Please provide details of the issue: ");
+        description = sc.nextLine();
+
+
+    }
 }
