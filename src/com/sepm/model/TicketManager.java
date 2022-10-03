@@ -7,12 +7,12 @@ import org.xml.sax.SAXException;
 
 import java.io.IOException;
 
-public class Ticketmanager {
+public class TicketManager {
     private Ticket[] tickets;
     private int numTickets;
     // private ArrayList<String> ticket;
 
-    public Ticketmanager() {
+    public TicketManager() {
         this.tickets = new Ticket[10];
         this.numTickets = 0;
     }

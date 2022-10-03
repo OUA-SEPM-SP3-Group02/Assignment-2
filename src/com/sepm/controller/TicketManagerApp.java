@@ -1,5 +1,5 @@
 package com.sepm.controller;
-import com.sepm.model.Ticketmanager;
+import com.sepm.model.TicketManager;
 import com.sepm.view.TicketManagerUI;
 import org.xml.sax.SAXException;
 
@@ -7,11 +7,11 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 
 public class TicketManagerApp {
-    private Ticketmanager ticketManager;
+    private TicketManager ticketManager;
     private TicketManagerUI userInterface;
 
     public TicketManagerApp () {
-        this.ticketManager = new Ticketmanager();
+        this.ticketManager = new TicketManager();
         this.userInterface = new TicketManagerUI(this);
     }
 
