@@ -5,6 +5,8 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class TicketManagerUI {
@@ -37,8 +39,9 @@ public class TicketManagerUI {
         String[] ticketListDetails = ticketList.split("\n");
 
         int i = 0;
-        while (i < ticketListDetails.length) {
-            String[] ticketDetails = ticketList.split(",");
+        while (i<ticketListDetails.length) {
+            String[] ticketDetails = ticketListDetails[i].split(":");
+
             String ticketId = ticketDetails[0];
             String title = ticketDetails[1];
             String description = ticketDetails[2];
@@ -47,23 +50,21 @@ public class TicketManagerUI {
             String level = ticketDetails[5];
             String status = ticketDetails[6];
 
-            System.out.println("ID:" + ticketId);
-            System.out.println("Title:" + title);
-            System.out.println("Description:" + description);
-            System.out.println("Issued by:" + issuedBy);
-            System.out.println("Email:" + email);
-            System.out.println("Severity Level:" + level);
-            System.out.println("Status" + status);
+            System.out.println("Ticket ID: " + ticketId);
+            System.out.println("Title: " + title);
+            System.out.println("Description: " + description);
+            System.out.println("Issuer: " + issuedBy);
+            System.out.println("Email: " + email);
+            System.out.println("Severity: " + level);
+            System.out.println("Status: " + status);
             System.out.println();
-            System.out.println();
+
             i += 1;
-
         }
-
 
     }
 
-    public void createTicket() {
+    /*public void createTicket() {
         // Why these variables public?
         public int ticketId;
         public String title;
@@ -76,5 +77,5 @@ public class TicketManagerUI {
         description = sc.nextLine();
 
 
-    }
+    }*/
 }
