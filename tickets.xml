@@ -3,7 +3,7 @@
     <ticket>
         <id>1</id>
         <title>PC does not boot</title>
-        <description>When I try to start my PC, it does not boot up. So, I can use it for work.</description>
+        <description>When I try to start my PC, it does not boot up. So, I can't use it for work.</description>
         <issuedBy>John Doe</issuedBy>
         <email>j.doe@sepm.com</email>
         <level>low</level>

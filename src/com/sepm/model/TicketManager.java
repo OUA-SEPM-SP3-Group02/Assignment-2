@@ -26,7 +26,7 @@ public class TicketManager {
         this.numTickets = 0;
     }
 
-    private void addTicket(int ticketId, String title, String description, String issuer, String email, String level, String status) {
+    private void addTicket(String ticketId, String title, String description, String issuer, String email, String level, String status) {
         this.tickets = new Ticket[5];
         this.tickets[this.numTickets] = new Ticket(ticketId, title, description, issuer, email, level, status);
         this.numTickets += 1;
@@ -37,7 +37,7 @@ public class TicketManager {
         String ticketFileLine = ticketFile.readLine();
         while (ticketFileLine != null) {
             String[] ticketFields = ticketFileLine.split(",");
-            int ticketId = Integer.parseInt(ticketFields[0]);
+            String ticketId = ticketFields[0];
             String title = ticketFields[1];
             String description = ticketFields[2];
             String issuer = ticketFields[3];
@@ -51,67 +51,106 @@ public class TicketManager {
         ticketFile.close();
     }
 
-    public boolean readXML(String xml) {
+    public void readXMLTicketsOld(String xml) throws ParserConfigurationException, SAXException, IOException {
         ticket = new ArrayList<String>();
         Document dom;
         // Make an  instance of the DocumentBuilderFactory
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        try {
-            // use the factory to take an instance of the document builder
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            // parse using the builder to get the DOM mapping of the
-            // XML file
-            dom = db.parse(xml);
 
-            Element doc = dom.getDocumentElement();
+        // use the factory to take an instance of the document builder
+        DocumentBuilder db = dbf.newDocumentBuilder();
+        // parse using the builder to get the DOM mapping of the
+        // XML file
+        dom = db.parse(xml);
 
-            id = getTextValue(id, doc, "id");
-            if (id != null) {
-                if (!id.isEmpty())
-                    ticket.add(id);
-            }
-            title = getTextValue(title, doc, "title");
-            if (title != null) {
-                if (!title.isEmpty())
-                    ticket.add(title);
-            }
-            description = getTextValue(description, doc, "description");
-            if (description != null) {
-                if (!description.isEmpty())
-                    ticket.add(description);
-            }
-            issuedBy = getTextValue(issuedBy, doc, "issuedBy");
-            if ( issuedBy != null) {
-                if (!issuedBy.isEmpty())
-                    ticket.add(issuedBy);
-            }
-            email = getTextValue(email, doc, "email");
-            if ( email != null) {
-                if (!email.isEmpty())
-                    ticket.add(email);
-            }
-            level = getTextValue(level, doc, "level");
-            if ( level != null) {
-                if (!level.isEmpty())
-                    ticket.add(level);
-            }
-            status = getTextValue(status, doc, "status");
-            if ( status != null) {
-                if (!status.isEmpty())
-                    ticket.add(status);
-            }
-            return true;
+        Element doc = dom.getDocumentElement();
 
-        } catch (ParserConfigurationException pce) {
-            System.out.println(pce.getMessage());
-        } catch (SAXException se) {
-            System.out.println(se.getMessage());
-        } catch (IOException ioe) {
-            System.err.println(ioe.getMessage());
+        id = getTextValue(id, doc, "id");
+        if (id != null) {
+            if (!id.isEmpty())
+                ticket.add(id);
         }
+        title = getTextValue(title, doc, "title");
+        if (title != null) {
+            if (!title.isEmpty())
+                ticket.add(title);
+        }
+        description = getTextValue(description, doc, "description");
+        if (description != null) {
+            if (!description.isEmpty())
+                ticket.add(description);
+        }
+        issuedBy = getTextValue(issuedBy, doc, "issuedBy");
+        if (issuedBy != null) {
+            if (!issuedBy.isEmpty())
+                ticket.add(issuedBy);
+        }
+        email = getTextValue(email, doc, "email");
+        if (email != null) {
+            if (!email.isEmpty())
+                ticket.add(email);
+        }
+        level = getTextValue(level, doc, "level");
+        if (level != null) {
+            if (!level.isEmpty())
+                ticket.add(level);
+        }
+        status = getTextValue(status, doc, "status");
+        if (status != null) {
+            if (!status.isEmpty())
+                ticket.add(status);
+        }
+        addTicket(id, title, description, issuedBy, email, level, status);
 
-        return false;
+
     }
+
+    public void readXMLTickets(String xml) throws IOException, SAXException, ParserConfigurationException {
+        String ticketId = "";
+        String title = "";
+        String description = "";
+        String issuedBy = "";
+        String email = "";
+        String level = "";
+        String status = "";
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+
+        // we are creating an object of builder to parse
+        // the  xml file.
+        DocumentBuilder db = dbf.newDocumentBuilder();
+        Document doc = db.parse(xml);
+
+        /*
+           Here normalize method Puts all Text nodes in the full depth of the sub-tree underneath this
+           Node, including attribute nodes, into a "normal" form where only structure separates
+           Text nodes, i.e., there are neither adjacent Text nodes nor empty Text nodes.
+        */
+        doc.getDocumentElement().normalize();
+        System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
+
+        // Here nodeList contains all the nodes with name geek.
+        NodeList nodeList = doc.getElementsByTagName("ticket");
+
+        // Iterate through all the nodes in NodeList
+        int i = 0;
+        while (i < nodeList.getLength()) {
+            Node node = nodeList.item(i);
+            //System.out.println("\nNode Name :" + node.getNodeName());
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element tElement = (Element) node;
+                ticketId = tElement.getElementsByTagName("id").item(0).getTextContent();
+                title = tElement.getElementsByTagName("title").item(0).getTextContent();
+                description = tElement.getElementsByTagName("description").item(0).getTextContent();
+                issuedBy = tElement.getElementsByTagName("issuedBy").item(0).getTextContent();
+                email = tElement.getElementsByTagName("email").item(0).getTextContent();
+                level = tElement.getElementsByTagName("level").item(0).getTextContent();
+                status = tElement.getElementsByTagName("status").item(0).getTextContent();
+            }
+            addTicket(ticketId, title, description, issuedBy, email, level, status);
+            i += 1;
+        }
+    }
+
 
     private String getTextValue(String def, Element doc, String tag) {
         String value = def;
@@ -128,8 +167,10 @@ public class TicketManager {
         int i = 0;
         while (i < this.numTickets) {
             summary += this.tickets[i] + "\n";
+            System.out.println(tickets[i]);
             i += 1;
         }
+
         return summary;
     }
 }
