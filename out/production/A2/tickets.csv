@@ -1,0 +1,4 @@
+id,title,description,issuer,email,level,status
+1,PC does not boot,When I try to start my PC it does not boot up so that I can use it,john doe,j.doe@sepm.com,low,open
+2,Cannot log in,For whatever reason I cannt log into my system,morgan cassar,m.cassar@sepm.com,medium,closed
+3,IntelliJ not updating,My IntelliJ software cannot be updated to the latest version,jack harris,j.harris@sepm.com,high,archived
