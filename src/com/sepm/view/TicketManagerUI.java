@@ -64,14 +64,13 @@ public class TicketManagerUI {
     }
 
     public void createTicket() {
-        // Why these variables public?
-        public int ticketId;
-        public String title;
-        public String description;
-        public String issuer;
-        public String email;
-        public String level;
-        public String status;
+        int ticketId;
+        String title;
+        String description;
+        String issuer;
+        String email;
+        String level;
+        String status;
         System.out.println("Please provide details of the issue: ");
         description = sc.nextLine();
 
