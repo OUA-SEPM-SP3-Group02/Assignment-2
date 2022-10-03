@@ -64,18 +64,53 @@ public class TicketManagerUI {
 
     }
 
-    /*public void createTicket() {
+    public void createTicket() {
         // Why these variables public?
-        public int ticketId;
-        public String title;
-        public String description;
-        public String issuer;
-        public String email;
-        public String level;
-        public String status;
+        int ticketId;
+        String title;
+        String description;
+        String issuer;
+        String email;
+        String level;
+        String status;
         System.out.println("Please provide details of the issue: ");
-        description = sc.nextLine();
+        description = stdin.nextLine();
 
 
-    }*/
+    }
+
+    // Input function with check for empty input value.
+    private static String getInput(String prompt) {
+
+
+        String userInputValue = "";
+        boolean isInputEmpty = false;
+
+
+        while (!isInputEmpty) {
+
+            // First, display the received parameter.
+            System.out.print(prompt);
+
+            // Now the user can enter a value via the stdin variable which is an object of the Scanner class. To be
+            // on the safe side, the input gets also stripped. The read value is stored in a variable called
+            // userInput of type String. Because the Scanner class has been initialised as a static object, and hence the
+            // stdin object belongs to the class itself, the classname is used to call the object rather than "this".
+            String userInput = TicketManagerUI.stdin.nextLine().strip();
+
+            // Now the code checks if the received input contains anything or is blank. If it is blank, the user will
+            // be prompted with a message.
+            if (userInput.isBlank()) {
+                System.out.println("Input cannot be blank.");
+
+                // if the input is not empty, the value can be returned to the caller by assigning the value to the
+                // userInputValue variable that later gets returned from the method. And to exit the loop, the
+                // isInputEmpty variable can be set to true.
+            } else {
+                userInputValue = userInput;
+                isInputEmpty = true;
+            }
+        }
+        return userInputValue;
+    }
 }
