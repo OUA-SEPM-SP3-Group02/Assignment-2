@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <class>
     <ticket>
-        <id>1</id>
+        <id>0</id>
         <title>PC does not boot</title>
         <description>When I try to start my PC, it does not boot up. So, I can't use it for work.</description>
         <issuedBy>John Doe</issuedBy>
@@ -11,7 +11,7 @@
     </ticket>
 
     <ticket>
-        <id>2</id>
+        <id>1</id>
         <title>Can't log in to computer.</title>
         <description>For whatever reason I cannot log into my system.</description>
         <issuedBy>Morgan Cassar</issuedBy>
@@ -21,12 +21,22 @@
     </ticket>
 
     <ticket>
-        <id>3</id>
+        <id>2</id>
         <title>IntelliJ IDEA not updating properly.</title>
         <description>My IntelliJ software cannot be updated to the latest version.</description>
         <issuedBy>Jack Harris</issuedBy>
         <email>j.harris@sepm.com</email>
         <level>high</level>
         <status>archived</status>
+    </ticket>
+
+    <ticket>
+        <id>3</id>
+        <title>Word enters text by itself</title>
+        <description>When I write in word, text suddenly appears on the screen, without me having entered it.</description>
+        <issuedBy>Karsten Beck</issuedBy>
+        <email>k.beck@sepm.com</email>
+        <level>high</level>
+        <status>open</status>
     </ticket>
 </class>

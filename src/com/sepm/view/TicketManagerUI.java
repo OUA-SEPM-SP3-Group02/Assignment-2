@@ -64,6 +64,7 @@ public class TicketManagerUI {
     }
 
     public void createTicket() {
+        // Why these variables public?
         public int ticketId;
         public String title;
         public String description;
