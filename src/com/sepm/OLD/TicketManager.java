@@ -1,7 +1,8 @@
-package com.sepm.model;
+package com.sepm.OLD;
 
 import javax.xml.parsers.*;
 
+import com.sepm.model.Ticket;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 

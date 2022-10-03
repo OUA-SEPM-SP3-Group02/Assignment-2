@@ -1,6 +1,6 @@
-package com.sepm.controller;
-import com.sepm.model.TicketManager;
-import com.sepm.view.TicketManagerUI;
+package com.sepm.OLD;
+import com.sepm.core.TicketManager;
+//import com.sepm.OLD.TicketManager;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -20,7 +20,7 @@ public class TicketManagerApp {
     }
 
     public void loadTickets(String ticketsFile) throws ParserConfigurationException, IOException, SAXException {
-        this.ticketManager.loadTicketsFromXMLFile(ticketsFile);
+        //this.ticketManager.loadTicketsFromXMLFile(ticketsFile);
     }
 
     public String displayAllTickets() {

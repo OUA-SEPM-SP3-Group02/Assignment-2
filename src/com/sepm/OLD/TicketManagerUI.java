@@ -1,12 +1,9 @@
-package com.sepm.view;
+package com.sepm.OLD;
 
-import com.sepm.controller.TicketManagerApp;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class TicketManagerUI {
