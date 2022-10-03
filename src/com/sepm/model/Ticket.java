@@ -1,6 +1,6 @@
 package com.sepm.model;
 
-class Ticket {
+public class Ticket {
     String ticketId;
     String ticketTitle;
     String ticketDescription;
@@ -9,7 +9,7 @@ class Ticket {
     String ticketLevel;
     String ticketStatus;
 
-    Ticket(String id, String title, String description, String issuer, String email, String level, String status) {
+    public Ticket(String id, String title, String description, String issuer, String email, String level, String status) {
         this.ticketId = id;
         this.ticketTitle = title;
         this.ticketDescription = description;

@@ -61,7 +61,6 @@ public class TicketManagerUI {
 
             i += 1;
         }
-
     }
 
     public void createTicket() {
