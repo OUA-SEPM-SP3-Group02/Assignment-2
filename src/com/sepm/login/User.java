@@ -1,14 +1,14 @@
 package com.sepm.login;
 
 public class User {
-    public class user {
+
         private int id;
         private String name;
         private int level;
         private String email;
         private String password;
 
-        public user(int id, String name, int level, String email, String password){
+        public User(int id, String name, int level, String email, String password){
             this.level = id;
             this.name = name;
             this.level = level;
@@ -37,4 +37,4 @@ public class User {
         }
     }
 
-}
+
