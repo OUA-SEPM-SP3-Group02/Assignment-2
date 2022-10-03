@@ -56,6 +56,13 @@ public class Ticket {
         return  null;
     }
 
+    //**** GET WERE LEVEL METHOD ****\\
+    //Returns all the tickets that match a requested level
+    public static Ticket[] getWereLevel(String ticketlevel){
+        //TODO ADD LOGIC
+        return  null;
+    }
+
     //@Karsten please feel free to start to add more getters for different criteria!
     //try and make them generic in the sense that we can reuse them! - Jack Harris
 
