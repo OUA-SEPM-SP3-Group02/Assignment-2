@@ -1,40 +1,67 @@
 package com.sepm.login;
 
+import java.util.HashMap;
+
 public class User {
 
-        private int id;
-        private String name;
-        private int level;
-        private String email;
-        private String password;
+    private String email;
+    private String name;
+    private String phNumber;
+    private String password;
 
-        public User(int id, String name, int level, String email, String password){
-            this.level = id;
-            this.name = name;
-            this.level = level;
+    private static final HashMap<String, String> loginUser = new HashMap<>();
+
+    public User(){
+        this.email= "";
+        this.name="";
+        this.phNumber="";
+        this.password="";
+    }
+
+        public User(String email, String name, String phNumber, String password){
             this.email = email;
+            this.name = name;
+            this.phNumber = phNumber;
             this.password = password;
         }
 
-        public int getId() {
-            return id;
+        public HashMap<String, String> getUserMap(){
+            return loginUser;
         }
+
+        public String getEmail() {return this.email;}
 
         public String getName() {
-            return name;
+            return this.name;
         }
 
-        public int getLevel() {
-            return level;
-        }
-
-        public String getEmail() {
-            return email;
-        }
+        public String getPhNumber() {return this.phNumber; }
 
         public String getPassword() {
             return password;
         }
+
+        public boolean doesUserExist (User user) {
+            if (loginUser.containsKey(user.getEmail()) && loginUser.containsValue(user.getPassword())) {
+                return true;
+            } else {
+                System.out.println("incorrect email and/or password");
+            }
+            return false;
+        }
+
+        public void register (User user){
+            loginUser.put(user.getEmail(),user.getPassword());
+        }
+
+        public void login (User user) {
+            if(doesUserExist(user)) {
+                System.out.println("Hello " + user.getName());
+            } else {
+                System.out.println("No user with username " +user.getEmail());
+            }
+        }
     }
+
 
 

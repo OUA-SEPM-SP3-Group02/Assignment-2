@@ -2,7 +2,7 @@ package com.sepm.login;
 
 import java.util.Scanner;
 
-public class Initial {
+public class Main {
 
         static Scanner sc = new Scanner(System.in);
 
