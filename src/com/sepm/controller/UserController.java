@@ -4,6 +4,7 @@ import com.sepm.core.Controller;
 import com.sepm.core.Request;
 import com.sepm.core.Response;
 import com.sepm.core.Application;
+import com.sepm.model.ServiceDeskMember;
 import com.sepm.model.Ticket;
 import com.sepm.view.UserView;
 
@@ -20,9 +21,10 @@ public class UserController extends Controller {
         switch(this.activeSubView) {
             case "mainMenu" -> request =  ((UserView)this.view).mainMenu(response);
             case "showTickets" -> request = ((UserView)this.view).showTickets(response);
+            case "showServiceMembers" -> request = ((UserView)this.view).showServiceDeskMembers(response);
         }
 
-        this.TM.processInput(request);
+        this.app.processInput(request);
 
 
     }
@@ -34,9 +36,10 @@ public class UserController extends Controller {
         if(this.activeSubView == "mainMenu") {
             if (request.containsUserInput()) {
                 switch (request.get("input").toString()) {
-                    case "A" -> System.out.println("A selected");
+                    case "A" -> activeSubView = "showTickets";
                     case "B" -> System.out.println("B selected");
                     case "C" -> System.out.println("C selected");
+                    case "D" -> activeSubView = "showServiceMembers";
                     default -> response.add("error", "Invalid input, please select A, B or C!");
                 }
             }
@@ -55,6 +58,16 @@ public class UserController extends Controller {
 
         }
 
-        this.TM.updateView(response);
+        if (this.activeSubView == "showServiceMembers") {
+            response.add("serviceDeskMembers", ServiceDeskMember.getServiceDeskMembers());
+        }
+
+        if (this.activeSubView == "openTickets") {
+            response.add("tickets", Ticket.getWereLevel("open"));
+        }
+
+
+
+        this.app.updateView(response);
     }
 }

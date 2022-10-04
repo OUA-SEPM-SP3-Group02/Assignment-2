@@ -2,7 +2,7 @@ package com.sepm.core;
 
 import com.sepm.controller.AuthenticationController;
 import com.sepm.controller.UserController;
-import com.sepm.model.StaffMember;
+import com.sepm.model.ServiceDeskMember;
 import com.sepm.model.Ticket;
 import com.sepm.service.XMLLoaderService;
 
@@ -25,8 +25,8 @@ public class Application {
 
         //Bind our ticket data to our loaded tickets
         Ticket.bindTicketData(XMLLoaderService.loadTicketsFromXMLFile("tickets.xml"));
-        StaffMember.bindStaffData(XMLLoaderService.loadStaffMembers("staff.xml"));
-        // Put helpdesk members loader here!
+        ServiceDeskMember.bindServiceDeskData(XMLLoaderService.loadServiceDeskMembers("serviceDesk.xml"));
+        // Put staff members loader here!
 
         //start the input loop
         processInput(new Request());

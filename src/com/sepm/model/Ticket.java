@@ -35,7 +35,7 @@ public class Ticket {
     }
 
     //Accepts an array of ticket objects and binds the array to the static private tickets array
-    public static void bindTicketData(Ticket[] tickets){
+    public static void bindTicketData(Ticket[] tickets) {
         Ticket.tickets = tickets;
     }
 
@@ -45,22 +45,22 @@ public class Ticket {
 
     //**** GET ALL METHOD ****\\
     //Returns all the tickets
-    public static Ticket[] getAll(){
+    public static Ticket[] getAll() {
         return Ticket.tickets;
     }
 
     //**** GET WERE ISSUER METHOD ****\\
     //Returns all the tickets that match that issuer
-    public static Ticket[] getWereIssuer(String ticketIssuer){
+    public static Ticket[] getWereIssuer(String ticketIssuer) {
         //TODO ADD LOGIC
-        return  null;
+        return null;
     }
 
     //**** GET WERE LEVEL METHOD ****\\
     //Returns all the tickets that match a requested level
-    public static Ticket[] getWereLevel(String ticketlevel){
-        //TODO ADD LOGIC
-        return  null;
+    public static Ticket[] getWereLevel(String ticketlevel) {
+
+        return Ticket.tickets;
     }
 
     //@Karsten please feel free to start to add more getters for different criteria!
