@@ -2,6 +2,8 @@ package com.sepm.login;
 
 import java.util.Scanner;
 
+import static com.sepm.login.Main.displayMenu;
+
 
 public class Register {
 
@@ -21,9 +23,6 @@ public class Register {
         User newUser = new User(email, name, phNumber, password);
         user.register(newUser);
         System.out.println("Successfully Registered!");
-
-
-
     }
 
 
