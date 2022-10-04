@@ -31,4 +31,8 @@ public class Request {
             return false;
         }
     }
+
+    public void resetUserInput(){
+        this.data.remove("input");
+    }
 }
