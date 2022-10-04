@@ -1,6 +1,7 @@
 package com.sepm.core;
 
 import com.sepm.controller.AuthenticationController;
+import com.sepm.controller.TicketController;
 import com.sepm.controller.UserController;
 import com.sepm.model.ServiceDeskMember;
 import com.sepm.model.Ticket;
@@ -19,6 +20,7 @@ public class Application {
         //register all our controllers with the hashmap
         this.controllers.put("userController", new UserController(this));
         this.controllers.put("authenticationController", new AuthenticationController(this));
+        this.controllers.put("ticketController" , new TicketController(this));
 
         //set the active controller
         this.activeController = "userController";
