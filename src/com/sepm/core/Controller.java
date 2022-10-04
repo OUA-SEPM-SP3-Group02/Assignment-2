@@ -1,11 +1,11 @@
 package com.sepm.core;
 
 public abstract class Controller {
-    protected TicketManager TM;
+    protected Application TM;
     protected View view;
     protected String activeSubView;
 
-    public Controller (TicketManager ticketManager) {
+    public Controller (Application ticketManager) {
         this.TM = ticketManager;
     }
 

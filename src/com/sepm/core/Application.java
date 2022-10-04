@@ -2,16 +2,17 @@ package com.sepm.core;
 
 import com.sepm.controller.AuthenticationController;
 import com.sepm.controller.UserController;
+import com.sepm.model.StaffMember;
 import com.sepm.model.Ticket;
-import com.sepm.service.TicketService;
+import com.sepm.service.XMLLoaderService;
 
 import java.util.HashMap;
 
-public class TicketManager {
+public class Application {
     private HashMap<String, Controller> controllers;
     private String activeController;
 
-    public TicketManager() {
+    public Application() {
         //create our controllers hashmap
         this.controllers = new HashMap<>();
 
@@ -23,7 +24,9 @@ public class TicketManager {
         this.activeController = "userController";
 
         //Bind our ticket data to our loaded tickets
-        Ticket.bindTicketData(TicketService.loadTicketsFromXMLFile("tickets.xml"));
+        Ticket.bindTicketData(XMLLoaderService.loadTicketsFromXMLFile("tickets.xml"));
+        StaffMember.bindStaffData(XMLLoaderService.loadStaffMembers("staff.xml"));
+        // Put helpdesk members loader here!
 
         //start the input loop
         processInput(new Request());

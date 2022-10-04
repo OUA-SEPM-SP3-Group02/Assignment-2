@@ -1,5 +1,6 @@
 package com.sepm.service;
 
+import com.sepm.model.StaffMember;
 import com.sepm.model.Ticket;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -13,12 +14,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class TicketService {
-    private static ArrayList<Ticket> tickets = new ArrayList<>();
-
-    public static ArrayList<Ticket> getTickets() {
-        return TicketService.tickets;
-    }
+public class XMLLoaderService {
 
     public static Ticket[] loadTicketsFromXMLFile(String xml) {
         String ticketId = "";
@@ -74,4 +70,9 @@ public class TicketService {
         Ticket[] ticketData = new Ticket[0];
         return tickets.toArray(ticketData);
     }
+
+    public static StaffMember[] loadStaffMembers(String xml) {
+       return null;
+    }
 }
+

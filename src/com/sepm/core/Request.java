@@ -22,6 +22,9 @@ public class Request {
     }
 
     public boolean containsUserInput() {
+        if (!this.data.containsKey("input")) {
+            return false;
+        }
         if (((String)this.data.get("input")).length() > 0) {
             return true;
         } else {
