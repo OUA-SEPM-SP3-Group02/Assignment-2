@@ -2,9 +2,12 @@ package com.sepm.login;
 
 import java.util.Scanner;
 
+
+
 public class Main {
 
         static Scanner sc = new Scanner(System.in);
+        private static User user = new User();
 
         public static void main(String[] args) {
             String choice;
@@ -22,7 +25,7 @@ public class Main {
                         //forgotPassword();
                         break;
                     case "C":
-                        //registerUser();
+                        registerUser();
                         break;
                     case "X":
                         System.out.println("Exiting the program...");
@@ -34,6 +37,23 @@ public class Main {
             } while (!choice.equalsIgnoreCase("X"));
 
         }
+
+    public static void registerUser() {
+        System.out.println("What's your email address?");
+        String email = sc.next();
+        System.out.println("What's your full name?");
+        String name = sc.next();
+        System.out.println("What's your phNumber?");
+        String phNumber = sc.next();
+        System.out.println("Please enter a password");
+        String password = sc.next();
+        User newUser = new User(email, name, phNumber, password);
+        user.register(newUser);
+        System.out.println("Successfully Registered!");
+
+
+
+    }
 
         // Displays the Menu
         public static void displayMenu() {

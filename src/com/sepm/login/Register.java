@@ -1,7 +1,5 @@
 package com.sepm.login;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Scanner;
 
 
@@ -23,6 +21,7 @@ public class Register {
         User newUser = new User(email, name, phNumber, password);
         user.register(newUser);
         System.out.println("Successfully Registered!");
+
 
 
     }
