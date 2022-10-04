@@ -11,3 +11,5 @@ modules.xml
 uiDesigner.xml
 vcs.xml
 SEPM-A2-Code.iml
+/out
+/.idea

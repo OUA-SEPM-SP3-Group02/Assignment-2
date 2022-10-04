@@ -1,0 +1,41 @@
+<class>
+    <serviceDesk>
+        <id>0</id>
+        <name>Harry Styles</name>
+        <level>1</level>
+        <email>h.styles@sepm.com</email>
+        <password>styles</password>
+    </serviceDesk>
+
+    <serviceDesk>
+        <id>1</id>
+        <name>Niall Horan</name>
+        <level>1</level>
+        <email>n.horan@sepm.com</email>
+        <password>horan</password>
+    </serviceDesk>
+
+    <serviceDesk>
+        <id>2</id>
+        <name>Liam Payne</name>
+        <level>1</level>
+        <email>l.payne@sepm.com</email>
+        <password>payne</password>
+    </serviceDesk>
+
+    <serviceDesk>
+        <id>3</id>
+        <name>Louis Tomlinson</name>
+        <level>2</level>
+        <email>l.tomlinson@sepm.com</email>
+        <password>tomlinson</password>
+    </serviceDesk>
+
+    <serviceDesk>
+        <id>4</id>
+        <name>Zayn Malik</name>
+        <level>2</level>
+        <email>z.malik@sepm.com</email>
+        <password>malik</password>
+    </serviceDesk>
+</class>
