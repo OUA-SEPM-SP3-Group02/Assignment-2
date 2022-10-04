@@ -36,10 +36,10 @@ public class UserController extends Controller {
         if(this.activeSubView == "mainMenu") {
             if (request.containsUserInput()) {
                 switch (request.get("input").toString()) {
-                    case "A" -> activeSubView = "showTickets";
+                    case "A" -> {activeSubView = "showTickets"; request.resetUserInput();}
                     case "B" -> System.out.println("B selected");
                     case "C" -> System.out.println("C selected");
-                    case "D" -> activeSubView = "showServiceMembers";
+                    case "D" -> {activeSubView = "showServiceMembers"; request.resetUserInput();}
                     default -> response.add("error", "Invalid input, please select A, B or C!");
                 }
             }
