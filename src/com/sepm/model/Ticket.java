@@ -66,5 +66,34 @@ public class Ticket {
     //@Karsten please feel free to start to add more getters for different criteria!
     //try and make them generic in the sense that we can reuse them! - Jack Harris
 
+
+
+    public String getTicketId() {
+        return this.ticketId;
+    }
+
+    public String getTicketTitle() {
+        return this.ticketTitle;
+    }
+
+    public String getTicketDescription() {
+        return this.ticketDescription;
+    }
+
+    public String getTicketIssuer() {
+        return this.ticketIssuer;
+    }
+
+    public String getTicketEmail() {
+        return this.ticketEmail;
+    }
+
+    public String getTicketLevel() {
+        return this.ticketLevel;
+    }
+
+    public String getTicketStatus() {
+        return this.ticketStatus;
+    }
 }
 
