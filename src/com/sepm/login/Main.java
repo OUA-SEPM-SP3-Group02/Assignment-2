@@ -2,13 +2,14 @@ package com.sepm.login;
 
 import java.util.Scanner;
 
+import static com.sepm.login.Login.login;
 import static com.sepm.login.Register.registerUser;
 
 
 public class Main {
 
         static Scanner sc = new Scanner(System.in);
-        private static User user = new User();
+
 
         public static void main(String[] args) {
             String choice;
@@ -20,7 +21,7 @@ public class Main {
                 // note use of toUpperCase()
                 switch (choice.toUpperCase()) {
                     case "A":
-                        //loginUser();
+                        login();
                         break;
                     case "B":
                         //forgotPassword();

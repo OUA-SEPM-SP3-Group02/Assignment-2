@@ -1,10 +1,6 @@
 package com.sepm.login;
 
 import java.util.Scanner;
-
-import static com.sepm.login.Main.displayMenu;
-
-
 public class Register {
 
     private static final Scanner sc = new Scanner(System.in);
