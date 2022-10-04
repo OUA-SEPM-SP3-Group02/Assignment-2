@@ -13,11 +13,16 @@ public class UserView extends View {
         System.out.println("Main Menu:");
         Request request = new Request();
 
+        if (response.contains("notification")) {
+            System.out.println(response.get("notification"));
+        }
+
         String menu = "";
         menu += "A - Display all tickets\n";
         menu += "B - Display open tickets\n";
-        menu += "C - Display closed ticlets\n";
+        menu += "C - Display closed tickets\n";
         menu += "D - List service desk members\n";
+        menu += "E - Create new service Ticket\n";
 
         System.out.println(menu);
 
@@ -119,4 +124,6 @@ public class UserView extends View {
 
         return request;
     }
+
+
 }

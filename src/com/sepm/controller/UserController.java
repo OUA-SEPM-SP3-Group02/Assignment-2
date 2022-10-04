@@ -40,6 +40,7 @@ public class UserController extends Controller {
                     case "B" -> System.out.println("B selected");
                     case "C" -> System.out.println("C selected");
                     case "D" -> {activeSubView = "showServiceMembers"; request.resetUserInput();}
+                    case "E" -> {this.app.setActiveController("ticketController"); this.app.processInput(new Request());}
                     default -> response.add("error", "Invalid input, please select A, B or C!");
                 }
             }
