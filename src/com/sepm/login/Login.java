@@ -37,11 +37,14 @@ public class Login {
         User x = new User();
         HashMap<String, String> loginuser = x.getUserMap(); // access hashmap
 
-        find(loginuser, email, password);
+        getAllTechnicians(doc, email, password);
+
+        // find(loginuser, email, password);
     }
 
-    private static void getAllTechnicians(Document doc)
+    private static void getAllTechnicians(Document doc, String email, String password)
     {
+
         NodeList staffNodes = doc.getElementsByTagName("serviceDesk");
         for(int i=0; i<staffNodes.getLength(); i++)
         {
@@ -49,8 +52,15 @@ public class Login {
             if(staffNode.getNodeType() == Node.ELEMENT_NODE)
             {
                 Element staffElement = (Element) staffNode;
-                String staffemail = staffElement.getElementsByTagName("email").item(0).getTextContent();
-                String staffName = staffElement.getElementsByTagName("password").item(0).getTextContent();
+                String staffEmail = staffElement.getElementsByTagName("email").item(0).getTextContent();
+                String staffPassword = staffElement.getElementsByTagName("password").item(0).getTextContent();
+
+                if((staffEmail.equals(email) && staffPassword.equals(password))){
+                    System.out.println("User is Found!");
+                    System.out.println("Program will now terminate");
+                    System.exit(0);
+                    break;
+                }
 
             }
         }
