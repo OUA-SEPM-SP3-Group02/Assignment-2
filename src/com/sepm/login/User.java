@@ -25,6 +25,7 @@ public class User {
             this.password = password;
         }
 
+        //access from other classes
         public HashMap<String, String> getUserMap(){
             return loginUser;
         }
