@@ -16,10 +16,20 @@ public class Register {
         String phNumber = sc.next();
         System.out.println("Please enter a password");
         String password = sc.next();
-        User newUser = new User(email, name, phNumber, password);
-        user.register(newUser);
-        System.out.println("Successfully Registered!");
+
+        if(passwordCheck(password)){
+            User newUser = new User(email, name, phNumber, password);
+            user.register(newUser);
+            System.out.println("Successfully Registered!");
+        } else {
+            System.out.println("Password must be at least 20 characters long");
+            registerUser();
+        }
+
+
     }
 
-
-}
+    public static boolean passwordCheck(String password) {
+        return password.length() >= 20;
+        }
+    }
