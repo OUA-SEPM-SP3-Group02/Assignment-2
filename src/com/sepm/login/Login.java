@@ -49,8 +49,8 @@ public class Login {
             if(staffNode.getNodeType() == Node.ELEMENT_NODE)
             {
                 Element staffElement = (Element) staffNode;
-                String staffId = staffElement.getElementsByTagName("email").item(0).getTextContent();
-                String studentName = staffElement.getElementsByTagName("password").item(0).getTextContent();
+                String staffemail = staffElement.getElementsByTagName("email").item(0).getTextContent();
+                String staffName = staffElement.getElementsByTagName("password").item(0).getTextContent();
 
             }
         }
