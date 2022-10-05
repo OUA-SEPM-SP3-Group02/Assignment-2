@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
 
-
+import static com.sepm.login.Main.displayMenu;
 
 
 public class Login {
@@ -34,16 +34,11 @@ public class Login {
         System.out.println("Password: ");
         String password = sc.next();
 
-        User x = new User();
-        HashMap<String, String> loginuser = x.getUserMap(); // access hashmap
-
         getAllTechnicians(doc, email, password);
 
-        // find(loginuser, email, password);
     }
-
-    private static void getAllTechnicians(Document doc, String email, String password)
-    {
+    // searches through xmlFile
+    private static void getAllTechnicians(Document doc, String email, String password) throws IOException, ParserConfigurationException, SAXException {
 
         NodeList staffNodes = doc.getElementsByTagName("serviceDesk");
         for(int i=0; i<staffNodes.getLength(); i++)
@@ -60,12 +55,18 @@ public class Login {
                     System.out.println("Program will now terminate");
                     System.exit(0);
                     break;
+                } else { // searches hash
+                    User x = new User();
+                    HashMap<String, String> loginuser = x.getUserMap(); // access HashMap
+
+                    find(loginuser, email, password);
+
                 }
 
             }
         }
     }
-
+    // used to find login details in HashMap
     public static void find(HashMap<String, String> loginUser, String email, String password) throws IOException, ParserConfigurationException, SAXException {
         for (String i : loginUser.keySet()) {
             if (i.equals(email) && loginUser.get(i).equals(password)) {
@@ -75,8 +76,8 @@ public class Login {
                 break;
             }
         }
-        System.out.println("User Not Found. Login Again");
-        login();
+        System.out.println("Incorrect Email and/or Password. Returning to menu\n");
+        displayMenu();
     }
 
 
