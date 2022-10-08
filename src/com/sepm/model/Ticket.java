@@ -1,5 +1,7 @@
 package com.sepm.model;
 
+import java.util.ArrayList;
+
 public class Ticket {
     private final String ticketId;
     private final String ticketTitle;
@@ -58,9 +60,17 @@ public class Ticket {
 
     //**** GET WERE LEVEL METHOD ****\\
     //Returns all the tickets that match a requested level
-    public static Ticket[] getWereLevel(String ticketlevel) {
+    public static Ticket[] getWereLevel(String level) {
 
-        return Ticket.tickets;
+        ArrayList<Ticket> output = new ArrayList<>();
+
+        for (Ticket ticket : Ticket.tickets){
+            if(ticket.getTicketLevel().equals(level)){
+                output.add(ticket);
+            }
+        }
+
+        return output.toArray(new Ticket[0]);
     }
 
     //@Karsten please feel free to start to add more getters for different criteria!
