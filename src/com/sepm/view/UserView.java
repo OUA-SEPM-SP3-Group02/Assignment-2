@@ -1,5 +1,6 @@
 package com.sepm.view;
 
+import com.sepm.core.Ascii;
 import com.sepm.core.Request;
 import com.sepm.core.Response;
 import com.sepm.core.View;
@@ -9,26 +10,26 @@ import com.sepm.model.Ticket;
 public class UserView extends View {
 
     public Request mainMenu(Response response) {
-        System.out.println("Welcome to the Helpdesk Application.\n");
-        System.out.println("Main Menu:");
         Request request = new Request();
 
-        if (response.contains("notification")) {
-            System.out.println(response.get("notification"));
+        System.out.println("------------------------------------");
+        System.out.println("Service Desk Application (SEPM v0.1)");
+        System.out.println("------------------------------------");
+        System.out.println("Ticket Main Menu:\n");
+
+        if(response.contains("notification")){
+            System.out.println(Ascii.GREEN+response.get("notification")+Ascii.RESET+"\n");
         }
 
-        String menu = "";
-        menu += "A - Display all tickets\n";
-        menu += "B - Display open tickets\n";
-        menu += "C - Display closed tickets\n";
-        menu += "D - List service desk members\n";
-        menu += "E - Create new service Ticket\n";
+        System.out.println("A - Display all tickets");
+        System.out.println("B - Display open tickets");
+        System.out.println("C - Display closed ticket");
+        System.out.println("D - List service desk members");
+        System.out.println("E - Create new service Ticket");
+        System.out.println("X - Logout\n");
 
-        System.out.println(menu);
-
-        if (response.contains("error")) {
-            //if so output it
-            System.out.println(response.get("error"));
+        if(response.contains("error")){
+            System.out.println(Ascii.RED+response.get("error")+Ascii.RESET+"\n");
         }
 
         System.out.println("Enter your choice: ");
