@@ -33,42 +33,40 @@ public class UserController extends Controller {
     public void processInput(Request request) {
         Response response = new Response();
 
-        if(this.activeSubView == "mainMenu") {
-            if (request.containsUserInput()) {
-                switch (request.get("input").toString()) {
-                    case "A" -> {activeSubView = "showTickets"; request.resetUserInput();}
-                    case "B" -> System.out.println("B selected");
-                    case "C" -> System.out.println("C selected");
-                    case "D" -> {activeSubView = "showServiceMembers"; request.resetUserInput();}
-                    case "E" -> {this.app.setActiveController("ticketController"); this.app.processInput(new Request());}
-                    default -> response.add("error", "Invalid input, please select A, B or C!");
-                }
-            }
+
+        switch (this.activeSubView) {
+            case "mainMenu" -> response = this.mainMenu(request);
+            case "showTickets" -> response = this.showTickets(request);
+            case "showServiceMembers" -> response = this.showServiceMembers(request);
         }
-        if (this.activeSubView == "showTickets") {
-            //Add our tickets to the response
-            response.add("tickets", Ticket.getAll());
-
-            if (request.containsUserInput()) {
-                if (request.get("input").equals("hello")) {
-                    response.add("Notification", "User entered a valid input.");
-                } else {
-                    response.add("error", "Invalid input, user input must be hello.");
-                }
-            }
-
-        }
-
-        if (this.activeSubView == "showServiceMembers") {
-            response.add("serviceDeskMembers", ServiceDeskMember.getServiceDeskMembers());
-        }
-
-        if (this.activeSubView == "openTickets") {
-            response.add("tickets", Ticket.getWereLevel("open"));
-        }
-
-
 
         this.app.updateView(response);
     }
+
+    private Response mainMenu(Request request){
+        Response response = new Response();
+
+        switch (request.get("input").toString()) {
+            case "A" -> {this.activeSubView = "showTickets";response.add("service_level",this.app.getUser().getServiceLevel());response.add("tickets", Ticket.getWereLevel(this.app.getUser().getServiceLevel()));}
+            case "B", "C", "D" -> response.add("error","Feature not yet added");
+            case "E" -> {this.app.setActiveController("ticketController"); this.app.processInput(new Request());}
+            default -> response.add("error", "Invalid input, please select A, B or C!");
+        }
+
+        return response;
+    }
+
+    private Response showTickets(Request request){
+        Response response = new Response();
+        response.add("service_level",this.app.getUser().getServiceLevel());
+        response.add("tickets", Ticket.getWereLevel(this.app.getUser().getServiceLevel()));
+
+        return response;
+    }
+
+    private Response showServiceMembers(Request request){
+        Response response = new Response();
+        return response;
+    }
+
 }
