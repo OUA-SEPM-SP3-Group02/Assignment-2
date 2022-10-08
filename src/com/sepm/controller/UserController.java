@@ -58,6 +58,15 @@ public class UserController extends Controller {
 
     private Response showTickets(Request request){
         Response response = new Response();
+
+        if(request.containsUserInput()){
+            if(request.get("input").equals("X")){
+                this.activeSubView = "mainMenu";
+                response.add("notification","Returned "+this.app.getUser().getName()+" to the main menu from show tickets menu");
+                return response;
+            }
+        }
+
         response.add("service_level",this.app.getUser().getServiceLevel());
         response.add("tickets", Ticket.getWereLevel(this.app.getUser().getServiceLevel()));
 
