@@ -5,6 +5,7 @@ import com.sepm.controller.TicketController;
 import com.sepm.controller.UserController;
 import com.sepm.model.ServiceDeskMember;
 import com.sepm.model.Ticket;
+import com.sepm.model.User;
 import com.sepm.service.XMLLoaderService;
 
 import java.io.IOException;
@@ -29,8 +30,8 @@ public class Application {
 
         //Bind our ticket data to our loaded tickets
         Ticket.bindTicketData(XMLLoaderService.loadTicketsFromXMLFile("tickets.xml"));
-        ServiceDeskMember.bindServiceDeskData(XMLLoaderService.loadServiceDeskMembers("serviceDesk.xml"));
-        // Put staff members loader here!
+        User.bindServiceDeskUserData(XMLLoaderService.loadServiceDeskMembers("serviceDesk.xml"));
+        //User.bindStaffMemberUserData(TODO CREATE XML LOADER METHOD);
 
         //start the input loop
         processInput(new Request());
@@ -48,6 +49,10 @@ public class Application {
 
     public void setActiveController(String key) {
         this.activeController = key;
+    }
+
+    public void setActiveSubView(String view){
+        this.controllers.get(this.activeController).setActiveSubView(view);
     }
 
     public void setUser(ServiceDeskMember user){
