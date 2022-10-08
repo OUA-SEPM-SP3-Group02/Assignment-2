@@ -25,8 +25,8 @@ public class AuthenticationController extends Controller {
         switch (this.activeSubView) {
             case "welcome" -> request = ((AuthenticationView)this.view).welcome(response);
             case "login" -> request = ((AuthenticationView)this.view).login(response);
-            //case "register" -> request = ((AuthenticationView)this.view).register(response);
-            //case "forgotPassword" -> request = ((AuthenticationView)this.view).forgotPassword(response);
+            //case "register" -> request = ((AuthenticationView)this.view).register(response); -> NOT IMPLEMENTED YET
+            //case "forgotPassword" -> request = ((AuthenticationView)this.view).forgotPassword(response); -> NOT IMPLEMENTED YET
         }
         this.app.processInput(request);
     }
