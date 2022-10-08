@@ -46,6 +46,10 @@ public class ServiceDeskMember {
         return this.name;
     }
 
+    public String getServiceLevel(){
+        return this.serviceLevel;
+    }
+
     public String toString() {
         String serviceMembersSummary = "";
         serviceMembersSummary += this.id + ":";
