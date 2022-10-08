@@ -11,4 +11,8 @@ public abstract class Controller {
 
     public abstract void updateView(Response response);
     public abstract void processInput(Request request);
+
+    public void setActiveSubView(String view){
+        this.activeSubView = view;
+    }
 }
