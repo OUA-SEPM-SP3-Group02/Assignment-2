@@ -7,11 +7,13 @@ import com.sepm.model.ServiceDeskMember;
 import com.sepm.model.Ticket;
 import com.sepm.service.XMLLoaderService;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 public class Application {
     private HashMap<String, Controller> controllers;
     private String activeController;
+    private ServiceDeskMember user;
 
     public Application() {
         //create our controllers hashmap
@@ -23,7 +25,7 @@ public class Application {
         this.controllers.put("ticketController" , new TicketController(this));
 
         //set the active controller
-        this.activeController = "userController";
+        this.activeController = "authenticationController";
 
         //Bind our ticket data to our loaded tickets
         Ticket.bindTicketData(XMLLoaderService.loadTicketsFromXMLFile("tickets.xml"));
@@ -39,10 +41,20 @@ public class Application {
     }
 
     public void updateView(Response response) {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
         this.controllers.get(this.activeController).updateView(response);
     }
 
     public void setActiveController(String key) {
         this.activeController = key;
+    }
+
+    public void setUser(ServiceDeskMember user){
+        this.user = user;
+    }
+
+    public ServiceDeskMember getUser(){
+        return this.user;
     }
 }
