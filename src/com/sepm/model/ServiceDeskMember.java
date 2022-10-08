@@ -1,11 +1,11 @@
 package com.sepm.model;
 
 public class ServiceDeskMember {
-    private String id;
-    private String name;
-    private String email;
-    private String serviceLevel;
-    private String password;
+    private final String id;
+    private final String name;
+    private final String email;
+    private final String serviceLevel;
+    private final String password;
     private static ServiceDeskMember[] serviceDeskMembers;
 
     public ServiceDeskMember(String id, String name, String serviceLevel, String email, String password) {
@@ -38,6 +38,14 @@ public class ServiceDeskMember {
         return null;
     }
 
+    public String getPassword(){
+        return this.password;
+    }
+
+    public String getName(){
+        return this.name;
+    }
+
     public String toString() {
         String serviceMembersSummary = "";
         serviceMembersSummary += this.id + ":";
@@ -47,6 +55,21 @@ public class ServiceDeskMember {
         serviceMembersSummary += this.password + ":";
         return serviceMembersSummary;
     }
+
+    public static ServiceDeskMember getServiceDeskMemberByEmail(String email){
+
+        ServiceDeskMember outcome = null;
+
+        for(ServiceDeskMember serviceDeskMember : ServiceDeskMember.serviceDeskMembers){
+            if(serviceDeskMember.email.equals(email)){
+                outcome =  serviceDeskMember;
+            }
+        }
+
+        return outcome;
+    }
+
+
 
     //@Karsten please feel free to start to add more getters for different criteria!
     //try and make them generic in the sense that we can reuse them! - Jack Harris
