@@ -49,6 +49,8 @@ public class UserView extends View {
         System.out.println("------------------------------------");
         System.out.println("Showing tickets for service level "+response.get("service_level")+":\n");
 
+        System.out.println("Enter 'X' to return to the main menu\n");
+
         if(response.contains("notification")){
             System.out.println(Ascii.GREEN+response.get("notification")+Ascii.RESET+"\n");
         }
