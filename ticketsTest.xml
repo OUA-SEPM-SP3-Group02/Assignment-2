@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ticket>
+    <title>Test2</title>
+    <description>Create new ticket in file.</description>
+    <level>high</level>
+    <status>open</status>
+    <ticket>
+        <id>1</id>
+        <title>Test</title>
+        <description>Testing ticket writing</description>
+        <issuedBy>Tester</issuedBy>
+        <email>testEmail</email>
+        <level>high</level>
+        <status>open</status>
+    </ticket>
+    <ticket>
+        <id>1</id>
+        <title>Test</title>
+        <description>Testing ticket writing</description>
+        <issuedBy>Tester</issuedBy>
+        <email>testEmail</email>
+        <level>high</level>
+        <status>open</status>
+    </ticket>
+    <ticket>
+        <id>1</id>
+        <title>Title 2</title>
+        <description>Another ticket to test</description>
+        <issuedBy>Tester</issuedBy>
+        <email>testEmail</email>
+        <level>medium</level>
+        <status>open</status>
+    </ticket>
+</ticket>

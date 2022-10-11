@@ -4,6 +4,7 @@ import com.sepm.core.Application;
 import com.sepm.core.Controller;
 import com.sepm.core.Request;
 import com.sepm.core.Response;
+import com.sepm.service.XMLWriterService;
 import com.sepm.view.TicketView;
 
 public class TicketController extends Controller {
@@ -12,6 +13,7 @@ public class TicketController extends Controller {
     private String ticketDescription;
     private String ticketLevel;
     private String ticketStatus;
+
     public TicketController(Application ticketManager) {
         super(ticketManager);
         this.view = new TicketView();
@@ -22,7 +24,7 @@ public class TicketController extends Controller {
     public void updateView(Response response) {
         Request request = new Request();
         switch (this.activeSubView) {
-            case "addNewTicket" -> request = ((TicketView)this.view).addNewTicket(response);
+            case "addNewTicket" -> request = ((TicketView) this.view).addNewTicket(response);
         }
         this.app.processInput(request);
     }
@@ -84,6 +86,11 @@ public class TicketController extends Controller {
             switch (request.get("input").toString()) {
                 case "Y" -> {
                     System.out.println("Feature not yet added");
+                    String title = (String) response.get("ticketTitle");
+                    String description = (String) response.get("ticketDescription");
+                    String level = (String) response.get("ticketLevel");
+                    // Calling XMLWriterService.saveTicketToXML have to work out where to get the issuedBy and email values from, and how to increment ID
+                    XMLWriterService.saveTicketToXML("1", title, description, "Tester", "testEmail", level, "open", "ticketsTest.xml");
                 }
                 case "N" -> {
                     this.ticketTitle = null;
