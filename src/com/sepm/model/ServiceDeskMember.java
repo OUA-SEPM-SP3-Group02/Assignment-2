@@ -24,4 +24,7 @@ public class ServiceDeskMember extends User{
         return this.serviceLevel;
     }
 
+    public String getEmail() {
+        return this.email;
+    }
 }

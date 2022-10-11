@@ -86,11 +86,13 @@ public class TicketController extends Controller {
             switch (request.get("input").toString()) {
                 case "Y" -> {
                     System.out.println("Feature not yet added");
+                    String name = this.app.getUser().getName();
+                    String email = this.app.getUser().getEmail();
                     String title = (String) response.get("ticketTitle");
                     String description = (String) response.get("ticketDescription");
                     String level = (String) response.get("ticketLevel");
                     // Calling XMLWriterService.saveTicketToXML have to work out where to get the issuedBy and email values from, and how to increment ID
-                    XMLWriterService.saveTicketToXML("1", title, description, "Tester", "testEmail", level, "open", "ticketsTest.xml");
+                    XMLWriterService.saveTicketToXML("1", title, description, name, email, level, "open", "tickets.xml");
                 }
                 case "N" -> {
                     this.ticketTitle = null;
