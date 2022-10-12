@@ -17,8 +17,8 @@ public class UserView extends View {
         System.out.println("------------------------------------");
         System.out.println("Ticket Main Menu:\n");
 
-        if(response.contains("notification")){
-            System.out.println(Ascii.GREEN+response.get("notification")+Ascii.RESET+"\n");
+        if (response.contains("notification")) {
+            System.out.println(Ascii.GREEN + response.get("notification") + Ascii.RESET + "\n");
         }
 
         System.out.println("A - Display all tickets");
@@ -28,8 +28,8 @@ public class UserView extends View {
         System.out.println("E - Create new service Ticket");
         System.out.println("X - Logout\n");
 
-        if(response.contains("error")){
-            System.out.println(Ascii.RED+response.get("error")+Ascii.RESET+"\n");
+        if (response.contains("error")) {
+            System.out.println(Ascii.RED + response.get("error") + Ascii.RESET + "\n");
         }
 
         System.out.println("Enter your choice: ");
@@ -47,19 +47,33 @@ public class UserView extends View {
         System.out.println("------------------------------------");
         System.out.println("Service Desk Application (SEPM v0.1)");
         System.out.println("------------------------------------");
-        System.out.println("Showing tickets for service level "+response.get("service_level")+":\n");
+        System.out.println("Showing tickets for service level " + response.get("service_level") + ":\n");
 
         System.out.println("Enter 'X' to return to the main menu\n");
 
-        if(response.contains("notification")){
-            System.out.println(Ascii.GREEN+response.get("notification")+Ascii.RESET+"\n");
+        if (response.contains("notification")) {
+            System.out.println(Ascii.GREEN + response.get("notification") + Ascii.RESET + "\n");
         }
+
+        int ticketCount = 0;
+        int availableTickets = Ticket.getAll().length;
+        String serviceTechLevel = "";
 
         //check if the response contains tickets
         if (response.contains("tickets")) {
+
             System.out.printf("%-5s %-50s %-50s %-20s %-20s %-10s %-10s\n", "ID", "Title", "Description", "Issuer", "Email", "Level", "Status");
             //if so then for each ticket output them
             for (Ticket ticket : (Ticket[]) response.get("tickets")) {
+
+                if (ticket.getTicketLevel().equals("high") && !ticket.getTicketStatus().equals("archived")) {
+                    ticketCount += 1;
+                }
+            }
+            int i = 3;
+            for (Ticket ticket : (Ticket[]) response.get("tickets")) {
+
+
                 //System.out.println(ticket.toString());
                 String[] explodedArray = ticket.toString().split(":");
 
@@ -73,11 +87,15 @@ public class UserView extends View {
                         explodedArray[5],
                         explodedArray[6]);
 
+
             }
         }
 
-        if(response.contains("error")){
-            System.out.println(Ascii.RED+response.get("error")+Ascii.RESET+"\n");
+        System.out.println("\nTotal number of tickets: " + availableTickets);
+        System.out.println("Number of unarchived tickets with level 'high': " + ticketCount);
+
+        if (response.contains("error")) {
+            System.out.println(Ascii.RED + response.get("error") + Ascii.RESET + "\n");
         }
 
         //add our user input into the request
