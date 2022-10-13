@@ -15,7 +15,7 @@ public class AuthenticationController extends Controller {
     private String loginPassword;
     private String registerName;
     private String registerEmail;
-    private String registerPhNumber;
+    private String registerPhone;
     private String registerPassword;
 
 
@@ -166,7 +166,7 @@ public class AuthenticationController extends Controller {
             this.registerEmail = request.get("input").toString();
             response.add("notification","Email set to '"+this.registerEmail+"'");
             response.add("header","Please enter your phone number");
-        }else if (registerPhNumber == null){
+        }else if (registerPhone == null){
             response.add("header","Please enter your phone number");
             response.add("notification","email set to '"+this.registerEmail+"'");
 
@@ -175,12 +175,12 @@ public class AuthenticationController extends Controller {
                 return response;
             }
 
-            this.registerPhNumber = request.get("input").toString();
-            response.add("notification","phone number set to '"+this.registerPhNumber+"'");
+            this.registerPhone = request.get("input").toString();
+            response.add("notification","phone number set to '"+this.registerPhone+"'");
             response.add("header","Please enter your password");
         }else{
             response.add("header", "Please enter your password");
-            response.add("notification", "phone number set to '" + this.registerPhNumber + "'");
+            response.add("notification", "phone number set to '" + this.registerPhone + "'");
 
             if (!request.containsUserInput()) {
                 response.add("error", "Please enter your password");
@@ -195,11 +195,16 @@ public class AuthenticationController extends Controller {
             this.registerPassword = request.get("input").toString();
 
         }
+            // unsure which way I assign these
+//        String name = (String) response.get("registerName");
+////        String email = (String) response.get("registerEmail");
+////        String phone = (String) response.get("registerPhone");
+////        String password = (String) response.get("registerPassword");
 
-        String name = (String) response.get("registerName");
-        String email = (String) response.get("registerEmail");
-        String phone = (String) response.get("registerPhone");
-        String password = (String) response.get("registerPassword");
+        String name = this.registerName;
+        String email = this.registerEmail;
+        String phone = this.registerPhone;
+        String password = this.registerPassword;
 
         XMLWriterService.saveStaffMemberToXML("6", name, email, phone, password, "staffMembers.xml");
 
