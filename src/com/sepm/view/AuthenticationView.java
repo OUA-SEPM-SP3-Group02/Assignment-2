@@ -58,4 +58,29 @@ public class AuthenticationView extends View {
         return request;
     }
 
+    public Request register(Response response){
+
+        Request request = new Request();
+
+        System.out.println("------------------------------------");
+        System.out.println("Service Desk Application (SEPM v0.1)");
+        System.out.println("------------------------------------\n");
+        System.out.println("Register:\n");
+
+        if(response.contains("notification")){
+            System.out.println(Ascii.GREEN+response.get("notification")+Ascii.RESET+"\n");
+        }
+
+
+        System.out.println(response.get("header")+" or enter 'X' to cancel and return");
+
+        if(response.contains("error")){
+            System.out.println(Ascii.RED+response.get("error")+Ascii.RESET+"\n");
+        }
+
+        request.add("input",this.getUserInput());
+
+        return request;
+    }
+
 }
