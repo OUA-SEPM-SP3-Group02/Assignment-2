@@ -6,9 +6,30 @@ public class User {
     protected String name;
     protected String email;
     protected String password;
+    protected String phone;
 
     private static StaffMember[] staffMembers;
     private static ServiceDeskMember[] serviceDeskMembers;
+
+    public String getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public String getPhone() {
+        return this.phone;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
 
     //-------------------- STAFF MEMBERS (END USERS) --------------------\\
 
