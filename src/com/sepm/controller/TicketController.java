@@ -115,4 +115,9 @@ public class TicketController extends Controller {
         return response;
     }
 
+    private Response changeTicketLevel(Request request) {
+        Response response = new Response();
+
+    }
+
 }
