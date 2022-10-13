@@ -1,6 +1,7 @@
 package com.sepm.service;
 
 import com.sepm.model.ServiceDeskMember;
+import com.sepm.model.StaffMember;
 import com.sepm.model.Ticket;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -13,6 +14,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.ArrayList;
+
 
 public class XMLLoaderService {
 
@@ -115,6 +117,49 @@ public class XMLLoaderService {
 
         ServiceDeskMember[] serviceDeskMembersData = new ServiceDeskMember[0];
         return serviceDeskMembers.toArray(serviceDeskMembersData);
+    }
+
+    public static StaffMember[] loadStaffMembers(String xml){
+        String id = "";
+        String name = "";
+        String email = "";
+        String phone = "";
+        String password = "";
+        ArrayList<StaffMember> staffMembers = new ArrayList<>();
+        try {
+
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(xml);
+
+            doc.getDocumentElement().normalize();
+            System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
+
+            // Here nodeList contains all the nodes with name ticket.
+            NodeList nodeList = doc.getElementsByTagName("staffMember");
+
+            // Iterate through all the nodes in NodeList using a for loop.
+            for (int i = 0; i < nodeList.getLength(); ++i) {
+                Node node = nodeList.item(i);
+                //System.out.println("\nNode Name :" + node.getNodeName());
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    Element tElement = (Element) node;
+                    id = tElement.getElementsByTagName("id").item(0).getTextContent();
+                    name = tElement.getElementsByTagName("name").item(0).getTextContent();
+                    email = tElement.getElementsByTagName("email").item(0).getTextContent();
+                    phone = tElement.getElementsByTagName("phone").item(0).getTextContent();
+                    password = tElement.getElementsByTagName("password").item(0).getTextContent();
+
+                    staffMembers.add(new StaffMember(id, name, email, phone, password));
+                }
+            }
+        } catch (ParserConfigurationException | IOException | SAXException ignored) {
+            System.out.println("ERROR: Failed to load data");
+        }
+
+        StaffMember[] staffMembersData = new StaffMember[0];
+        return staffMembers.toArray(staffMembersData);
     }
 }
 

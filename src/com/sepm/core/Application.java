@@ -31,7 +31,7 @@ public class Application {
         //Bind our ticket data to our loaded tickets
         Ticket.bindTicketData(XMLLoaderService.loadTicketsFromXMLFile("tickets.xml"));
         User.bindServiceDeskUserData(XMLLoaderService.loadServiceDeskMembers("serviceDesk.xml"));
-        //User.bindStaffMemberUserData(TODO CREATE XML LOADER METHOD);
+        User.bindStaffMemberUserData(XMLLoaderService.loadStaffMembers("staffMembers.xml"));
 
         //start the input loop
         processInput(new Request());

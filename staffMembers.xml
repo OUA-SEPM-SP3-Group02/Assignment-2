@@ -1,0 +1,41 @@
+﻿<class>
+    <staffMember>
+        <id>1</id>
+        <name>Jack Harris</name>
+        <email>j.harris@sepm.com</email>
+        <phone>0412345678</phone>
+        <password>harris</password>
+    </staffMember>
+
+    <staffMember>
+        <id>2</id>
+        <name>Peter Johnson</name>
+        <email>p.johnson@sepm.com</email>
+        <phone>0423456789</phone>
+        <password>johnson</password>
+    </staffMember>
+
+    <staffMember>
+        <id>3</id>
+        <name>Morgan Cassar</name>
+        <email>m.cassar@sepm.com</email>
+        <phone>0434567890</phone>
+        <password>cassar</password>
+    </staffMember>
+
+    <staffMember>
+        <id>4</id>
+        <name>Jayson Pye</name>
+        <email>j.pye@sepm.com</email>
+        <phone>0445123456</phone>
+        <password>pye</password>
+    </staffMember>
+
+    <staffMember>
+        <id>5</id>
+        <name>Zayn Malik</name>
+        <email>k.beck@sepm.com</email>
+        <phone>0456789123</phone>
+        <password>beck</password>
+    </staffMember>
+</class>
