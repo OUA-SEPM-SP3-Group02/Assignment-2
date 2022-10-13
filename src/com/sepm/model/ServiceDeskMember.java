@@ -12,19 +12,10 @@ public class ServiceDeskMember extends User{
         this.password = password;
     }
 
-    public String getPassword(){
-        return this.password;
-    }
 
-    public String getName(){
-        return this.name;
-    }
 
     public String getServiceLevel(){
         return this.serviceLevel;
     }
 
-    public String getEmail() {
-        return this.email;
-    }
 }
