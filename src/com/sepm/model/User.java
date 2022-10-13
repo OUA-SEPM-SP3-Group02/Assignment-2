@@ -34,4 +34,17 @@ public class User {
 
         return outcome;
     }
+
+    public static StaffMember getStaffMemberByEmail(String email){
+
+        StaffMember outcome = null;
+
+        for(StaffMember staffMember : User.staffMembers){
+            if(staffMember.email.equals(email)){
+                outcome =  staffMember;
+            }
+        }
+
+        return outcome;
+    }
 }
