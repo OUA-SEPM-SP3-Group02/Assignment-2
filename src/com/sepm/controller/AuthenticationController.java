@@ -6,13 +6,14 @@ import com.sepm.core.Response;
 import com.sepm.core.Application;
 import com.sepm.model.ServiceDeskMember;
 import com.sepm.model.StaffMember;
+import com.sepm.service.XMLWriterService;
 import com.sepm.view.AuthenticationView;
 
 public class AuthenticationController extends Controller {
 
     private String loginEmail;
     private String loginPassword;
-    private String registerFullName;
+    private String registerName;
     private String registerEmail;
     private String registerPhNumber;
     private String registerPassword;
@@ -104,6 +105,7 @@ public class AuthenticationController extends Controller {
             this.loginPassword = request.get("input").toString();
 
             ServiceDeskMember user = ServiceDeskMember.getServiceDeskMemberByEmail(this.loginEmail);
+            // StaffMember user = StaffMember.getStaffMemberByEmail(this.loginEmail);
 
             if(user == null){
                 response.add("error","Invalid email provided, please enter a valid email and try again!");
@@ -141,59 +143,64 @@ public class AuthenticationController extends Controller {
 
         Response response = new Response();
 
-//        if(registerFullName == null) {
-//            response.add("header", "Please enter your full name");
-//            if(!request.containsUserInput()) {
-//                response.add("error", "Please enter your full name");
-//                return response;
-//            }
-//
-//            this.registerFullName = request.get("input").toString();
-//            response.add("notification","Full Name set to '"+this.registerFullName+"'");
-//            response.add("header","Please enter your email address");
-//
-//        }else if (registerEmail == null){
-//            response.add("header","Please enter your email address");
-//            response.add("notification","full name set to '"+this.registerFullName+"'");
-//
-//            if(!request.containsUserInput()){
-//                response.add("error","Please enter your email address");
-//                return response;
-//            }
-//
-//            this.registerEmail = request.get("input").toString();
-//            response.add("notification","Email set to '"+this.registerEmail+"'");
-//            response.add("header","Please enter your phone number");
-//        }else if (registerPhNumber == null){
-//            response.add("header","Please enter your phone number");
-//            response.add("notification","email set to '"+this.registerEmail+"'");
-//
-//            if(!request.containsUserInput()){
-//                response.add("error","Please enter your phone number");
-//                return response;
-//            }
-//
-//            this.registerPhNumber = request.get("input").toString();
-//            response.add("notification","phone number set to '"+this.registerPhNumber+"'");
-//            response.add("header","Please enter your password");
-//        }else{
-//            response.add("header", "Please enter your password");
-//            response.add("notification", "phone number set to '" + this.registerPhNumber + "'");
-//
-//            if (!request.containsUserInput()) {
-//                response.add("error", "Please enter your password");
-//                return response;
-//            }
-//
-//            this.loginPassword = request.get("input").toString();
-//
-//
-//        }
+        if(registerName == null) {
+            response.add("header", "Please enter your full name");
+            if(!request.containsUserInput()) {
+                response.add("error", "Please enter your full name");
+                return response;
+            }
 
+            this.registerName = request.get("input").toString();
+            response.add("notification","Full Name set to '"+this.registerName+"'");
+            response.add("header","Please enter your email address");
 
-        response.add("error","Registration page not yet implemented, please check back soon");
-        this.activeSubView = "welcome";
+        }else if (registerEmail == null){
+            response.add("header","Please enter your email address");
+            response.add("notification","full name set to '"+this.registerName+"'");
 
+            if(!request.containsUserInput()){
+                response.add("error","Please enter your email address");
+                return response;
+            }
+
+            this.registerEmail = request.get("input").toString();
+            response.add("notification","Email set to '"+this.registerEmail+"'");
+            response.add("header","Please enter your phone number");
+        }else if (registerPhNumber == null){
+            response.add("header","Please enter your phone number");
+            response.add("notification","email set to '"+this.registerEmail+"'");
+
+            if(!request.containsUserInput()){
+                response.add("error","Please enter your phone number");
+                return response;
+            }
+
+            this.registerPhNumber = request.get("input").toString();
+            response.add("notification","phone number set to '"+this.registerPhNumber+"'");
+            response.add("header","Please enter your password");
+        }else{
+            response.add("header", "Please enter your password");
+            response.add("notification", "phone number set to '" + this.registerPhNumber + "'");
+
+            if (!request.containsUserInput()) {
+                response.add("error", "Please enter your password");
+                return response;
+            }
+
+            this.registerPassword = request.get("input").toString();
+
+        }
+
+        String name = (String) response.get("registerName");
+        String email = (String) response.get("registerEmail");
+        String phone = (String) response.get("registerPhone");
+        String password = (String) response.get("registerPassword");
+
+        XMLWriterService.saveStaffMemberToXML("6", name, email, phone, password, "staffMembers.xml");
+
+        response.add("header","successfully registered");
+//        this.activeSubView = "welcome";
+//
         return response;
     }
 
