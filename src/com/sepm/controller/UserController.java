@@ -50,6 +50,7 @@ public class UserController extends Controller {
             case "A" -> {this.activeSubView = "showTickets";response.add("service_level",this.app.getUser().getServiceLevel());response.add("tickets", Ticket.getWereLevel(this.app.getUser().getServiceLevel()));}
             case "B", "C", "D" -> response.add("error","Feature not yet added");
             case "E" -> {this.app.setActiveController("ticketController"); this.app.processInput(new Request());}
+            case "F" -> {this.app.setActiveController("ticketController"); this.app.processInput(new Request());}
             case "X" -> {this.app.setActiveController("authenticationController"); this.app.setActiveSubView("welcome"); response.add("notification","User successfully logged out"); this.app.setUser(null);}
             default -> response.add("error", "Invalid input, please select A, B, C, D, E or X!");
         }

@@ -13,6 +13,7 @@ public class TicketController extends Controller {
     private String ticketDescription;
     private String ticketLevel;
     private String ticketStatus;
+    private String ticketIdTarget;
 
     public TicketController(Application ticketManager) {
         super(ticketManager);
@@ -118,6 +119,20 @@ public class TicketController extends Controller {
     private Response changeTicketLevel(Request request) {
         Response response = new Response();
 
+        if (this.ticketIdTarget == null) {
+            response.add("heading", "Please enter the ticket ID you need to change: ");
+            if (request.containsUserInput()) {
+                this.ticketIdTarget = (String) request.get("input");
+                response.add("ticketIdTarget", this.ticketIdTarget);
+            } else {
+                response.add("error", "Error! Please enter a title");
+            }
+            return response;
+        } else {
+            response.add("ticketIdTarget", this.ticketIdTarget);
+        }
+        return response;
     }
+
 
 }
