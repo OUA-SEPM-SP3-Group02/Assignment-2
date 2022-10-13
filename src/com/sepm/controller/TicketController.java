@@ -82,6 +82,11 @@ public class TicketController extends Controller {
         } else {
             response.add("ticketLevel", this.ticketLevel);
         }
+
+        if (this.ticketStatus == null) {
+            response.add("ticketStatus", "open");
+        }
+
         if (request.containsUserInput()) {
             switch (request.get("input").toString()) {
                 case "Y" -> {
@@ -91,8 +96,10 @@ public class TicketController extends Controller {
                     String title = (String) response.get("ticketTitle");
                     String description = (String) response.get("ticketDescription");
                     String level = (String) response.get("ticketLevel");
-                    // Calling XMLWriterService.saveTicketToXML have to work out where to get the issuedBy and email values from, and how to increment ID
-                    XMLWriterService.saveTicketToXML("1", title, description, name, email, level, "open", "tickets.xml");
+                    String status = (String) response.get("ticketStatus");
+                    String assignedTo = (String) response.get("assigned");
+                    // Calling XMLWriterService.saveTicketToXML have to work out how to increment ID
+                    XMLWriterService.saveTicketToXML("1", title, description, name, email, level, status, assignedTo, "tickets.xml");
                 }
                 case "N" -> {
                     this.ticketTitle = null;

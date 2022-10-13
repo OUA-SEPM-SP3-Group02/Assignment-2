@@ -10,11 +10,12 @@ public class Ticket {
     private final String ticketEmail;
     private final String ticketLevel;
     private final String ticketStatus;
+    private final String assignedTo;
 
     //Private Static Global Array of tickets, is accessed via our getters
     private static Ticket[] tickets;
 
-    public Ticket(String id, String title, String description, String issuer, String email, String level, String status) {
+    public Ticket(String id, String title, String description, String issuer, String email, String level, String status, String assignedTo) {
         this.ticketId = id;
         this.ticketTitle = title;
         this.ticketDescription = description;
@@ -22,6 +23,7 @@ public class Ticket {
         this.ticketEmail = email;
         this.ticketLevel = level;
         this.ticketStatus = status;
+        this.assignedTo = assignedTo;
     }
 
     public String toString() {
@@ -73,6 +75,26 @@ public class Ticket {
         return output.toArray(new Ticket[0]);
     }
 
+    public static Ticket[] getWhereName(String name) {
+        ArrayList<Ticket> output = new ArrayList<>();
+        for (Ticket ticket:Ticket.tickets) {
+            if (ticket.getAssignedTo().equals(name)) {
+                output.add(ticket);
+            }
+        }
+        return output.toArray(new Ticket[0]);
+    }
+
+    public static Ticket[] checkAssignmentStatus() {
+        ArrayList<Ticket> analysedTickets = new ArrayList<>();
+        for (Ticket tickets : Ticket.tickets) {
+            if (Ticket.checkAssignmentStatus().equals("")) {
+
+            }
+        }
+        return analysedTickets.toArray(new Ticket[0]);
+    }
+
     //@Karsten please feel free to start to add more getters for different criteria!
     //try and make them generic in the sense that we can reuse them! - Jack Harris
 
@@ -104,6 +126,10 @@ public class Ticket {
 
     public String getTicketStatus() {
         return this.ticketStatus;
+    }
+
+    public String getAssignedTo() {
+        return this.assignedTo;
     }
 }
 

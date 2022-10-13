@@ -17,7 +17,7 @@ import java.util.Collection;
 // Need to work out how to avoid this.
 public class XMLWriterService {
 
-    public static void saveTicketToXML(String id, String title, String description, String issuedBy, String email, String level, String status, String xml) {
+    public static void saveTicketToXML(String id, String title, String description, String issuedBy, String email, String level, String status, String assignedTo, String xml) {
         try {
             // instance of a DocumentBuilderFactory
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -29,7 +29,7 @@ public class XMLWriterService {
             Collection<Ticket> tickets = new ArrayList<>();
 
             // Adding a new tickets to the tickets ArrayList. The Ticket class' constructor requires 7 parameters.
-            tickets.add(new Ticket(id, title, description, issuedBy, email, level, status));
+            tickets.add(new Ticket(id, title, description, issuedBy, email, level, status, assignedTo));
 
             for (Ticket ticket : tickets) {
                 //Fetching and adding ticket elements
@@ -62,6 +62,10 @@ public class XMLWriterService {
                 Element ticketStatus = document.createElement("status");
                 ticketStatus.appendChild(document.createTextNode(ticket.getTicketStatus()));
                 newTicket.appendChild(ticketStatus);
+
+                Element ticketAssignedTo = document.createElement("assigned");
+                ticketStatus.appendChild(document.createTextNode(ticket.getAssignedTo()));
+                newTicket.appendChild(ticketAssignedTo);
 
                 root.appendChild(newTicket);
             }

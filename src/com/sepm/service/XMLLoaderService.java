@@ -17,13 +17,7 @@ import java.util.ArrayList;
 public class XMLLoaderService {
 
     public static Ticket[] loadTicketsFromXMLFile(String xml) {
-        String ticketId = "";
-        String title = "";
-        String description = "";
-        String issuedBy = "";
-        String email = "";
-        String level = "";
-        String status = "";
+
         ArrayList<Ticket> tickets = new ArrayList<>();
 
         try {
@@ -52,15 +46,16 @@ public class XMLLoaderService {
                 //System.out.println("\nNode Name :" + node.getNodeName());
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element tElement = (Element) node;
-                    ticketId = tElement.getElementsByTagName("id").item(0).getTextContent();
-                    title = tElement.getElementsByTagName("title").item(0).getTextContent();
-                    description = tElement.getElementsByTagName("description").item(0).getTextContent();
-                    issuedBy = tElement.getElementsByTagName("issuedBy").item(0).getTextContent();
-                    email = tElement.getElementsByTagName("email").item(0).getTextContent();
-                    level = tElement.getElementsByTagName("level").item(0).getTextContent();
-                    status = tElement.getElementsByTagName("status").item(0).getTextContent();
+                    String ticketId = tElement.getElementsByTagName("id").item(0).getTextContent();
+                    String title = tElement.getElementsByTagName("title").item(0).getTextContent();
+                    String description = tElement.getElementsByTagName("description").item(0).getTextContent();
+                    String issuedBy = tElement.getElementsByTagName("issuedBy").item(0).getTextContent();
+                    String email = tElement.getElementsByTagName("email").item(0).getTextContent();
+                    String level = tElement.getElementsByTagName("level").item(0).getTextContent();
+                    String status = tElement.getElementsByTagName("status").item(0).getTextContent();
+                    String assignedTo = tElement.getElementsByTagName("assigned").item(0).getTextContent();
 
-                    tickets.add(new Ticket(ticketId, title, description, issuedBy, email, level, status));
+                    tickets.add(new Ticket(ticketId, title, description, issuedBy, email, level, status, assignedTo));
                 }
             }
         } catch (ParserConfigurationException | IOException | SAXException ignored) {

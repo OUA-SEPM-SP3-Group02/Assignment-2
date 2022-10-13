@@ -68,8 +68,10 @@ public class UserController extends Controller {
             }
         }
 
-        response.add("service_level",this.app.getUser().getServiceLevel());
-        response.add("tickets", Ticket.getWereLevel(this.app.getUser().getServiceLevel()));
+        //response.add("service_level",this.app.getUser().getServiceLevel());
+        //response.add("tickets", Ticket.getWereLevel(this.app.getUser().getServiceLevel()));
+        response.add("serviceTech", this.app.getUser().getName());
+        response.add("tickets", Ticket.getWhereName(this.app.getUser().getName()));
 
         return response;
     }

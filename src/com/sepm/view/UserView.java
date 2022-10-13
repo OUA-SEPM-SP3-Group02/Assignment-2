@@ -47,7 +47,7 @@ public class UserView extends View {
         System.out.println("------------------------------------");
         System.out.println("Service Desk Application (SEPM v0.1)");
         System.out.println("------------------------------------");
-        System.out.println("Showing tickets for service level " + response.get("service_level") + ":\n");
+        System.out.println("Showing tickets for service member " + response.get("serviceTech") + ":\n");
 
         System.out.println("Enter 'X' to return to the main menu\n");
 
@@ -66,11 +66,11 @@ public class UserView extends View {
             //if so then for each ticket output them
             for (Ticket ticket : (Ticket[]) response.get("tickets")) {
 
-                if (ticket.getTicketLevel().equals("high") && !ticket.getTicketStatus().equals("archived")) {
+                if (ticket.getAssignedTo().equals("assigned") && !ticket.getTicketStatus().equals("archived")) {
                     ticketCount += 1;
                 }
             }
-            int i = 3;
+
             for (Ticket ticket : (Ticket[]) response.get("tickets")) {
 
 
@@ -92,7 +92,7 @@ public class UserView extends View {
         }
 
         System.out.println("\nTotal number of tickets: " + availableTickets);
-        System.out.println("Number of unarchived tickets with level 'high': " + ticketCount);
+        System.out.println("Number of unarchived tickets assigned to " + response.get("serviceTech") + ": " + ticketCount);
 
         if (response.contains("error")) {
             System.out.println(Ascii.RED + response.get("error") + Ascii.RESET + "\n");
