@@ -11,25 +11,7 @@ public class StaffMember extends User {
         this.password = password;
     }
 
-    public String getId() {
-        return this.id;
-    }
 
-    public String getName() {
-        return this.name;
-    }
-
-    public String getEmail() {
-        return this.email;
-    }
-
-    public String getPhone() {
-        return this.phone;
-    }
-
-    public String getPassword() {
-        return this.password;
-    }
 
 
 }
