@@ -17,6 +17,7 @@ public class AuthenticationController extends Controller {
     private String registerEmail;
     private String registerPhone;
     private String registerPassword;
+    private String forgotEmail;
 
 
     public AuthenticationController(Application ticketManager) {
@@ -217,9 +218,24 @@ public class AuthenticationController extends Controller {
     private Response forgotPassword(Request request){
         Response response = new Response();
 
+//        if(forgotEmail == null) {
+//            response.add("header", "Please enter your email");
+//            if (!request.containsUserInput()) {
+//                response.add("error", "Please enter your full name");
+//                return response;
+//            }
+//                this.forgotEmail = request.get("input").toString();
+//                response.add("notification", "Reset password for '" + this.forgotEmail + "'");
+//                return response;
+//        }
+//          NEED TO SEARCH XML AND MATCH EMAIL; SET USER; THEN READ NEW PASSWORD AND WRITE OVER PASSWORD
+
+
+
         response.add("error","Password reset not yet implemented, please check back soon");
         this.activeSubView = "welcome";
 
         return response;
     }
 }
+
