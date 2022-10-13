@@ -186,6 +186,11 @@ public class AuthenticationController extends Controller {
                 response.add("error", "Please enter your password");
                 return response;
             }
+            if(request.get("input").toString().length() < 19){
+                response.add("error", "Password must be at least 20 characters long \n Please enter your password:");
+                return response;
+            }
+
 
             this.registerPassword = request.get("input").toString();
 
@@ -198,7 +203,7 @@ public class AuthenticationController extends Controller {
 
         XMLWriterService.saveStaffMemberToXML("6", name, email, phone, password, "staffMembers.xml");
 
-        response.add("header","successfully registered");
+        response.add("header","successfully registered "+name+"!");
 //        this.activeSubView = "welcome";
 //
         return response;
