@@ -66,8 +66,8 @@ public class Ticket {
 
         ArrayList<Ticket> output = new ArrayList<>();
 
-        for (Ticket ticket : Ticket.tickets){
-            if(ticket.getTicketLevel().equals(level)){
+        for (Ticket ticket : Ticket.tickets) {
+            if (ticket.getTicketLevel().equals(level)) {
                 output.add(ticket);
             }
         }
@@ -77,7 +77,7 @@ public class Ticket {
 
     public static Ticket[] getWhereName(String name) {
         ArrayList<Ticket> output = new ArrayList<>();
-        for (Ticket ticket:Ticket.tickets) {
+        for (Ticket ticket : Ticket.tickets) {
             if (ticket.getAssignedTo().equals(name)) {
                 output.add(ticket);
             }
@@ -85,19 +85,10 @@ public class Ticket {
         return output.toArray(new Ticket[0]);
     }
 
-    public static Ticket[] checkAssignmentStatus() {
-        ArrayList<Ticket> analysedTickets = new ArrayList<>();
-        for (Ticket tickets : Ticket.tickets) {
-            if (Ticket.checkAssignmentStatus().equals("")) {
 
-            }
-        }
-        return analysedTickets.toArray(new Ticket[0]);
-    }
 
     //@Karsten please feel free to start to add more getters for different criteria!
     //try and make them generic in the sense that we can reuse them! - Jack Harris
-
 
 
     public String getTicketId() {
