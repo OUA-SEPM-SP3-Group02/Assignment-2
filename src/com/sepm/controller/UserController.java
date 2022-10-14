@@ -25,8 +25,6 @@ public class UserController extends Controller {
         }
 
         this.app.processInput(request);
-
-
     }
 
     @Override
