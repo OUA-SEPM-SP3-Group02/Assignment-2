@@ -64,4 +64,15 @@
         <status>open</status>
         <assigned>Zayn Malik</assigned>
     </ticket>
+    <ticket>
+        <id>1</id>
+        <title>CHeck XML writing</title>
+        <description>Check if XML is replaced in full or only new ticket added.</description>
+        <issuedBy>Harry Styles</issuedBy>
+        <email>h.styles@sepm.com</email>
+        <level>low</level>
+        <status>open</status>
+        <assigned>Harry Styles</assigned>
+    </ticket>
+
 </class>
