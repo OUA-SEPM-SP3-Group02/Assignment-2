@@ -37,7 +37,7 @@ public class XMLLoaderService {
             Text nodes, i.e., there are neither adjacent Text nodes nor empty Text nodes. */
 
             doc.getDocumentElement().normalize();
-            System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
+            //System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
 
             // Here nodeList contains all the nodes with name ticket.
             NodeList nodeList = doc.getElementsByTagName("ticket");

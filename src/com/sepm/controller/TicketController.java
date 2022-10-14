@@ -275,7 +275,7 @@ public class TicketController extends Controller {
                 this.ticketIdTarget = (String) request.get("input");
                 response.add("ticketIdTarget", this.ticketIdTarget);
             } else {
-                response.add("error", "Error! Please enter a title");
+                response.add("error", "Error! Please enter the ID of the ticket you need to change: ");
             }
             return response;
         } else {

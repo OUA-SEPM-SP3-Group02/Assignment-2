@@ -5,11 +5,14 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.*;
 import javax.xml.transform.stream.*;
 
+import com.sepm.core.Request;
+import com.sepm.core.Response;
 import com.sepm.model.StaffMember;
 import com.sepm.model.Ticket;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,7 +32,25 @@ public class XMLWriterService {
             // Creating a collection of tickets.
             Collection<Ticket> tickets = new ArrayList<>();
 
-            // Adding a new tickets to the tickets ArrayList. The Ticket class' constructor requires 7 parameters.
+            Ticket[] existingTickets = XMLLoaderService.loadTicketsFromXMLFile("tickets.xml");
+
+            int i = 0;
+            while (i < existingTickets.length) {
+                String existingId = existingTickets[i].getTicketId();
+                String existingTitle = existingTickets[i].getTicketTitle();
+                String existingDescription = existingTickets[i].getTicketDescription();
+                String existingIssuer = existingTickets[i].getTicketIssuer();
+                String existingEmail = existingTickets[i].getTicketEmail();
+                String existingLevel = existingTickets[i].getTicketLevel();
+                String existingStatus = existingTickets[i].getTicketStatus();
+                String existingAssigned = existingTickets[i].getAssignedTo();
+
+                tickets.add(new Ticket(existingId, existingTitle, existingDescription, existingIssuer, existingEmail, existingLevel, existingStatus, existingAssigned));
+
+                i +=1;
+            }
+
+            // Adding a new ticket to the tickets ArrayList. The Ticket class' constructor requires 7 parameters.
             tickets.add(new Ticket(id, title, description, issuedBy, email, level, status, assignedTo));
 
             for (Ticket ticket : tickets) {
@@ -76,10 +97,11 @@ public class XMLWriterService {
             Transformer transformer;
             try {
                 transformer = transformerFactory.newTransformer();
+
             } catch (TransformerConfigurationException ex) {
                 throw new RuntimeException(ex);
             }
-            StreamResult result = new StreamResult(xml);
+            StreamResult result = new StreamResult(new File("tickets_new.xml"));
             try {
                 transformer.transform(source, result);
             } catch (TransformerException ex) {

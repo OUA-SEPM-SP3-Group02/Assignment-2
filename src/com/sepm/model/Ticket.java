@@ -9,7 +9,7 @@ public class Ticket {
     private final String ticketDescription;
     private final String ticketIssuer;
     private final String ticketEmail;
-    private final String ticketLevel;
+    private String ticketLevel;
     private final String ticketStatus;
     private String assignedTo;
 
@@ -151,6 +151,10 @@ public class Ticket {
 
     public String getTicketLevel() {
         return this.ticketLevel;
+    }
+
+    public void setTicketLevel(String ticketLevel) {
+        this.ticketLevel = ticketLevel;
     }
 
     public String getTicketStatus() {
