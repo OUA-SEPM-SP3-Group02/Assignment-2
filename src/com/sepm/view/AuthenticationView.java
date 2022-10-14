@@ -40,19 +40,12 @@ public class AuthenticationView extends View {
         System.out.println("------------------------------------");
         System.out.println("Service Desk Application (SEPM v0.1)");
         System.out.println("------------------------------------\n");
-        System.out.println("Login:\n");
-
-        if(response.contains("notification")){
-            System.out.println(Ascii.GREEN+response.get("notification")+Ascii.RESET+"\n");
-        }
-
-
-        System.out.println(response.get("header")+" or enter 'X' to cancel and return");
 
         if(response.contains("error")){
             System.out.println(Ascii.RED+response.get("error")+Ascii.RESET+"\n");
         }
 
+        System.out.println(response.get("header"));
         request.add("input",this.getUserInput());
 
         return request;
