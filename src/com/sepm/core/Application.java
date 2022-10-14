@@ -8,7 +8,6 @@ import com.sepm.model.Ticket;
 import com.sepm.model.User;
 import com.sepm.service.XMLLoaderService;
 
-import java.io.IOException;
 import java.util.HashMap;
 
 public class Application {
@@ -57,6 +56,10 @@ public class Application {
 
     public void setUser(ServiceDeskMember user){
         this.user = user;
+
+        if(user != null){
+            Ticket.analyseAndAssignTickets(user);
+        }
     }
 
     public ServiceDeskMember getUser(){
