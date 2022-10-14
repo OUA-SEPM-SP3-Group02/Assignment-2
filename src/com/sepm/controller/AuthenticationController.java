@@ -108,7 +108,7 @@ public class AuthenticationController extends Controller {
             // StaffMember user = StaffMember.getStaffMemberByEmail(this.loginEmail);
 
             if(user == null){
-                response.add("error","Invalid email provided, please enter a valid email and try again!");
+                response.add("error","Invalid email provided, please enter a valid email and try again! or press 'X' to cancel");
                 response.add("header","Please enter your email address");
 
                 this.loginEmail = null;
@@ -119,7 +119,7 @@ public class AuthenticationController extends Controller {
             }
 
             if(!user.getPassword().equals(this.loginPassword)){
-                response.add("error","Invalid email provided, please enter a valid email and try again!");
+                response.add("error","Invalid email provided, please enter a valid email and try again! or press 'X' to cancel");
                 response.add("header","Please enter your email address");
 
                 this.loginEmail = null;
