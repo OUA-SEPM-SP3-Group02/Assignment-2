@@ -18,4 +18,19 @@ public class ServiceDeskMember extends User{
         return this.serviceLevel;
     }
 
+    public int getTicketCount(){
+
+        int count = 0;
+
+        for (Ticket ticket: Ticket.getAll()) {
+            if(ticket.getAssignedTo().equals(this.getName()) && ticket.getTicketStatus().equals("open")){
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+
+
 }
