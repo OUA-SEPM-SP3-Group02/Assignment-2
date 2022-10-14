@@ -1,6 +1,7 @@
 package com.sepm.model;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Ticket {
     private final String ticketId;
@@ -10,7 +11,7 @@ public class Ticket {
     private final String ticketEmail;
     private final String ticketLevel;
     private final String ticketStatus;
-    private final String assignedTo;
+    private String assignedTo;
 
     //Private Static Global Array of tickets, is accessed via our getters
     private static Ticket[] tickets;
@@ -24,6 +25,10 @@ public class Ticket {
         this.ticketLevel = level;
         this.ticketStatus = status;
         this.assignedTo = assignedTo;
+    }
+
+    public void setAssignedTo(String name){
+        this.assignedTo = name;
     }
 
     public String toString() {
@@ -86,6 +91,39 @@ public class Ticket {
     }
 
 
+    public static void analyseAndAssignTickets(ServiceDeskMember serviceDeskMember){
+
+        if(serviceDeskMember.getTicketCount() < 3){
+
+            ArrayList<Ticket> requiresAssignment = new ArrayList<>();
+
+            for (Ticket ticket: Ticket.tickets){
+
+                if(Objects.equals(ticket.assignedTo, "") && ticket.getTicketLevel().equals(serviceDeskMember.getServiceLevel())){
+                    requiresAssignment.add(ticket);
+                }
+
+            }
+
+            if(requiresAssignment.size() != 0){
+                int assignableCount = (3- serviceDeskMember.getTicketCount());
+
+                int i = 0;
+                while(i < assignableCount){
+
+                    if(i < requiresAssignment.size()){
+                        requiresAssignment.get(i).setAssignedTo(serviceDeskMember.name);
+                    }
+
+                    i++;
+                }
+            }
+
+
+        }
+
+
+    }
 
     //@Karsten please feel free to start to add more getters for different criteria!
     //try and make them generic in the sense that we can reuse them! - Jack Harris
