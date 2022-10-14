@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<class>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><class>
     <ticket>
         <id>0</id>
         <title>PC does not boot</title>
@@ -64,4 +63,35 @@
         <status>open</status>
         <assigned>Zayn Malik</assigned>
     </ticket>
-</class>
+    <ticket>
+        <id>1</id>
+        <title>test1 title</title>
+        <description>test1</description>
+        <issuedBy>Zayn Malik</issuedBy>
+        <email>z.malik@sepm.com</email>
+        <level>high</level>
+        <status>open</status>
+        <assigned/>
+    </ticket>
+    <ticket>
+        <id>1</id>
+        <title>test2 title</title>
+        <description>test2</description>
+        <issuedBy>Zayn Malik</issuedBy>
+        <email>z.malik@sepm.com</email>
+        <level>high</level>
+        <status>open</status>
+        <assigned/>
+    </ticket>
+    <ticket>
+        <id>1</id>
+        <title>test3 title</title>
+        <description>test3 desc</description>
+        <issuedBy>Zayn Malik</issuedBy>
+        <email>z.malik@sepm.com</email>
+        <level>high</level>
+        <status>open</status>
+        <assigned/>
+    </ticket>
+<ticket><id>1</id><title>test</title><description>hello</description><issuedBy>Zayn Malik</issuedBy><email>z.malik@sepm.com</email><level>dssad</level><status>open</status><assigned/></ticket>
+    <ticket><id>1</id><title>Broken PC</title><description>Cannot turn on</description><issuedBy>Zayn Malik</issuedBy><email>z.malik@sepm.com</email><level>low</level><status>open</status><assigned/></ticket><ticket><id>12</id><title>test</title><description>test</description><issuedBy>Harry Styles</issuedBy><email>h.styles@sepm.com</email><level>test</level><status>open</status><assigned/></ticket><ticket><id>13</id><title>Laptop Problems</title><description>My laptop will not turn on!</description><issuedBy>Zayn Malik</issuedBy><email>z.malik@sepm.com</email><level>low</level><status>open</status><assigned/></ticket><ticket><id>14</id><title>test</title><description>test</description><issuedBy>Zayn Malik</issuedBy><email>z.malik@sepm.com</email><level>low</level><status>open</status><assigned/></ticket></class>
