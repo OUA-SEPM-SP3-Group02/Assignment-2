@@ -47,7 +47,7 @@ public class UserController extends Controller {
         Response response = new Response();
 
         switch (request.get("input").toString()) {
-            case "A" -> {this.activeSubView = "showTickets";response.add("serviceTech",this.app.getUser().getServiceLevel());response.add("tickets", Ticket.getWhereName(this.app.getUser().getName()));}
+            case "A" -> {this.activeSubView = "showTickets";response.add("service_level",this.app.getUser().getServiceLevel());response.add("tickets", Ticket.getWereLevel(this.app.getUser().getServiceLevel()));}
             case "B", "C", "D" -> response.add("error","Feature not yet added");
             case "E" -> {this.app.setActiveController("ticketController"); this.app.processInput(new Request());}
             case "F" -> {this.app.setActiveController("ticketController"); this.app.processInput(new Request());}

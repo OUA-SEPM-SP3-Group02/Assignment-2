@@ -6,6 +6,7 @@ import com.sepm.core.Response;
 import com.sepm.core.View;
 import com.sepm.model.ServiceDeskMember;
 import com.sepm.model.Ticket;
+import com.sepm.model.User;
 
 public class UserView extends View {
 
@@ -44,21 +45,19 @@ public class UserView extends View {
         //create our new request
         Request request = new Request();
 
+        ServiceDeskMember user = (ServiceDeskMember) response.get("user");
+
         //SHOW
         System.out.println("------------------------------------");
         System.out.println("Service Desk Application (SEPM v0.1)");
         System.out.println("------------------------------------");
-        System.out.println("Showing tickets for service member " + response.get("serviceTech") + ":\n");
-
-        System.out.println("Enter 'X' to return to the main menu\n");
+        System.out.println("Showing "+user.getTicketCount()+" open tickets for service member " + user.getName() + ":\n");
 
         if (response.contains("notification")) {
             System.out.println(Ascii.GREEN + response.get("notification") + Ascii.RESET + "\n");
         }
 
         int ticketCount = 0;
-        int availableTickets = Ticket.getAll().length;
-        String serviceTechLevel = "";
 
         //check if the response contains tickets
         if (response.contains("tickets")) {
@@ -92,12 +91,11 @@ public class UserView extends View {
             }
         }
 
-        System.out.println("\nTotal number of tickets: " + availableTickets);
-        System.out.println("Number of unarchived tickets assigned to " + response.get("serviceTech") + ": " + ticketCount);
-
         if (response.contains("error")) {
             System.out.println(Ascii.RED + response.get("error") + Ascii.RESET + "\n");
         }
+
+        System.out.println("Enter 'X' to return to the main menu\n");
 
         //add our user input into the request
         request.add("input", this.getUserInput());
