@@ -90,12 +90,10 @@ public class AuthenticationController extends Controller {
             }
 
             this.loginEmail = request.get("input").toString();
-            response.add("notification","Email set to '"+this.loginEmail+"'");
             response.add("header","Please enter your password");
 
         }else{
             response.add("header","Please enter your password");
-            response.add("notification","Email set to '"+this.loginEmail+"'");
 
             if(!request.containsUserInput()){
                 response.add("error","Please enter your password");
@@ -108,22 +106,27 @@ public class AuthenticationController extends Controller {
             // StaffMember user = StaffMember.getStaffMemberByEmail(this.loginEmail);
 
             if(user == null){
-                response.add("error","Invalid email provided, please enter a valid email and try again! or press 'X' to cancel");
+                response.add("error","Login Failed! Please check your details and try again!");
                 response.add("header","Please enter your email address");
 
                 this.loginEmail = null;
                 this.loginPassword = null;
+
+                this.activeSubView = "welcome";
 
                 return response;
 
             }
 
             if(!user.getPassword().equals(this.loginPassword)){
-                response.add("error","Invalid email provided, please enter a valid email and try again! or press 'X' to cancel");
+                response.add("error","Login Failed! Please check your details and try again!");
                 response.add("header","Please enter your email address");
 
                 this.loginEmail = null;
                 this.loginPassword = null;
+
+                this.activeSubView = "welcome";
+
 
                 return response;
             }
