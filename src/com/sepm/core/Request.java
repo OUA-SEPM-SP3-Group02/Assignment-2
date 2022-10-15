@@ -32,6 +32,19 @@ public class Request {
         }
     }
 
+    public boolean isInteger(){
+        boolean outcome = this.data.containsKey("input");
+
+        try{
+            Integer.parseInt((String) this.data.get("input"));
+        }catch (Exception e){
+            outcome = false;
+        }
+
+        return outcome;
+    }
+
+
     public void resetUserInput(){
         this.data.remove("input");
     }
