@@ -1,6 +1,9 @@
 package com.sepm.model;
 
+import com.sepm.service.XMLWriterService;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Ticket {
@@ -42,6 +45,16 @@ public class Ticket {
         ticketSummary += this.ticketStatus;
         return ticketSummary;
     }
+
+    //Add a new ticket
+    public static void add(Ticket ticket){
+        ArrayList<Ticket> newTickets = new ArrayList<>(Arrays.asList(Ticket.tickets));
+
+        newTickets.add(ticket);
+
+        Ticket.tickets = newTickets.toArray(new Ticket[0]);
+    }
+
 
     //Accepts an array of ticket objects and binds the array to the static private tickets array
     public static void bindTicketData(Ticket[] tickets) {
@@ -99,7 +112,7 @@ public class Ticket {
 
             for (Ticket ticket: Ticket.tickets){
 
-                if(Objects.equals(ticket.assignedTo, "") && ticket.getTicketLevel().equals(serviceDeskMember.getServiceLevel())){
+                if(Objects.equals(ticket.assignedTo, "{{PENDING}}") && ticket.getTicketLevel().equals(serviceDeskMember.getServiceLevel())){
                     requiresAssignment.add(ticket);
                 }
 
@@ -118,11 +131,9 @@ public class Ticket {
                     i++;
                 }
             }
-
-
         }
 
-
+        XMLWriterService.saveAllTickets();
     }
 
     //@Karsten please feel free to start to add more getters for different criteria!
