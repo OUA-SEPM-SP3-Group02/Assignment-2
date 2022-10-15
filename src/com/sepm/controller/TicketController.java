@@ -18,6 +18,8 @@ public class TicketController extends Controller {
     private String ticketStatus;
     private String ticketIdTarget;
 
+    public int selectedTicketId;
+
     public TicketController(Application ticketManager) {
         super(ticketManager);
         this.view = new TicketView();
@@ -29,6 +31,7 @@ public class TicketController extends Controller {
         Request request = new Request();
         switch (this.activeSubView) {
             case "addNewTicket" -> request = ((TicketView) this.view).addNewTicket(response);
+            case "showTicket" -> request = ((TicketView) this.view).showTicket(response);
         }
         this.app.processInput(request);
     }
@@ -38,8 +41,31 @@ public class TicketController extends Controller {
         Response response = new Response();
         switch (this.activeSubView) {
             case "addNewTicket" -> response = this.addNewTicket(request);
+            case "showTicket" -> response = this.showTicket(request);
         }
         this.app.updateView(response);
+    }
+
+    private Response showTicket(Request request){
+        //Create our new response object
+        Response response = new Response();
+
+        response.add("ticket",Ticket.getWhereID(this.selectedTicketId));
+
+        if(request.containsUserInput()) {
+            switch (request.get("input").toString()) {
+                case "X" -> {
+                    this.app.setActiveController("userController");
+                    response.add("tickets", Ticket.getWhereName(this.app.getUser().getName()));
+                    response.add("notification","Welcome "+this.app.getUser().getName()+"!");
+                    this.app.setActiveSubView("mainMenu");
+                }
+                case "A" -> response.add("error", "feature not yet added");
+                default -> response.add("error", "invalid input provided, please select 'X' or 'A'");
+            }
+        }
+
+        return response;
     }
 
     private Response addNewTicket(Request request) {
