@@ -209,18 +209,18 @@ public class TicketController extends Controller {
                         this.ticketLevel = "low";
                     }
 
-                    //Save the ticket using our XML writer service
-                    XMLWriterService.saveTicketToXML(
+                    Ticket.add(new Ticket(
                             String.valueOf(Ticket.getAll().length+1),
                             this.ticketTitle,
                             this.ticketDescription,
                             this.app.getUser().getName(),
                             this.app.getUser().getEmail(),
                             this.ticketLevel,
-                            this.ticketStatus,
-                            "",
-                            "tickets.xml"
+                            "open",
+                            "{{PENDING}}")
                     );
+
+                    XMLWriterService.saveAllTickets();
 
                     //After we have created the new ticket, set the controller back to the user controller.
                     this.app.setActiveController("userController");
