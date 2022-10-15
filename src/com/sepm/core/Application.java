@@ -11,7 +11,7 @@ import com.sepm.service.XMLLoaderService;
 import java.util.HashMap;
 
 public class Application {
-    private HashMap<String, Controller> controllers;
+    private final HashMap<String, Controller> controllers;
     private String activeController;
     private ServiceDeskMember user;
 
