@@ -5,6 +5,7 @@ import com.sepm.core.Request;
 import com.sepm.core.Response;
 import com.sepm.core.Application;
 import com.sepm.model.ServiceDeskMember;
+import com.sepm.model.Ticket;
 import com.sepm.service.XMLWriterService;
 import com.sepm.view.AuthenticationView;
 
@@ -135,7 +136,7 @@ public class AuthenticationController extends Controller {
             this.app.setUser(user);
             this.app.setActiveController("userController");
             response.add("notification","Welcome "+user.getName()+"!");
-
+            response.add("tickets", Ticket.getWhereName(user.getName()));
         }
 
 
