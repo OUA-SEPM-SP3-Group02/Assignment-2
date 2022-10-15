@@ -48,6 +48,10 @@ public class TicketView extends View {
         System.out.println("------------------------------------");
         System.out.println("Open Ticket "+ticket.getTicketId()+":\n");
 
+        if (response.contains("notification")) {
+            System.out.println(Ascii.GREEN + response.get("notification") + Ascii.RESET + "\n");
+        }
+
         System.out.println("Title: "+ticket.getTicketTitle());
         System.out.println("Description: "+ticket.getTicketDescription());
         System.out.println("Level: "+ticket.getTicketLevel());
