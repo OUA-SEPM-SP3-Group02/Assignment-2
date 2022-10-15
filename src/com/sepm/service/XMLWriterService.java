@@ -5,8 +5,6 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.*;
 import javax.xml.transform.stream.*;
 
-import com.sepm.core.Request;
-import com.sepm.core.Response;
 import com.sepm.model.StaffMember;
 import com.sepm.model.Ticket;
 import org.w3c.dom.*;
@@ -21,39 +19,23 @@ import java.util.Collection;
 // Need to work out how to avoid this.
 public class XMLWriterService {
 
-    public static void saveTicketToXML(String id, String title, String description, String issuedBy, String email, String level, String status, String assignedTo, String xml) {
+    public static void saveAllTickets() {
+
+        File tickets = new File("tickets.xml");
+        if(!tickets.delete()){
+            System.out.println("Failed to delete old tickets file");
+        }
+
         try {
             // instance of a DocumentBuilderFactory
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = dbf.newDocumentBuilder();
-            Document document = documentBuilder.parse(xml);
-            Element root = document.getDocumentElement();
+            Document document = documentBuilder.newDocument();
+            Element root = document.createElement("class");
+            document.appendChild(root);
 
-            // Creating a collection of tickets.
-            Collection<Ticket> tickets = new ArrayList<>();
 
-            Ticket[] existingTickets = XMLLoaderService.loadTicketsFromXMLFile("tickets.xml");
-
-            int i = 0;
-            while (i < existingTickets.length) {
-                String existingId = existingTickets[i].getTicketId();
-                String existingTitle = existingTickets[i].getTicketTitle();
-                String existingDescription = existingTickets[i].getTicketDescription();
-                String existingIssuer = existingTickets[i].getTicketIssuer();
-                String existingEmail = existingTickets[i].getTicketEmail();
-                String existingLevel = existingTickets[i].getTicketLevel();
-                String existingStatus = existingTickets[i].getTicketStatus();
-                String existingAssigned = existingTickets[i].getAssignedTo();
-
-                tickets.add(new Ticket(existingId, existingTitle, existingDescription, existingIssuer, existingEmail, existingLevel, existingStatus, existingAssigned));
-
-                i +=1;
-            }
-
-            // Adding a new ticket to the tickets ArrayList. The Ticket class' constructor requires 7 parameters.
-            tickets.add(new Ticket(id, title, description, issuedBy, email, level, status, assignedTo));
-
-            for (Ticket ticket : tickets) {
+            for (Ticket ticket : Ticket.getAll()) {
                 //Fetching and adding ticket elements
                 Element newTicket = document.createElement("ticket");
 
@@ -86,7 +68,7 @@ public class XMLWriterService {
                 newTicket.appendChild(ticketStatus);
 
                 Element ticketAssignedTo = document.createElement("assigned");
-                ticketStatus.appendChild(document.createTextNode(ticket.getAssignedTo()));
+                ticketAssignedTo.appendChild(document.createTextNode(ticket.getAssignedTo()));
                 newTicket.appendChild(ticketAssignedTo);
 
                 root.appendChild(newTicket);
@@ -101,18 +83,15 @@ public class XMLWriterService {
             } catch (TransformerConfigurationException ex) {
                 throw new RuntimeException(ex);
             }
-            StreamResult result = new StreamResult(new File("tickets_new.xml"));
+            StreamResult result = new StreamResult(new File("tickets.xml"));
             try {
                 transformer.transform(source, result);
             } catch (TransformerException ex) {
                 throw new RuntimeException(ex);
             }
-        } catch (ParserConfigurationException | SAXException ex) {
+        } catch (ParserConfigurationException ex) {
             //throw new RuntimeException(ex);
             System.out.println("Could not parse XM file");
-        } catch (IOException ex) {
-            //throw new RuntimeException(ex);
-            System.out.println("Could not read XML file.");
         }
     }
 
