@@ -103,6 +103,16 @@ public class Ticket {
         return output.toArray(new Ticket[0]);
     }
 
+    public static Ticket getWhereID(int id){
+        Ticket outcome = null;
+        for (Ticket ticket: Ticket.getAll()){
+            if(ticket.getID() == id){
+                outcome = ticket;
+            }
+        }
+        return outcome;
+    }
+
 
     public static void analyseAndAssignTickets(ServiceDeskMember serviceDeskMember){
 
@@ -174,6 +184,10 @@ public class Ticket {
 
     public String getAssignedTo() {
         return this.assignedTo;
+    }
+
+    public int getID(){
+        return Integer.parseInt(this.ticketId);
     }
 }
 
