@@ -49,6 +49,7 @@ public class TicketController extends Controller {
     private Response showTicket(Request request){
         //Create our new response object
         Response response = new Response();
+        Ticket ticket = Ticket.getWhereID(this.selectedTicketId);
 
         response.add("ticket",Ticket.getWhereID(this.selectedTicketId));
 
@@ -60,9 +61,22 @@ public class TicketController extends Controller {
                     response.add("notification","Welcome "+this.app.getUser().getName()+"!");
                     this.app.setActiveSubView("mainMenu");
                 }
-                case "A" -> response.add("error", "feature not yet added");
+                case "A" -> {
+                    switch (ticket.getTicketStatus()){
+                        case "open" -> {
+                            ticket.setTicketStatus("closed");
+                            response.add("notification", "Ticket status updated to 'closed'");
+                        }
+                        case "closed" -> {
+                            ticket.setTicketStatus("open");
+                            response.add("notification", "Ticket status updated to 'open'");
+                        }
+                    }
+                }
                 default -> response.add("error", "invalid input provided, please select 'X' or 'A'");
             }
+            //save the updated tickets
+            XMLWriterService.saveAllTickets();
         }
 
         return response;
