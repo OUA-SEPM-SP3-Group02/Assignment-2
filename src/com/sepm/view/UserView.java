@@ -16,60 +16,17 @@ public class UserView extends View {
         System.out.println("------------------------------------");
         System.out.println("Service Desk Application (SEPM v0.1)");
         System.out.println("------------------------------------");
-        System.out.println("Ticket Main Menu:\n");
 
         if (response.contains("notification")) {
             System.out.println(Ascii.GREEN + response.get("notification") + Ascii.RESET + "\n");
         }
 
-        System.out.println("A - Display all tickets");
-        System.out.println("B - Display open tickets");
-        System.out.println("C - Display closed ticket");
-        System.out.println("D - List service desk members");
-        System.out.println("E - Create new service Ticket");
-        System.out.println("F - Change level of existing Ticket");
-        System.out.println("X - Logout\n");
-
-        if (response.contains("error")) {
-            System.out.println(Ascii.RED + response.get("error") + Ascii.RESET + "\n");
-        }
-
-        System.out.println("Enter your choice: ");
-        request.add("input", this.getUserInput());
-
-        return request;
-
-    }
-
-    public Request showTickets(Response response) {
-        //create our new request
-        Request request = new Request();
-
-        ServiceDeskMember user = (ServiceDeskMember) response.get("user");
-
-        //SHOW
-        System.out.println("------------------------------------");
-        System.out.println("Service Desk Application (SEPM v0.1)");
-        System.out.println("------------------------------------");
-        System.out.println("Showing "+(user.getTicketCount()+1)+" open tickets for service member " + user.getName() + ":\n");
-
-        if (response.contains("notification")) {
-            System.out.println(Ascii.GREEN + response.get("notification") + Ascii.RESET + "\n");
-        }
-
-        int ticketCount = 0;
+        System.out.println("My Open Tickets:");
 
         //check if the response contains tickets
         if (response.contains("tickets")) {
 
             System.out.printf("%-5s %-50s %-50s %-20s %-20s %-10s %-10s\n", "ID", "Title", "Description", "Issuer", "Email", "Level", "Status");
-            //if so then for each ticket output them
-            for (Ticket ticket : (Ticket[]) response.get("tickets")) {
-
-                if (ticket.getAssignedTo().equals("assigned") && !ticket.getTicketStatus().equals("archived")) {
-                    ticketCount += 1;
-                }
-            }
 
             for (Ticket ticket : (Ticket[]) response.get("tickets")) {
 
@@ -86,20 +43,40 @@ public class UserView extends View {
                         explodedArray[4],
                         explodedArray[5],
                         explodedArray[6]);
-
-
             }
         }
+
+        System.out.println("\nA - View Ticket");
+        System.out.println("B - Display closed tickets");
+        System.out.println("E - Create new service Ticket");
+        System.out.println("F - Change level of existing Ticket");
+        System.out.println("X - Logout\n");
 
         if (response.contains("error")) {
             System.out.println(Ascii.RED + response.get("error") + Ascii.RESET + "\n");
         }
 
-        System.out.println("Enter 'X' to return to the main menu\n");
-
-        //add our user input into the request
+        System.out.println("Enter your choice: ");
         request.add("input", this.getUserInput());
 
+        return request;
+
+    }
+
+    public Request selectTicket(Response response){
+        Request request = new Request();
+
+        System.out.println("------------------------------------");
+        System.out.println("Service Desk Application (SEPM v0.1)");
+        System.out.println("------------------------------------");
+
+        if (response.contains("error")) {
+            System.out.println(Ascii.RED + response.get("error") + Ascii.RESET + "\n");
+        }
+
+        System.out.println("Please enter the ticket ID or press 'X' to cancel:");
+
+        request.add("input", this.getUserInput());
         return request;
     }
 
