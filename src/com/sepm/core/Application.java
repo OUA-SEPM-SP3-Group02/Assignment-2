@@ -62,6 +62,10 @@ public class Application {
         }
     }
 
+    public Controller getActiveController(){
+        return this.controllers.get(this.activeController);
+    }
+
     public ServiceDeskMember getUser(){
         return this.user;
     }
