@@ -13,7 +13,7 @@ public class Ticket {
     private final String ticketIssuer;
     private final String ticketEmail;
     private String ticketLevel;
-    private final String ticketStatus;
+    private String ticketStatus;
     private String assignedTo;
 
     //Private Static Global Array of tickets, is accessed via our getters
@@ -184,6 +184,10 @@ public class Ticket {
 
     public String getAssignedTo() {
         return this.assignedTo;
+    }
+
+    public void setTicketStatus(String status){
+        this.ticketStatus = status;
     }
 
     public int getID(){
