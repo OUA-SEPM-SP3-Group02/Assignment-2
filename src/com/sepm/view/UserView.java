@@ -13,10 +13,6 @@ public class UserView extends View {
     public Request mainMenu(Response response) {
         Request request = new Request();
 
-        System.out.println("------------------------------------");
-        System.out.println("Service Desk Application (SEPM v0.1)");
-        System.out.println("------------------------------------");
-
         if (response.contains("notification")) {
             System.out.println(Ascii.GREEN + response.get("notification") + Ascii.RESET + "\n");
         }
@@ -65,10 +61,6 @@ public class UserView extends View {
 
     public Request selectTicket(Response response){
         Request request = new Request();
-
-        System.out.println("------------------------------------");
-        System.out.println("Service Desk Application (SEPM v0.1)");
-        System.out.println("------------------------------------");
 
         if (response.contains("error")) {
             System.out.println(Ascii.RED + response.get("error") + Ascii.RESET + "\n");
