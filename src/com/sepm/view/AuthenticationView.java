@@ -19,8 +19,8 @@ public class AuthenticationView extends View {
         }
 
         System.out.println("A: Login");
-        System.out.println("B: Forgot Password");
-        System.out.println("C: Register");
+        System.out.println("B: Register");
+        System.out.println("C: Forgot Password");
         System.out.println("X: Exit program\n");
 
         if(response.contains("error")){

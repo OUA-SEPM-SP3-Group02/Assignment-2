@@ -61,8 +61,8 @@ public class AuthenticationController extends Controller {
 
         switch(request.get("input").toString()){
             case "A" -> {this.activeSubView = "login"; response.add("header","Please enter your email address");}
-            case "B" -> this.activeSubView = "register";
-            case "C" -> this.activeSubView = "forgotPassword";
+            case "B" -> response.add("error", "Feature coming soon.");
+            case "C" -> response.add("error", "Feature coming soon.");
             case "X" -> System.exit(0);
 
             default -> response.add("error","Invalid input provided!\nplease select a option from the menu");
