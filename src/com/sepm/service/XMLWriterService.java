@@ -22,7 +22,7 @@ public class XMLWriterService {
     public static void saveAllTickets() {
 
         File tickets = new File("tickets.xml");
-        if(!tickets.delete()){
+        if (!tickets.delete()) {
             System.out.println("Failed to delete old tickets file");
         }
 
@@ -132,7 +132,6 @@ public class XMLWriterService {
                 Element registerPassword = document.createElement("password");
                 registerPassword.appendChild(document.createTextNode(staffMember.getPassword()));
                 newStaffMember.appendChild(registerPassword);
-
 
 
                 root.appendChild(newStaffMember);
