@@ -48,8 +48,8 @@ public class UserController extends Controller {
 
         switch (request.get("input").toString()) {
             case "A" -> this.activeSubView = "selectTicket";
-            case "B", "C", "D" -> response.add("error","Feature not yet added");
-            case "E", "F" -> {this.app.setActiveController("ticketController"); this.app.processInput(new Request());}
+            case "B", "C", "D"-> response.add("error","Feature not yet added");
+            case "E" -> {this.app.setActiveController("ticketController"); this.app.processInput(new Request());}
             case "X" -> {this.app.setActiveController("authenticationController"); this.app.setActiveSubView("welcome"); response.add("notification","User successfully logged out"); this.app.setUser(null);}
 
             default -> response.add("error", "Invalid input, please select A, B, C, D, E or X!");

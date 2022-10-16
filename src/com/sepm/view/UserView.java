@@ -49,7 +49,6 @@ public class UserView extends View {
         System.out.println("\nA - View Ticket");
         System.out.println("B - Display closed tickets");
         System.out.println("E - Create new service Ticket");
-        System.out.println("F - Change level of existing Ticket");
         System.out.println("X - Logout\n");
 
         if (response.contains("error")) {
