@@ -8,6 +8,9 @@ import com.sepm.model.Ticket;
 import com.sepm.service.XMLWriterService;
 import com.sepm.view.TicketView;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 
 public class TicketController extends Controller {
@@ -83,6 +86,7 @@ public class TicketController extends Controller {
     }
 
     private Response addNewTicket(Request request) {
+
 
         //Create our new response object
         Response response = new Response();
@@ -243,6 +247,11 @@ public class TicketController extends Controller {
                 //Process our "Y" (Save new ticket)
                 case "Y" -> {
 
+                    String datePattern = "dd-mm-yyy";
+                    Date currentDate = new Date();
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePattern);
+                    String dateCreated = simpleDateFormat.format(currentDate);
+
                     //As we currently do not have time to program the medium ticket level, all
                     //medium tickets are set to low.
                     if(this.ticketLevel.equals("medium")){
@@ -257,7 +266,9 @@ public class TicketController extends Controller {
                             this.app.getUser().getEmail(),
                             this.ticketLevel,
                             "open",
-                            "{{PENDING}}")
+                            "{{PENDING}}",
+                            dateCreated,
+                            dateCreated)
                     );
 
                     XMLWriterService.saveAllTickets();

@@ -71,6 +71,14 @@ public class XMLWriterService {
                 ticketAssignedTo.appendChild(document.createTextNode(ticket.getAssignedTo()));
                 newTicket.appendChild(ticketAssignedTo);
 
+                Element ticketCreated = document.createElement("created");
+                ticketCreated.appendChild(document.createTextNode(ticket.getTicketCreated()));
+                newTicket.appendChild(ticketCreated);
+
+                Element ticketClosed = document.createElement("closed");
+                ticketClosed.appendChild(document.createTextNode(ticket.getTicketclosed()));
+                newTicket.appendChild(ticketClosed);
+
                 root.appendChild(newTicket);
             }
             DOMSource source = new DOMSource(document);

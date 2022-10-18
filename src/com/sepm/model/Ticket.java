@@ -4,6 +4,7 @@ import com.sepm.service.XMLWriterService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Objects;
 
 public class Ticket {
@@ -15,11 +16,13 @@ public class Ticket {
     private String ticketLevel;
     private String ticketStatus;
     private String assignedTo;
+    private String dateCreated;
+    private String dateClosed;
 
     //Private Static Global Array of tickets, is accessed via our getters
     private static Ticket[] tickets;
 
-    public Ticket(String id, String title, String description, String issuer, String email, String level, String status, String assignedTo) {
+    public Ticket(String id, String title, String description, String issuer, String email, String level, String status, String assignedTo, String dateCreated, String dateClosed) {
         this.ticketId = id;
         this.ticketTitle = title;
         this.ticketDescription = description;
@@ -28,6 +31,8 @@ public class Ticket {
         this.ticketLevel = level;
         this.ticketStatus = status;
         this.assignedTo = assignedTo;
+        this.dateCreated = dateCreated;
+        this.dateClosed = dateClosed;
     }
 
     public void setAssignedTo(String name){
@@ -42,7 +47,10 @@ public class Ticket {
         ticketSummary += this.ticketIssuer + ":";
         ticketSummary += this.ticketEmail + ":";
         ticketSummary += this.ticketLevel + ":";
-        ticketSummary += this.ticketStatus;
+        ticketSummary += this.ticketStatus + ":";
+        ticketSummary += this.assignedTo + ":";
+        ticketSummary += this.dateCreated + ":";
+        ticketSummary += this.dateClosed + ":";
         return ticketSummary;
     }
 
@@ -113,6 +121,36 @@ public class Ticket {
         return outcome;
     }
 
+    public static Ticket[] getWhereStatus(String status){
+        ArrayList<Ticket> statusTickets = new ArrayList<>();
+        for (Ticket ticket:Ticket.tickets) {
+            if (ticket.getTicketStatus().equals(status)) {
+                statusTickets.add(ticket);
+            }
+        }
+        return statusTickets.toArray(new Ticket[0]);
+    }
+
+    public static Ticket[] getWhereTicketCreated(Date created){
+        ArrayList<Ticket> statusTickets = new ArrayList<>();
+        for (Ticket ticket:Ticket.tickets) {
+            if (ticket.getTicketCreated().equals(created)) {
+                statusTickets.add(ticket);
+            }
+        }
+        return statusTickets.toArray(new Ticket[0]);
+    }
+
+    public static Ticket[] getWhereTicketClosed(Date closed){
+        ArrayList<Ticket> statusTickets = new ArrayList<>();
+        for (Ticket ticket:Ticket.tickets) {
+            if (ticket.getTicketclosed().equals(closed)) {
+                statusTickets.add(ticket);
+            }
+        }
+        return statusTickets.toArray(new Ticket[0]);
+    }
+
 
     public static void analyseAndAssignTickets(ServiceDeskMember serviceDeskMember){
 
@@ -174,10 +212,6 @@ public class Ticket {
         return this.ticketLevel;
     }
 
-    public void setTicketLevel(String ticketLevel) {
-        this.ticketLevel = ticketLevel;
-    }
-
     public String getTicketStatus() {
         return this.ticketStatus;
     }
@@ -192,6 +226,26 @@ public class Ticket {
 
     public int getID(){
         return Integer.parseInt(this.ticketId);
+    }
+
+    public String getTicketCreated() {
+        return this.dateCreated;
+    }
+
+    public String getTicketclosed() {
+        return this.dateClosed;
+    }
+
+    public void setTicketLevel(String ticketLevel) {
+        this.ticketLevel = ticketLevel;
+    }
+
+    public void setTicketCreated(String created) {
+        this.dateCreated = created;
+    }
+
+    public void setTicketClosed(String closed) {
+        this.dateClosed = closed;
     }
 }
 

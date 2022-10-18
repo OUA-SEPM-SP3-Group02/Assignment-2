@@ -22,7 +22,7 @@ public class UserView extends View {
         //check if the response contains tickets
         if (response.contains("tickets")) {
 
-            System.out.printf("%-5s %-50s %-50s %-20s %-20s %-10s %-10s\n", "ID", "Title", "Description", "Issuer", "Email", "Level", "Status");
+            System.out.printf("%-5s %-50s %-50s %-20s %-20s %-10s %-10s %-25s %-15s %-15s\n", "ID", "Title", "Description", "Issuer", "Email", "Level", "Status", "Assigned", "Date Created", "Date Closed");
 
             for (Ticket ticket : (Ticket[]) response.get("tickets")) {
 
@@ -38,7 +38,10 @@ public class UserView extends View {
                         explodedArray[3],
                         explodedArray[4],
                         explodedArray[5],
-                        explodedArray[6]);
+                        explodedArray[6],
+                        explodedArray[7],
+                        explodedArray[8],
+                        explodedArray[9]);
             }
         }
 
