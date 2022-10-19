@@ -9,7 +9,6 @@ import com.sepm.service.XMLWriterService;
 import com.sepm.view.TicketView;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -60,8 +59,8 @@ public class TicketController extends Controller {
             switch (request.get("input").toString()) {
                 case "X" -> {
                     this.app.setActiveController("userController");
-                    response.add("tickets", Ticket.getWhereName(this.app.getUser().getName()));
-                    response.add("notification","Welcome "+this.app.getUser().getName()+"!");
+                    response.add("tickets", Ticket.getWhereName(this.app.getServiceDeskUser().getName()));
+                    response.add("notification","Welcome "+this.app.getServiceDeskUser().getName()+"!");
                     this.app.setActiveSubView("mainMenu");
                 }
                 case "A" -> {
@@ -262,8 +261,8 @@ public class TicketController extends Controller {
                             String.valueOf(Ticket.getAll().length+1),
                             this.ticketTitle,
                             this.ticketDescription,
-                            this.app.getUser().getName(),
-                            this.app.getUser().getEmail(),
+                            this.app.getServiceDeskUser().getName(),
+                            this.app.getServiceDeskUser().getEmail(),
                             this.ticketLevel,
                             "open",
                             "{{PENDING}}",

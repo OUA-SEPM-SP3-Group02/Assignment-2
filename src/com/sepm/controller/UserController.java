@@ -5,8 +5,9 @@ import com.sepm.core.Request;
 import com.sepm.core.Response;
 import com.sepm.core.Application;
 import com.sepm.model.Ticket;
-import com.sepm.view.TicketView;
 import com.sepm.view.UserView;
+
+import java.text.ParseException;
 
 public class UserController extends Controller {
     public UserController(Application ticketManager) {
@@ -22,6 +23,7 @@ public class UserController extends Controller {
             case "mainMenu" -> request = ((UserView) this.view).mainMenu(response);
             case "showServiceMembers" -> request = ((UserView) this.view).showServiceDeskMembers(response);
             case "selectTicket" -> request = ((UserView) this.view).selectTicket(response);
+            case "showTicketRange" ->request= ((UserView) this.view).showTicketDateRange(response);
         }
 
         this.app.processInput(request);
@@ -36,6 +38,7 @@ public class UserController extends Controller {
             case "mainMenu" -> response = this.mainMenu(request);
             case "showServiceMembers" -> response = this.showServiceMembers(request);
             case "selectTicket" -> response = this.selectTicket(request);
+            case "showTicketRange" -> response = this.showTicketRange(request);
         }
 
         this.app.updateView(response);
@@ -43,7 +46,7 @@ public class UserController extends Controller {
 
     private Response mainMenu(Request request) {
         Response response = new Response();
-        response.add("tickets", Ticket.getWhereName(this.app.getUser().getName()));
+        response.add("tickets", Ticket.getWhereName(this.app.getServiceDeskUser().getName()));
 
 
         switch (request.get("input").toString()) {
@@ -53,11 +56,12 @@ public class UserController extends Controller {
                 this.app.setActiveController("ticketController");
                 this.app.processInput(new Request());
             }
+            case "F" -> this.activeSubView = "showTicketRange";
             case "X" -> {
                 this.app.setActiveController("authenticationController");
                 this.app.setActiveSubView("welcome");
                 response.add("notification", "User successfully logged out");
-                this.app.setUser(null);
+                this.app.setServiceDeskUser(null);
             }
 
             default -> response.add("error", "Invalid input, please select A, B, E or X!");
@@ -71,7 +75,7 @@ public class UserController extends Controller {
 
         if (request.containsUserInput() && request.get("input").toString().equals("X")) {
             this.activeSubView = "mainMenu";
-            response.add("tickets", Ticket.getWhereName(this.app.getUser().getName()));
+            response.add("tickets", Ticket.getWhereName(this.app.getServiceDeskUser().getName()));
             return response;
         }
 
@@ -80,7 +84,7 @@ public class UserController extends Controller {
             return response;
         }
 
-        if (!this.app.getUser().validateTicketSelectionForUser(Integer.parseInt(request.get("input").toString()))) {
+        if (!this.app.getServiceDeskUser().validateTicketSelectionForUser(Integer.parseInt(request.get("input").toString()))) {
             response.add("error", "Ticket not found for ID '" + request.get("input").toString() + "'");
             return response;
         }
@@ -90,6 +94,21 @@ public class UserController extends Controller {
         ((TicketController) this.app.getActiveController()).selectedTicketId = Integer.parseInt(request.get("input").toString());
         request.resetUserInput();
         this.app.processInput(request);
+
+        return response;
+    }
+
+    private Response showTicketRange(Request request) {
+        Response response = new Response();
+        String startDate = request.get("input1").toString();
+        String endDate = request.get("input2").toString();
+        response.add("startDate", startDate);
+        response.add("endDate", endDate);
+        try {
+            Ticket.getTicketDateRange(startDate, endDate);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
 
         return response;
     }

@@ -2,10 +2,9 @@ package com.sepm.model;
 
 import com.sepm.service.XMLWriterService;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Objects;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class Ticket {
     private final String ticketId;
@@ -111,6 +110,16 @@ public class Ticket {
         return output.toArray(new Ticket[0]);
     }
 
+    public static Ticket[] setStaffTicketsForUser(StaffMember name) {
+    ArrayList<Ticket> staffTickets = new ArrayList<>();
+    for (Ticket ticket:Ticket.tickets) {
+        if (ticket.ticketIssuer.equals(name)) {
+            staffTickets.add(ticket);
+        }
+    }
+    return staffTickets.toArray(new Ticket[0]);
+    }
+
     public static Ticket getWhereID(int id){
         Ticket outcome = null;
         for (Ticket ticket: Ticket.getAll()){
@@ -149,6 +158,20 @@ public class Ticket {
             }
         }
         return statusTickets.toArray(new Ticket[0]);
+    }
+
+    public static Ticket[] getTicketDateRange(String created, String closed) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        Date createdDate = sdf.parse(created);
+        Date closedDate = sdf.parse(closed);
+
+        ArrayList<Ticket> ticketRange = new ArrayList<>();
+        for (Ticket ticket: Ticket.tickets) {
+            if (sdf.parse(ticket.dateCreated).after(createdDate) && sdf.parse(ticket.dateClosed).before(closedDate)) {
+                ticketRange.add(ticket);
+            }
+        }
+        return ticketRange.toArray(new Ticket[0]);
     }
 
 

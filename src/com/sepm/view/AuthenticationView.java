@@ -37,10 +37,6 @@ public class AuthenticationView extends View {
 
         Request request = new Request();
 
-        /*System.out.println("------------------------------------");
-        System.out.println("Service Desk Application (SEPM v0.1)");
-        System.out.println("------------------------------------\n");*/
-
         if(response.contains("error")){
             System.out.println(Ascii.RED+response.get("error")+Ascii.RESET+"\n");
         }
