@@ -225,16 +225,28 @@ public class AuthenticationController extends Controller {
     private Response forgotPassword(Request request) {
         Response response = new Response();
 
-//        if(forgotEmail == null) {
-//            response.add("header", "Please enter your email");
-//            if (!request.containsUserInput()) {
-//                response.add("error", "Please enter your full name");
-//                return response;
-//            }
-//                this.forgotEmail = request.get("input").toString();
-//                response.add("notification", "Reset password for '" + this.forgotEmail + "'");
-//                return response;
-//        }
+        if(forgotEmail == null) {
+            response.add("header", "Please enter your email");
+            if (!request.containsUserInput()) {
+                response.add("error", "Please enter your email");
+                return response;
+            }
+        ServiceDeskMember user = ServiceDeskMember.getServiceDeskMemberByEmail(this.forgotEmail);
+        if (user == null) {
+                response.add("error", "User not found! Please check your email address and try again!");
+                response.add("header", "Please enter your email address");
+
+                this.loginEmail = null;
+                this.loginPassword = null;
+
+                this.activeSubView = "welcome";
+
+                return response;
+
+            }
+
+
+        }
 //          NEED TO SEARCH XML AND MATCH EMAIL; SET USER; THEN READ NEW PASSWORD AND WRITE OVER PASSWORD
 
 
