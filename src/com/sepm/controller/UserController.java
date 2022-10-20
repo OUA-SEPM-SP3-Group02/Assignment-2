@@ -23,7 +23,7 @@ public class UserController extends Controller {
             case "mainMenu" -> request = ((UserView) this.view).mainMenu(response);
             case "showServiceMembers" -> request = ((UserView) this.view).showServiceDeskMembers(response);
             case "selectTicket" -> request = ((UserView) this.view).selectTicket(response);
-            case "showTicketRange" ->request= ((UserView) this.view).showTicketDateRange(response);
+            case "showTicketDateRange" ->request= ((UserView) this.view).showTicketDateRange(response);
         }
 
         this.app.processInput(request);
@@ -38,7 +38,7 @@ public class UserController extends Controller {
             case "mainMenu" -> response = this.mainMenu(request);
             case "showServiceMembers" -> response = this.showServiceMembers(request);
             case "selectTicket" -> response = this.selectTicket(request);
-            case "showTicketRange" -> response = this.showTicketRange(request);
+            case "showTicketDateRange" -> response = this.showTicketDateRange(request);
         }
 
         this.app.updateView(response);
@@ -56,7 +56,7 @@ public class UserController extends Controller {
                 this.app.setActiveController("ticketController");
                 this.app.processInput(new Request());
             }
-            case "F" -> this.activeSubView = "showTicketRange";
+            case "F" -> this.activeSubView = "showTicketDateRange";
             case "X" -> {
                 this.app.setActiveController("authenticationController");
                 this.app.setActiveSubView("welcome");
@@ -98,10 +98,15 @@ public class UserController extends Controller {
         return response;
     }
 
-    private Response showTicketRange(Request request) {
+    private Response showServiceMembers(Request request) {
         Response response = new Response();
-        String startDate = request.get("input1").toString();
-        String endDate = request.get("input2").toString();
+        return response;
+    }
+
+    private Response showTicketDateRange(Request request) {
+        Response response = new Response();
+        String startDate = request.get("startDate").toString();
+        String endDate = request.get("endDate").toString();
         response.add("startDate", startDate);
         response.add("endDate", endDate);
         try {
@@ -110,11 +115,10 @@ public class UserController extends Controller {
             throw new RuntimeException(e);
         }
 
-        return response;
-    }
+        this.app.setActiveController("ticketController");
+        this.app.setActiveSubView("showTicketDateRange");
+        this.app.processInput(request);
 
-    private Response showServiceMembers(Request request) {
-        Response response = new Response();
         return response;
     }
 

@@ -34,7 +34,7 @@ public class Ticket {
         this.dateClosed = dateClosed;
     }
 
-    public void setAssignedTo(String name){
+    public void setAssignedTo(String name) {
         this.assignedTo = name;
     }
 
@@ -54,7 +54,7 @@ public class Ticket {
     }
 
     //Add a new ticket
-    public static void add(Ticket ticket){
+    public static void add(Ticket ticket) {
         ArrayList<Ticket> newTickets = new ArrayList<>(Arrays.asList(Ticket.tickets));
 
         newTickets.add(ticket);
@@ -111,28 +111,28 @@ public class Ticket {
     }
 
     public static Ticket[] setStaffTicketsForUser(StaffMember name) {
-    ArrayList<Ticket> staffTickets = new ArrayList<>();
-    for (Ticket ticket:Ticket.tickets) {
-        if (ticket.ticketIssuer.equals(name)) {
-            staffTickets.add(ticket);
+        ArrayList<Ticket> staffTickets = new ArrayList<>();
+        for (Ticket ticket : Ticket.tickets) {
+            if (ticket.ticketIssuer.equals(name)) {
+                staffTickets.add(ticket);
+            }
         }
-    }
-    return staffTickets.toArray(new Ticket[0]);
+        return staffTickets.toArray(new Ticket[0]);
     }
 
-    public static Ticket getWhereID(int id){
+    public static Ticket getWhereID(int id) {
         Ticket outcome = null;
-        for (Ticket ticket: Ticket.getAll()){
-            if(ticket.getID() == id){
+        for (Ticket ticket : Ticket.getAll()) {
+            if (ticket.getID() == id) {
                 outcome = ticket;
             }
         }
         return outcome;
     }
 
-    public static Ticket[] getWhereStatus(String status){
+    public static Ticket[] getWhereStatus(String status) {
         ArrayList<Ticket> statusTickets = new ArrayList<>();
-        for (Ticket ticket:Ticket.tickets) {
+        for (Ticket ticket : Ticket.tickets) {
             if (ticket.getTicketStatus().equals(status)) {
                 statusTickets.add(ticket);
             }
@@ -140,9 +140,9 @@ public class Ticket {
         return statusTickets.toArray(new Ticket[0]);
     }
 
-    public static Ticket[] getWhereTicketCreated(Date created){
+    public static Ticket[] getWhereTicketCreated(Date created) {
         ArrayList<Ticket> statusTickets = new ArrayList<>();
-        for (Ticket ticket:Ticket.tickets) {
+        for (Ticket ticket : Ticket.tickets) {
             if (ticket.getTicketCreated().equals(created)) {
                 statusTickets.add(ticket);
             }
@@ -150,9 +150,9 @@ public class Ticket {
         return statusTickets.toArray(new Ticket[0]);
     }
 
-    public static Ticket[] getWhereTicketClosed(Date closed){
+    public static Ticket[] getWhereTicketClosed(Date closed) {
         ArrayList<Ticket> statusTickets = new ArrayList<>();
-        for (Ticket ticket:Ticket.tickets) {
+        for (Ticket ticket : Ticket.tickets) {
             if (ticket.getTicketclosed().equals(closed)) {
                 statusTickets.add(ticket);
             }
@@ -166,7 +166,7 @@ public class Ticket {
         Date closedDate = sdf.parse(closed);
 
         ArrayList<Ticket> ticketRange = new ArrayList<>();
-        for (Ticket ticket: Ticket.tickets) {
+        for (Ticket ticket : Ticket.tickets) {
             if (sdf.parse(ticket.dateCreated).after(createdDate) && sdf.parse(ticket.dateClosed).before(closedDate)) {
                 ticketRange.add(ticket);
             }
@@ -175,27 +175,27 @@ public class Ticket {
     }
 
 
-    public static void analyseAndAssignTickets(ServiceDeskMember serviceDeskMember){
+    public static void analyseAndAssignTickets(ServiceDeskMember serviceDeskMember) {
 
-        if(serviceDeskMember.getTicketCount() < 3){
+        if (serviceDeskMember.getTicketCount() < 3) {
 
             ArrayList<Ticket> requiresAssignment = new ArrayList<>();
 
-            for (Ticket ticket: Ticket.tickets){
+            for (Ticket ticket : Ticket.tickets) {
 
-                if(Objects.equals(ticket.assignedTo, "{{PENDING}}") && ticket.getTicketLevel().equals(serviceDeskMember.getServiceLevel())){
+                if (Objects.equals(ticket.assignedTo, "{{PENDING}}") && ticket.getTicketLevel().equals(serviceDeskMember.getServiceLevel())) {
                     requiresAssignment.add(ticket);
                 }
 
             }
 
-            if(requiresAssignment.size() != 0){
-                int assignableCount = (3- serviceDeskMember.getTicketCount());
+            if (requiresAssignment.size() != 0) {
+                int assignableCount = (3 - serviceDeskMember.getTicketCount());
 
                 int i = 0;
-                while(i < assignableCount){
+                while (i < assignableCount) {
 
-                    if(i < requiresAssignment.size()){
+                    if (i < requiresAssignment.size()) {
                         requiresAssignment.get(i).setAssignedTo(serviceDeskMember.name);
                     }
 
@@ -243,11 +243,11 @@ public class Ticket {
         return this.assignedTo;
     }
 
-    public void setTicketStatus(String status){
+    public void setTicketStatus(String status) {
         this.ticketStatus = status;
     }
 
-    public int getID(){
+    public int getID() {
         return Integer.parseInt(this.ticketId);
     }
 

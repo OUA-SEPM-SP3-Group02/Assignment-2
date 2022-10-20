@@ -8,7 +8,9 @@ import com.sepm.model.Ticket;
 import com.sepm.service.XMLWriterService;
 import com.sepm.view.TicketView;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
 
@@ -34,6 +36,7 @@ public class TicketController extends Controller {
         switch (this.activeSubView) {
             case "addNewTicket" -> request = ((TicketView) this.view).addNewTicket(response);
             case "showTicket" -> request = ((TicketView) this.view).showTicket(response);
+            case "showTicketDateRange" -> request = ((TicketView) this.view).showTicketDateRange(response);
         }
         this.app.processInput(request);
     }
@@ -44,27 +47,28 @@ public class TicketController extends Controller {
         switch (this.activeSubView) {
             case "addNewTicket" -> response = this.addNewTicket(request);
             case "showTicket" -> response = this.showTicket(request);
+            case "showTicketDateRange" -> response = this.showTicketDateRange(request);
         }
         this.app.updateView(response);
     }
 
-    private Response showTicket(Request request){
+    private Response showTicket(Request request) {
         //Create our new response object
         Response response = new Response();
         Ticket ticket = Ticket.getWhereID(this.selectedTicketId);
 
-        response.add("ticket",Ticket.getWhereID(this.selectedTicketId));
+        response.add("ticket", Ticket.getWhereID(this.selectedTicketId));
 
-        if(request.containsUserInput()) {
+        if (request.containsUserInput()) {
             switch (request.get("input").toString()) {
                 case "X" -> {
                     this.app.setActiveController("userController");
                     response.add("tickets", Ticket.getWhereName(this.app.getServiceDeskUser().getName()));
-                    response.add("notification","Welcome "+this.app.getServiceDeskUser().getName()+"!");
+                    response.add("notification", "Welcome " + this.app.getServiceDeskUser().getName() + "!");
                     this.app.setActiveSubView("mainMenu");
                 }
                 case "A" -> {
-                    switch (ticket.getTicketStatus()){
+                    switch (ticket.getTicketStatus()) {
                         case "open" -> {
                             ticket.setTicketStatus("closed");
                             response.add("notification", "Ticket status updated to 'closed'");
@@ -186,9 +190,9 @@ public class TicketController extends Controller {
                 //if so then set the ticket level variable to that user input.
                 this.ticketLevel = (String) request.get("input");
 
-                if(!Objects.equals(request.get("input"), "low") && !Objects.equals(request.get("input"), "medium") && !Objects.equals(request.get("input"), "high")){
+                if (!Objects.equals(request.get("input"), "low") && !Objects.equals(request.get("input"), "medium") && !Objects.equals(request.get("input"), "high")) {
                     this.ticketLevel = null;
-                    response.add("error","Invalid level, please enter 'low', 'medium' or 'high' only!");
+                    response.add("error", "Invalid level, please enter 'low', 'medium' or 'high' only!");
                     return response;
                 }
 
@@ -253,12 +257,12 @@ public class TicketController extends Controller {
 
                     //As we currently do not have time to program the medium ticket level, all
                     //medium tickets are set to low.
-                    if(this.ticketLevel.equals("medium")){
+                    if (this.ticketLevel.equals("medium")) {
                         this.ticketLevel = "low";
                     }
 
                     Ticket.add(new Ticket(
-                            String.valueOf(Ticket.getAll().length+1),
+                            String.valueOf(Ticket.getAll().length + 1),
                             this.ticketTitle,
                             this.ticketDescription,
                             this.app.getServiceDeskUser().getName(),
@@ -275,7 +279,7 @@ public class TicketController extends Controller {
                     //After we have created the new ticket, set the controller back to the user controller.
                     this.app.setActiveController("userController");
                     //add the responses stating the new ticket has been successfully created.
-                    response.add("notification", "New ticket created '"+this.ticketTitle+"'");
+                    response.add("notification", "New ticket created '" + this.ticketTitle + "'");
 
                     //finally reset all our values
                     this.ticketTitle = null;
@@ -331,6 +335,23 @@ public class TicketController extends Controller {
         } else {
             response.add("ticketIdTarget", this.ticketIdTarget);
         }
+        return response;
+    }
+
+    private Response showTicketDateRange(Request request) {
+        Response response = new Response();
+
+        String start = request.get("startDate").toString();
+        String end = request.get("endDate").toString();
+
+        Ticket[] tickets = null;
+        try {
+            tickets = Ticket.getTicketDateRange(start, end);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        response.add("ticket", tickets);
         return response;
     }
 

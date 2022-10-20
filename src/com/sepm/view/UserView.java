@@ -48,7 +48,7 @@ public class UserView extends View {
         System.out.println("\nA - View Ticket");
         System.out.println("B - Display closed tickets");
         System.out.println("E - Create new service Ticket");
-        System.out.println("F - Select date range for tickets");
+        System.out.println("F - Display tickets in date range");
         System.out.println("X - Logout\n");
 
         if (response.contains("error")) {
@@ -124,9 +124,9 @@ public class UserView extends View {
         }
 
         System.out.println("Please enter the start date (dd-mm-yyy): ");
-        request.add("input1", this.getUserInput());
+        request.add("startDate", this.getUserInput());
         System.out.println("Please enter the end date (dd-mm-yyy): ");
-        request.add("input2", this.getUserInput());
+        request.add("endDate", this.getUserInput());
 
         return request;
     }
