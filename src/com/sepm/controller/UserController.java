@@ -78,7 +78,7 @@ public class UserController extends Controller {
 
         if (request.containsUserInput() && request.get("input").toString().equals("X")) {
             this.activeSubView = "mainMenu";
-            response.add("tickets", Ticket.getWhereName(this.app.getServiceDeskUser().getName()));
+            response.add("tickets", Ticket.getWhereName(this.app.getUser().getName()));
             return response;
         }
 
@@ -87,7 +87,7 @@ public class UserController extends Controller {
             return response;
         }
 
-        if (!this.app.getServiceDeskUser().validateTicketSelectionForUser(Integer.parseInt(request.get("input").toString()))) {
+        if (!this.app.getUser().validateTicketSelectionForUser(Integer.parseInt(request.get("input").toString()))) {
             response.add("error", "Ticket not found for ID '" + request.get("input").toString() + "'");
             return response;
         }
