@@ -100,13 +100,27 @@ public class Ticket {
         return output.toArray(new Ticket[0]);
     }
 
-    public static Ticket[] getWhereName(String name) {
+    public static Ticket[] getWhereName(User user) {
+
+        String name = user.getName();
         ArrayList<Ticket> output = new ArrayList<>();
-        for (Ticket ticket : Ticket.tickets) {
-            if (ticket.getAssignedTo().equals(name)) {
-                output.add(ticket);
+
+
+        if(user.getClass().getName().equals("com.sepm.model.ServiceDeskMember")){
+            for (Ticket ticket : Ticket.tickets) {
+                if (ticket.getAssignedTo().equals(name)) {
+                    output.add(ticket);
+                }
+            }
+        }else{
+            for (Ticket ticket : Ticket.tickets) {
+                if (ticket.getTicketIssuer().equals(name)) {
+                    output.add(ticket);
+                }
             }
         }
+
+
         return output.toArray(new Ticket[0]);
     }
 
