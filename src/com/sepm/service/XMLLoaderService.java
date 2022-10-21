@@ -3,6 +3,7 @@ package com.sepm.service;
 import com.sepm.model.ServiceDeskMember;
 import com.sepm.model.StaffMember;
 import com.sepm.model.Ticket;
+import com.sepm.model.User;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -99,7 +100,6 @@ public class XMLLoaderService {
             Text nodes, i.e., there are neither adjacent Text nodes nor empty Text nodes. */
 
             doc.getDocumentElement().normalize();
-            System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
 
             // Here nodeList contains all the nodes with name ticket.
             NodeList nodeList = doc.getElementsByTagName("serviceDesk");
@@ -123,17 +123,15 @@ public class XMLLoaderService {
             System.out.println("ERROR: Failed to load data");
         }
 
-        ServiceDeskMember[] serviceDeskMembersData = new ServiceDeskMember[0];
-        return serviceDeskMembers.toArray(serviceDeskMembersData);
+        return serviceDeskMembers.toArray(new ServiceDeskMember[0]);
     }
 
-    public static StaffMember[] loadStaffMembers(String xml){
+    public static void loadStaffMembers(String xml){
         String id = "";
         String name = "";
         String email = "";
         String phone = "";
         String password = "";
-        ArrayList<StaffMember> staffMembers = new ArrayList<>();
         try {
 
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -142,10 +140,9 @@ public class XMLLoaderService {
             Document doc = db.parse(xml);
 
             doc.getDocumentElement().normalize();
-            System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
 
             // Here nodeList contains all the nodes with name ticket.
-            NodeList nodeList = doc.getElementsByTagName("staffMember");
+            NodeList nodeList = doc.getElementsByTagName("staffmember");
 
             // Iterate through all the nodes in NodeList using a for loop.
             for (int i = 0; i < nodeList.getLength(); ++i) {
@@ -159,15 +156,14 @@ public class XMLLoaderService {
                     phone = tElement.getElementsByTagName("phone").item(0).getTextContent();
                     password = tElement.getElementsByTagName("password").item(0).getTextContent();
 
-                    staffMembers.add(new StaffMember(id, name, email, phone, password));
+                    User.addStaffMember(new StaffMember(id, name, email, phone, password));
+                    System.out.println("user created");
                 }
             }
         } catch (ParserConfigurationException | IOException | SAXException ignored) {
             System.out.println("ERROR: Failed to load data");
         }
 
-        StaffMember[] staffMembersData = new StaffMember[0];
-        return staffMembers.toArray(staffMembersData);
     }
 }
 
