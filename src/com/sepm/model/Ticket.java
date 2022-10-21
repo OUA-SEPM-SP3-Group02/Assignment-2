@@ -1,6 +1,7 @@
 package com.sepm.model;
 
 import com.sepm.service.XMLWriterService;
+import jdk.jfr.Period;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -322,6 +323,24 @@ public class Ticket {
 
     public void setTicketClosed(String closed) {
         this.dateClosed = closed;
+    }
+
+    public int getTicketDuration(){
+
+        Date today = new Date();
+        Date opened = new Date();
+        SimpleDateFormat simpleDateFormat =  new SimpleDateFormat("dd/MM/yyyy");
+
+        try {
+            opened = simpleDateFormat.parse(this.dateCreated);
+        } catch (ParseException e) {
+            System.out.println("Invalid date format provided.");
+        }
+
+        int MILLI_TO_HOUR = 1000 * 60 * 60;
+
+
+        return (int) (today.getTime() - opened.getTime()) / MILLI_TO_HOUR;
     }
 }
 
