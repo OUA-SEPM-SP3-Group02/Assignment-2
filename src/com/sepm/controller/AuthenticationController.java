@@ -143,71 +143,71 @@ public class AuthenticationController extends Controller {
         return response;
     }
 
-    private Response register(Request request){
+    private Response register(Request request) {
 
         Response response = new Response();
 
-        if(request.containsUserInput()){
-            if(request.get("input").equals("X")){
+        if (request.containsUserInput()) {
+            if (request.get("input").equals("X")) {
                 this.registerPassword = null;
                 this.registerEmail = null;
                 this.registerPhone = null;
                 this.registerPassword = null;
                 this.registerName = null;
                 this.activeSubView = "welcome";
-                response.add("notification","User registration cancelled!");
+                response.add("notification", "User registration cancelled!");
                 return response;
             }
         }
 
 
-        if(registerName == null) {
+        if (registerName == null) {
             response.add("header", "Please enter your full name");
-            if(!request.containsUserInput()) {
+            if (!request.containsUserInput()) {
                 response.add("error", "Please enter your full name");
                 return response;
             }
 
             this.registerName = request.get("input").toString();
-            response.add("notification","Full Name set to '"+this.registerName+"'");
-            response.add("header","Please enter your email address");
+            response.add("notification", "Full Name set to '" + this.registerName + "'");
+            response.add("header", "Please enter your email address");
 
             return response;
         }
 
-        if (registerEmail == null){
-            response.add("header","Please enter your email address");
-            response.add("notification","full name set to '"+this.registerName+"'");
+        if (registerEmail == null) {
+            response.add("header", "Please enter your email address");
+            response.add("notification", "full name set to '" + this.registerName + "'");
 
-            if(!request.containsUserInput()){
-                response.add("error","Please enter your email address");
+            if (!request.containsUserInput()) {
+                response.add("error", "Please enter your email address");
                 return response;
             }
 
             this.registerEmail = request.get("input").toString();
-            response.add("notification","Email set to '"+this.registerEmail+"'");
-            response.add("header","Please enter your phone number");
+            response.add("notification", "Email set to '" + this.registerEmail + "'");
+            response.add("header", "Please enter your phone number");
 
             return response;
         }
 
-        if (registerPhone == null){
-            response.add("header","Please enter your phone number");
-            response.add("notification","email set to '"+this.registerEmail+"'");
+        if (registerPhone == null) {
+            response.add("header", "Please enter your phone number");
+            response.add("notification", "email set to '" + this.registerEmail + "'");
 
-            if(!request.containsUserInput()){
-                response.add("error","Please enter your phone number");
+            if (!request.containsUserInput()) {
+                response.add("error", "Please enter your phone number");
                 return response;
             }
 
             this.registerPhone = request.get("input").toString();
-            response.add("notification","phone number set to '"+this.registerPhone+"'");
-            response.add("header","Please enter your password");
+            response.add("notification", "phone number set to '" + this.registerPhone + "'");
+            response.add("header", "Please enter your password");
 
             return response;
         }
 
-        if(registerPassword == null){
+        if (registerPassword == null) {
             response.add("header", "Please enter your password");
             response.add("notification", "phone number set to '" + this.registerPhone + "'");
 
@@ -215,7 +215,7 @@ public class AuthenticationController extends Controller {
                 response.add("error", "Please enter your password");
                 return response;
             }
-            if(request.get("input").toString().length() < 19){
+            if (request.get("input").toString().length() < 19) {
                 response.add("error", "Password must be at least 20 characters long \n Please enter your password:");
                 return response;
             }
@@ -224,13 +224,11 @@ public class AuthenticationController extends Controller {
             this.registerPassword = request.get("input").toString();
 
 
-        String name = this.registerName;
-        String email = this.registerEmail;
-        String phone = this.registerPhone;
-        String password = this.registerPassword;
 
+        }
 
         return response;
+
     }
 
     private Response forgotPassword(Request request) {

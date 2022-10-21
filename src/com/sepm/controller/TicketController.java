@@ -265,13 +265,13 @@ public class TicketController extends Controller {
                             String.valueOf(Ticket.getAll().length + 1),
                             this.ticketTitle,
                             this.ticketDescription,
-                            this.app.getServiceDeskUser().getName(),
-                            this.app.getServiceDeskUser().getEmail(),
+                            this.app.getUser().getName(),
+                            this.app.getUser().getEmail(),
                             this.ticketLevel,
                             "open",
                             "{{PENDING}}",
                             dateCreated,
-                            dateCreated)
+                            "{{NULL}}")
                     );
 
                     XMLWriterService.saveAllTickets();
@@ -280,6 +280,8 @@ public class TicketController extends Controller {
                     this.app.setActiveController("userController");
                     //add the responses stating the new ticket has been successfully created.
                     response.add("notification", "New ticket created '" + this.ticketTitle + "'");
+                    response.add("tickets", Ticket.getWhereName(this.app.getUser().getName()));
+
 
                     //finally reset all our values
                     this.ticketTitle = null;
