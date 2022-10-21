@@ -4,6 +4,7 @@ import com.sepm.controller.AuthenticationController;
 import com.sepm.controller.TicketController;
 import com.sepm.controller.UserController;
 import com.sepm.model.ServiceDeskMember;
+import com.sepm.model.StaffMember;
 import com.sepm.model.Ticket;
 import com.sepm.model.User;
 import com.sepm.service.XMLLoaderService;
@@ -13,7 +14,8 @@ import java.util.HashMap;
 public class Application {
     private final HashMap<String, Controller> controllers;
     private String activeController;
-    private ServiceDeskMember user;
+    private ServiceDeskMember serviceDeskUser;
+    private StaffMember staffUser;
 
     public Application() {
         //create our controllers hashmap
@@ -54,11 +56,18 @@ public class Application {
         this.controllers.get(this.activeController).setActiveSubView(view);
     }
 
-    public void setUser(ServiceDeskMember user){
-        this.user = user;
+    public void setServiceDeskUser(ServiceDeskMember user){
+        this.serviceDeskUser = user;
 
         if(user != null){
             Ticket.analyseAndAssignTickets(user);
+        }
+    }
+
+    public void setStaffUser(StaffMember user) {
+        this.staffUser = user;
+        if (user != null) {
+            Ticket.setStaffTicketsForUser(user);
         }
     }
 
@@ -66,7 +75,11 @@ public class Application {
         return this.controllers.get(this.activeController);
     }
 
-    public ServiceDeskMember getUser(){
-        return this.user;
+    public ServiceDeskMember getServiceDeskUser(){
+        return this.serviceDeskUser;
+    }
+
+    public User getStaffUser() {
+        return this.staffUser;
     }
 }

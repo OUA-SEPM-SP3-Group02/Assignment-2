@@ -13,14 +13,19 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class XMLLoaderService {
 
-    public static Ticket[] loadTicketsFromXMLFile(String xml) {
+    public static <FastDateFormat> Ticket[] loadTicketsFromXMLFile(String xml) {
 
         ArrayList<Ticket> tickets = new ArrayList<>();
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-mm-yyyy");
 
         try {
             // Defines a factory API that enables
@@ -56,8 +61,11 @@ public class XMLLoaderService {
                     String level = tElement.getElementsByTagName("level").item(0).getTextContent();
                     String status = tElement.getElementsByTagName("status").item(0).getTextContent();
                     String assignedTo = tElement.getElementsByTagName("assigned").item(0).getTextContent();
+                    String created = tElement.getElementsByTagName("created").item(0).getTextContent();
+                    String closed = tElement.getElementsByTagName("closed").item(0).getTextContent();
 
-                    tickets.add(new Ticket(ticketId, title, description, issuedBy, email, level, status, assignedTo));
+
+                    tickets.add(new Ticket(ticketId, title, description, issuedBy, email, level, status, assignedTo, created, closed));
                 }
             }
         } catch (ParserConfigurationException | IOException | SAXException ignored) {

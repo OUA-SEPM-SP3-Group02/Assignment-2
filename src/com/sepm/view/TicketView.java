@@ -6,6 +6,8 @@ import com.sepm.core.Response;
 import com.sepm.core.View;
 import com.sepm.model.Ticket;
 
+import java.util.ArrayList;
+
 public class TicketView extends View {
 
     public Request addNewTicket(Response response) {
@@ -56,6 +58,23 @@ public class TicketView extends View {
         }
 
         System.out.println("Press 'X' to return or press 'A' to update the status (switches between closed & open)");
+        request.add("input", this.getUserInput());
+
+        return request;
+    }
+
+    public Request showTicketDateRange(Response response) {
+        Request request = new Request();
+
+        Ticket[] tickets = (Ticket[]) response.get("ticket");
+         int i =0;
+         while (i<tickets.length) {
+             System.out.println(tickets[i].toString());
+             i += 1;
+         }
+
+
+        System.out.println("Enter X to return to previous screen.");
         request.add("input", this.getUserInput());
 
         return request;

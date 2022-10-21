@@ -31,6 +31,14 @@ public class User {
         return this.password;
     }
 
+    public static ServiceDeskMember[] getServiceDeskMembers() {
+        return serviceDeskMembers;
+    }
+
+    public static StaffMember[] getStaffMembers(){
+        return staffMembers;
+    }
+
     //-------------------- STAFF MEMBERS (END USERS) --------------------\\
 
     public static void bindStaffMemberUserData(StaffMember[] staffMembers){

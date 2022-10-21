@@ -22,7 +22,7 @@ public class UserView extends View {
         //check if the response contains tickets
         if (response.contains("tickets")) {
 
-            System.out.printf("%-5s %-50s %-50s %-20s %-20s %-10s %-10s\n", "ID", "Title", "Description", "Issuer", "Email", "Level", "Status");
+            System.out.printf("%-5s %-50s %-50s %-20s %-20s %-10s %-10s %-25s %-15s %-15s\n", "ID", "Title", "Description", "Issuer", "Email", "Level", "Status", "Assigned", "Date Created", "Date Closed");
 
             for (Ticket ticket : (Ticket[]) response.get("tickets")) {
 
@@ -31,20 +31,24 @@ public class UserView extends View {
                 String[] explodedArray = ticket.toString().split(":");
 
 
-                System.out.printf("%-5s %-50s %-50s %-20s %-20s %-10s %-10s \n",
+                System.out.printf("%-5s %-50s %-50s %-20s %-20s %-10s %-10s %-25s %-15s %-15s\n",
                         explodedArray[0],
                         explodedArray[1].substring(0, Math.min(explodedArray[1].length(), 40)) + "...",
                         explodedArray[2].substring(0, Math.min(explodedArray[2].length(), 40)) + "...",
                         explodedArray[3],
                         explodedArray[4],
                         explodedArray[5],
-                        explodedArray[6]);
+                        explodedArray[6],
+                        explodedArray[7],
+                        explodedArray[8],
+                        explodedArray[9]);
             }
         }
 
         System.out.println("\nA - View Ticket");
         System.out.println("B - Display closed tickets");
         System.out.println("E - Create new service Ticket");
+        System.out.println("F - Display tickets in date range");
         System.out.println("X - Logout\n");
 
         if (response.contains("error")) {
@@ -109,6 +113,20 @@ public class UserView extends View {
 
         //add our user input into the request
         request.add("input", this.getUserInput());
+
+        return request;
+    }
+
+    public Request showTicketDateRange(Response response) {
+        Request request = new Request();
+        if (response.contains("error")) {
+            System.out.println(Ascii.RED + response.get("error") + Ascii.RESET + "\n");
+        }
+
+        System.out.println("Please enter the start date (dd-mm-yyy): ");
+        request.add("startDate", this.getUserInput());
+        System.out.println("Please enter the end date (dd-mm-yyy): ");
+        request.add("endDate", this.getUserInput());
 
         return request;
     }
