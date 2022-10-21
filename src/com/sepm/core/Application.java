@@ -71,10 +71,6 @@ public class Application {
         return this.controllers.get(this.activeController);
     }
 
-    public ServiceDeskMember getServiceDeskUser(){
-        return this.serviceDeskUser;
-    }
-
     public User getUser() {
         return this.user;
     }
