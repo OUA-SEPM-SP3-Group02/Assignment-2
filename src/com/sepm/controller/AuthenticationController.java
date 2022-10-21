@@ -20,6 +20,7 @@ public class AuthenticationController extends Controller {
     private String registerPhone;
     private String registerPassword;
     private String forgotEmail;
+    private User forgotPasswordUser;
 
 
     public AuthenticationController(Application ticketManager) {
@@ -36,7 +37,7 @@ public class AuthenticationController extends Controller {
             case "welcome" -> request = ((AuthenticationView)this.view).welcome(response);
             case "login" -> request = ((AuthenticationView)this.view).login(response);
             case "register" -> request = ((AuthenticationView)this.view).register(response);
-            //case "forgotPassword" -> request = ((AuthenticationView)this.view).forgotPassword(response); -> NOT IMPLEMENTED YET
+            case "forgotPassword" -> request = ((AuthenticationView)this.view).forgotPassword(response);
         }
         this.app.processInput(request);
     }
@@ -64,7 +65,7 @@ public class AuthenticationController extends Controller {
         switch(request.get("input").toString()){
             case "A" -> {this.activeSubView = "login"; response.add("header","Please enter your email address");}
             case "B" -> {this.activeSubView = "register";response.add("header","Please enter your full name"); request.resetUserInput();}
-            case "C" -> response.add("error", "Feature coming soon.");
+            case "C" -> {this.activeSubView = "forgotPassword"; request.resetUserInput();  response.add("header", "Please enter your email");}
             case "X" -> System.exit(0);
 
             default -> response.add("error","Invalid input provided!\nplease select a option from the menu");
@@ -242,34 +243,63 @@ public class AuthenticationController extends Controller {
     private Response forgotPassword(Request request) {
         Response response = new Response();
 
-        if (forgotEmail == null) {
+        //----------------------------------
+        //      Check for X to cancel
+        //----------------------------------
+
+        if(request.containsUserInput() && request.get("input").equals("X")){
+            this.forgotPasswordUser = null;
+            this.forgotEmail = null;
+            this.app.setActiveSubView("welcome");
+            response.add("notification","Password reset cancelled");
+            return response;
+        }
+
+        //----------------------------------
+        //Check email, if not set then run cod
+        //----------------------------------
+
+        if (this.forgotEmail == null) {
             response.add("header", "Please enter your email");
             if (!request.containsUserInput()) {
                 response.add("error", "Please enter your email");
                 return response;
             }
-            ServiceDeskMember user = ServiceDeskMember.getServiceDeskMemberByEmail(this.forgotEmail);
-            if (user == null) {
-                response.add("error", "User not found! Please check your email address and try again!");
-                response.add("header", "Please enter your email address");
 
-                this.loginEmail = null;
-                this.loginPassword = null;
+            this.forgotPasswordUser = User.getUserByEmail(request.get("input").toString());
 
-                this.activeSubView = "welcome";
-
+            if(this.forgotPasswordUser == null){
+                response.add("error", "Invalid email, please enter a valid email");
                 return response;
-
             }
 
-
+            this.forgotEmail = request.get("input").toString();
+            response.add("header","Please enter your new password");
+            return response;
         }
-//          NEED TO SEARCH XML AND MATCH EMAIL; SET USER; THEN READ NEW PASSWORD AND WRITE OVER PASSWORD
 
+        //If we get here then the user has been found, and we move onto password validation.
 
+        if(!request.containsUserInput()){
+            response.add("error","New password cannot be null!");
+            return response;
+        }
 
-        response.add("error","Password reset not yet implemented, please check back soon");
+        if(request.get("input").toString().length() < 19){
+            response.add("error","Error, new password must be 20 characters or longer!");
+            return response;
+        }
+
+        //if we reach here then the user password has been updated, we set the save and return.
+
+        response.add("notification","User password updated for '"+this.forgotPasswordUser.getEmail()+"'");
+        this.forgotPasswordUser.setPassword(request.get("input").toString());
+
+        XMLWriterService.saveStaffMembersToXML();
+        this.forgotPasswordUser = null;
+        this.forgotEmail = null;
         this.activeSubView = "welcome";
+
 
         return response;
     }
