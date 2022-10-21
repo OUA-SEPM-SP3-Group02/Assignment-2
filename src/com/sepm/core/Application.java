@@ -4,7 +4,6 @@ import com.sepm.controller.AuthenticationController;
 import com.sepm.controller.TicketController;
 import com.sepm.controller.UserController;
 import com.sepm.model.ServiceDeskMember;
-import com.sepm.model.StaffMember;
 import com.sepm.model.Ticket;
 import com.sepm.model.User;
 import com.sepm.service.XMLLoaderService;
@@ -31,9 +30,12 @@ public class Application {
 
         //Bind our ticket data to our loaded tickets
         Ticket.bindTicketData(XMLLoaderService.loadTicketsFromXMLFile("tickets.xml"));
+
         User.bindServiceDeskUserData(XMLLoaderService.loadServiceDeskMembers("serviceDesk.xml"));
         User.bindStaffMemberUserData();
+
         XMLLoaderService.loadStaffMembers("staffMembers.xml");
+
         //start the input loop
         processInput(new Request());
     }
