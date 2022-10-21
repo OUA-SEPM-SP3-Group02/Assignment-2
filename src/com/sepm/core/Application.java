@@ -78,4 +78,8 @@ public class Application {
     public ServiceDeskMember getServiceDeskUser(){
         return this.serviceDeskUser;
     }
+
+    public User getStaffUser() {
+        return this.staffUser;
+    }
 }

@@ -11,11 +11,12 @@ public class ServiceDeskMember extends User{
         this.serviceLevel = serviceLevel;
         this.password = password;
     }
-
-
-
     public String getServiceLevel(){
         return this.serviceLevel;
+    }
+
+    public  String getServiceDeskMemberEmail() {
+        return this.email;
     }
 
     public int getTicketCount(){

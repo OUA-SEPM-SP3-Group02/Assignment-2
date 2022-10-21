@@ -5,7 +5,9 @@ import com.sepm.core.Request;
 import com.sepm.core.Response;
 import com.sepm.core.Application;
 import com.sepm.model.ServiceDeskMember;
+import com.sepm.model.StaffMember;
 import com.sepm.model.Ticket;
+import com.sepm.model.User;
 import com.sepm.service.XMLWriterService;
 import com.sepm.view.AuthenticationView;
 
@@ -95,6 +97,7 @@ public class AuthenticationController extends Controller {
             }
 
             this.loginEmail = request.get("input").toString();
+
             response.add("header", "Please enter your password");
 
         } else {
@@ -107,25 +110,17 @@ public class AuthenticationController extends Controller {
 
             this.loginPassword = request.get("input").toString();
 
-            ServiceDeskMember user = ServiceDeskMember.getServiceDeskMemberByEmail(this.loginEmail);
-            // StaffMember user = StaffMember.getStaffMemberByEmail(this.loginEmail);
 
-            if (user == null) {
+            ServiceDeskMember serviceDeskUser = ServiceDeskMember.getServiceDeskMemberByEmail(this.loginEmail);
+            StaffMember staffUser = StaffMember.getStaffMemberByEmail(this.loginEmail);
+
+            System.out.println("Service Desk User: " +serviceDeskUser+", Staff User: "+ staffUser);
+
+            /*if (serviceDeskUser == null || staffUser == null) {
                 response.add("error", "Login Failed! Please check your details and try again!");
                 response.add("header", "Please enter your email address");
 
-                this.loginEmail = null;
-                this.loginPassword = null;
-
-                this.activeSubView = "welcome";
-
-                return response;
-
-            }
-
-            if (!user.getPassword().equals(this.loginPassword)) {
-                response.add("error", "Login Failed! Please check your details and try again!");
-                response.add("header", "Please enter your email address");
+                System.out.println("Entered serviceDeskUser OR staffUser.");
 
                 this.loginEmail = null;
                 this.loginPassword = null;
@@ -134,13 +129,38 @@ public class AuthenticationController extends Controller {
 
 
                 return response;
+
             }
 
-            //else if we get here then the user is valid!
-            this.app.setServiceDeskUser(user);
+
+            if (!serviceDeskUser.getPassword().equals(this.loginPassword) || !staffUser.getPassword().equals(this.loginPassword)) {
+                response.add("error", "Login Failed! Please check your details and try again!");
+                response.add("header", "Please enter your email address");
+
+                this.loginEmail = null;
+                this.loginPassword = null;
+
+                this.activeSubView = "welcome";
+
+
+                return response;
+            }*/
+
+            //else if we get here then the serviceDeskUser is valid!
+
+            if (serviceDeskUser != null && serviceDeskUser.getEmail().equals(this.loginEmail)) {
+                this.app.setServiceDeskUser(serviceDeskUser);
+                response.add("notification", "Welcome " + serviceDeskUser.getName() + "!");
+                response.add("tickets", Ticket.getWhereName(serviceDeskUser.getName()));
+                response.add("userType", "serviceDeskUser");
+            } else if (staffUser != null && staffUser.getEmail().equals(this.loginEmail)){
+                this.app.setStaffUser(staffUser);
+                response.add("notification", "Welcome " + staffUser.getName() + "!");
+                response.add("tickets", Ticket.getWhereName(staffUser.getName()));
+                response.add("userType", "staffUser");
+            }
             this.app.setActiveController("userController");
-            response.add("notification", "Welcome " + user.getName() + "!");
-            response.add("tickets", Ticket.getWhereName(user.getName()));
+
         }
 
 
@@ -225,14 +245,14 @@ public class AuthenticationController extends Controller {
     private Response forgotPassword(Request request) {
         Response response = new Response();
 
-        if(forgotEmail == null) {
+        if (forgotEmail == null) {
             response.add("header", "Please enter your email");
             if (!request.containsUserInput()) {
                 response.add("error", "Please enter your email");
                 return response;
             }
-        ServiceDeskMember user = ServiceDeskMember.getServiceDeskMemberByEmail(this.forgotEmail);
-        if (user == null) {
+            ServiceDeskMember user = ServiceDeskMember.getServiceDeskMemberByEmail(this.forgotEmail);
+            if (user == null) {
                 response.add("error", "User not found! Please check your email address and try again!");
                 response.add("header", "Please enter your email address");
 

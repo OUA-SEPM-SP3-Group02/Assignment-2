@@ -4,6 +4,7 @@ import com.sepm.core.Controller;
 import com.sepm.core.Request;
 import com.sepm.core.Response;
 import com.sepm.core.Application;
+import com.sepm.model.ServiceDeskMember;
 import com.sepm.model.Ticket;
 import com.sepm.view.UserView;
 
@@ -23,7 +24,7 @@ public class UserController extends Controller {
             case "mainMenu" -> request = ((UserView) this.view).mainMenu(response);
             case "showServiceMembers" -> request = ((UserView) this.view).showServiceDeskMembers(response);
             case "selectTicket" -> request = ((UserView) this.view).selectTicket(response);
-            case "showTicketDateRange" ->request= ((UserView) this.view).showTicketDateRange(response);
+            case "showTicketDateRange" -> request = ((UserView) this.view).showTicketDateRange(response);
         }
 
         this.app.processInput(request);
@@ -46,7 +47,13 @@ public class UserController extends Controller {
 
     private Response mainMenu(Request request) {
         Response response = new Response();
-        response.add("tickets", Ticket.getWhereName(this.app.getServiceDeskUser().getName()));
+        String setUserType = String.valueOf(request.get("userType"));
+
+        if (setUserType.equals("serviceDeskUser")) {
+            response.add("tickets", Ticket.getWhereName(this.app.getServiceDeskUser().getName()));
+        } else if (setUserType.equals("staffUser")){
+            response.add("tickets", Ticket.getWhereName(this.app.getStaffUser().getName()));
+        }
 
 
         switch (request.get("input").toString()) {
@@ -62,6 +69,7 @@ public class UserController extends Controller {
                 this.app.setActiveSubView("welcome");
                 response.add("notification", "User successfully logged out");
                 this.app.setServiceDeskUser(null);
+                this.app.setStaffUser(null);
             }
 
             default -> response.add("error", "Invalid input, please select A, B, E or X!");

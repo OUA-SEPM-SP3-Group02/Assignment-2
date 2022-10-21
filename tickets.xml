@@ -1,2 +1,100 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><class><ticket><id>1</id><title>Broken Server</title><description>Server will not power on</description><issuedBy>Harry Styles</issuedBy><email>h.styles@sepm.com</email><level>high</level><status>open</status><assigned>Zayn Malik</assigned><created>01-10-2022</created><closed>09-10-2022</closed></ticket><ticket><id>0</id><title>PC does not boot</title><description>When I try to start my PC, it does not boot up. So, I can't use it for work.</description><issuedBy>John Doe</issuedBy><email>j.doe@sepm.com</email><level>low</level><status>open</status><assigned>Zayn Malik</assigned><created>01-10-2022</created><closed>09-10-2022</closed></ticket><ticket><id>1</id><title>Can't log in to computer.</title><description>For whatever reason I cannot log into my system.</description><issuedBy>Morgan Cassar</issuedBy><email>m.cassar@sepm.com</email><level>medium</level><status>closed</status><assigned>Zayn Malik</assigned><created>01-10-2022</created><closed>09-10-2022</closed></ticket><ticket><id>2</id><title>IntelliJ IDEA not updating properly.</title><description>My IntelliJ software cannot be updated to the latest version.</description><issuedBy>Jack Harris</issuedBy><email>j.harris@sepm.com</email><level>high</level><status>archived</status><assigned>Zayn Malik</assigned><created>01-10-2022</created><closed>09-10-2022</closed></ticket><ticket><id>3</id><title>Word enters text by itself</title><description>When I write in word, text suddenly appears on the screen, without me having entered it.
-        </description><issuedBy>Karsten Beck</issuedBy><email>k.beck@sepm.com</email><level>high</level><status>open</status><assigned>Zayn Malik</assigned><created>01-10-2022</created><closed>09-10-2022</closed></ticket><ticket><id>6</id><title>Reminder!</title><description>Update windows server</description><issuedBy>Karsten Beck</issuedBy><email>h.styles@sepm.com</email><level>low</level><status>closed</status><assigned>Harry Styles</assigned><created>01-10-2022</created><closed>09-10-2022</closed></ticket><ticket><id>7</id><title>test</title><description>test2</description><issuedBy>Harry Styles</issuedBy><email>h.styles@sepm.com</email><level>high</level><status>open</status><assigned>{{PENDING}}</assigned><created>01-10-2022</created><closed>09-10-2022</closed></ticket><ticket><id>8</id><title>Date Test</title><description>Checking if date is written</description><issuedBy>Zayn Malik</issuedBy><email>z.malik@sepm.com</email><level>high</level><status>open</status><assigned>{{PENDING}}</assigned><created>18-09-2022</created><closed>18-09-2022</closed></ticket></class>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<class>
+    <ticket>
+        <id>1</id>
+        <title>Broken Server</title>
+        <description>Server will not power on</description>
+        <issuedBy>Karsten Beck</issuedBy>
+        <email>k.beck@sepm.com</email>
+        <level>high</level>
+        <status>open</status>
+        <assigned>Zayn Malik</assigned>
+        <created>01-10-2022</created>
+        <closed>09-10-2022</closed>
+    </ticket>
+    <ticket>
+        <id>0</id>
+        <title>PC does not boot</title>
+        <description>When I try to start my PC, it does not boot up. So, I can't use it for work.</description>
+        <issuedBy>John Doe</issuedBy>
+        <email>j.doe@sepm.com</email>
+        <level>low</level>
+        <status>open</status>
+        <assigned>Zayn Malik</assigned>
+        <created>01-10-2022</created>
+        <closed>09-10-2022</closed>
+    </ticket>
+    <ticket>
+        <id>1</id>
+        <title>Can't log in to computer.</title>
+        <description>For whatever reason I cannot log into my system.</description>
+        <issuedBy>Morgan Cassar</issuedBy>
+        <email>m.cassar@sepm.com</email>
+        <level>medium</level>
+        <status>closed</status>
+        <assigned>Zayn Malik</assigned>
+        <created>01-10-2022</created>
+        <closed>09-10-2022</closed>
+    </ticket>
+    <ticket>
+        <id>2</id>
+        <title>IntelliJ IDEA not updating properly.</title>
+        <description>My IntelliJ software cannot be updated to the latest version.</description>
+        <issuedBy>Jack Harris</issuedBy>
+        <email>j.harris@sepm.com</email>
+        <level>high</level>
+        <status>archived</status>
+        <assigned>Zayn Malik</assigned>
+        <created>01-10-2022</created>
+        <closed>09-10-2022</closed>
+    </ticket>
+    <ticket>
+        <id>3</id>
+        <title>Word enters text by itself</title>
+        <description>When I write in word, text suddenly appears on the screen, without me having entered it.
+        </description>
+        <issuedBy>Karsten Beck</issuedBy>
+        <email>k.beck@sepm.com</email>
+        <level>high</level>
+        <status>open</status>
+        <assigned>Zayn Malik</assigned>
+        <created>01-10-2022</created>
+        <closed>09-10-2022</closed>
+    </ticket>
+    <ticket>
+        <id>6</id>
+        <title>Reminder!</title>
+        <description>Update windows server</description>
+        <issuedBy>Karsten Beck</issuedBy>
+        <email>h.styles@sepm.com</email>
+        <level>low</level>
+        <status>closed</status>
+        <assigned>Harry Styles</assigned>
+        <created>01-10-2022</created>
+        <closed>09-10-2022</closed>
+    </ticket>
+    <ticket>
+        <id>7</id>
+        <title>test</title>
+        <description>test2</description>
+        <issuedBy>Harry Styles</issuedBy>
+        <email>h.styles@sepm.com</email>
+        <level>high</level>
+        <status>open</status>
+        <assigned>{{PENDING}}</assigned>
+        <created>01-10-2022</created>
+        <closed>09-10-2022</closed>
+    </ticket>
+    <ticket>
+        <id>8</id>
+        <title>Date Test</title>
+        <description>Checking if date is written</description>
+        <issuedBy>Zayn Malik</issuedBy>
+        <email>z.malik@sepm.com</email>
+        <level>high</level>
+        <status>open</status>
+        <assigned>{{PENDING}}</assigned>
+        <created>18-09-2022</created>
+        <closed>18-09-2022</closed>
+    </ticket>
+</class>
