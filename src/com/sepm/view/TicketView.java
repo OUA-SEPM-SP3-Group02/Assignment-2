@@ -67,6 +67,7 @@ public class TicketView extends View {
         Request request = new Request();
 
         System.out.println("Ticket Date Range Report:\n");
+        System.out.println("Total tickets: "+Ticket.getOpenDateRangeCount()+Ticket.getClosedDateRangeCount());
         System.out.println("Open tickets: "+Ticket.getOpenDateRangeCount());
         System.out.println("Closed tickets: "+Ticket.getClosedDateRangeCount()+"\n");
 
@@ -79,6 +80,24 @@ public class TicketView extends View {
              i += 1;
          }
 
+
+        System.out.println("Enter X to return to previous screen.");
+        request.add("input", this.getUserInput());
+
+        return request;
+    }
+
+    public Request showArchivedTicket(Response response){
+        Request request = new Request();
+
+        Ticket ticket = (Ticket) response.get("ticket");
+
+        System.out.println("Showing Archived Ticket :'"+ticket.getTicketTitle()+"'");
+
+        System.out.println("Title: " + ticket.getTicketTitle());
+        System.out.println("Description: " + ticket.getTicketDescription());
+        System.out.println("Level: " + ticket.getTicketLevel());
+        System.out.println("Status: " + ticket.getTicketStatus() + "\n");
 
         System.out.println("Enter X to return to previous screen.");
         request.add("input", this.getUserInput());
