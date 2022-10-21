@@ -106,8 +106,7 @@ public class AuthenticationController extends Controller {
 
             this.loginPassword = request.get("input").toString();
 
-            ServiceDeskMember user = ServiceDeskMember.getServiceDeskMemberByEmail(this.loginEmail);
-            // StaffMember user = StaffMember.getStaffMemberByEmail(this.loginEmail);
+            User user = User.getUserByEmail(this.loginEmail);
 
             if(user == null){
                 response.add("error","Login Failed! Please check your details and try again!");
