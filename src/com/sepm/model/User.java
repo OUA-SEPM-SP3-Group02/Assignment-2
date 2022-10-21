@@ -92,4 +92,14 @@ public class User {
 
         User.staffMembers = newStaffMembers.toArray(new StaffMember[0]);
     }
+
+    public boolean validateTicketSelectionForUser(int id){
+        boolean outcome = false;
+        for(Ticket ticket : Ticket.getWhereName(this.getName())){
+            if(ticket.getID() == id){
+                outcome = true;
+            }
+        }
+        return outcome;
+    }
 }
