@@ -18,6 +18,9 @@ public class Ticket {
     private String dateCreated;
     private String dateClosed;
 
+    private static int closedDateRangeCount;
+    private static int openDateRangeCount;
+
     //Private Static Global Array of tickets, is accessed via our getters
     private static Ticket[] tickets;
 
@@ -40,16 +43,20 @@ public class Ticket {
 
     public String toString() {
         String ticketSummary = "";
-        ticketSummary += this.ticketId + ":";
-        ticketSummary += this.ticketTitle + ":";
-        ticketSummary += this.ticketDescription + ":";
-        ticketSummary += this.ticketIssuer + ":";
-        ticketSummary += this.ticketEmail + ":";
-        ticketSummary += this.ticketLevel + ":";
-        ticketSummary += this.ticketStatus + ":";
-        ticketSummary += this.assignedTo + ":";
-        ticketSummary += this.dateCreated + ":";
-        ticketSummary += this.dateClosed + ":";
+        ticketSummary += this.ticketId + ": ";
+        ticketSummary += this.ticketTitle + ": ";
+        ticketSummary += this.ticketDescription + ": ";
+        ticketSummary += this.ticketIssuer + ": ";
+        ticketSummary += this.ticketEmail + ": ";
+        ticketSummary += this.ticketLevel + ": ";
+        ticketSummary += this.ticketStatus + ": ";
+        ticketSummary += this.assignedTo + ": ";
+        ticketSummary += this.dateCreated + ": ";
+        if(this.dateClosed.equals("{{NULL}}")){
+            ticketSummary +=  "TBD";
+        }else{
+            ticketSummary += this.dateClosed;
+        }
         return ticketSummary;
     }
 
@@ -105,7 +112,12 @@ public class Ticket {
         String name = user.getName();
         ArrayList<Ticket> output = new ArrayList<>();
 
+        //check if owner, if so return all tickets
+        if(user.getName().equals("owner")){
+            return Ticket.tickets;
+        }
 
+        //else check for user type and either return assigned to or created by
         if(user.getClass().getName().equals("com.sepm.model.ServiceDeskMember")){
             for (Ticket ticket : Ticket.tickets) {
                 if (ticket.getAssignedTo().equals(name)) {
@@ -120,7 +132,7 @@ public class Ticket {
             }
         }
 
-
+        //return output
         return output.toArray(new Ticket[0]);
     }
 
@@ -175,17 +187,44 @@ public class Ticket {
     }
 
     public static Ticket[] getTicketDateRange(String created, String closed) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
-        Date createdDate = sdf.parse(created);
-        Date closedDate = sdf.parse(closed);
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        Date startDate = simpleDateFormat.parse(created);
+        Date endDate = simpleDateFormat.parse(closed);
+
+        int openCount = 0;
+        int closedCount = 0;
+
 
         ArrayList<Ticket> ticketRange = new ArrayList<>();
         for (Ticket ticket : Ticket.tickets) {
-            if (sdf.parse(ticket.dateCreated).after(createdDate) && sdf.parse(ticket.dateClosed).before(closedDate)) {
+            if (simpleDateFormat.parse(ticket.dateCreated).after(startDate) && simpleDateFormat.parse(ticket.dateCreated).before(endDate)) {
+
                 ticketRange.add(ticket);
+
+                if(ticket.ticketStatus.equals("open")){
+                    openCount++;
+                }
+
+                if(ticket.ticketStatus.equals("closed")){
+                    closedCount++;
+                }
             }
         }
+
+        Ticket.openDateRangeCount = openCount;
+        Ticket.closedDateRangeCount = closedCount;
+
         return ticketRange.toArray(new Ticket[0]);
+    }
+
+    public static int getOpenDateRangeCount(){
+        return Ticket.openDateRangeCount;
+    }
+
+    public static int getClosedDateRangeCount(){
+        return Ticket.closedDateRangeCount;
     }
 
 

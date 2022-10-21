@@ -157,7 +157,7 @@ public class XMLLoaderService {
                     password = tElement.getElementsByTagName("password").item(0).getTextContent();
 
                     User.addStaffMember(new StaffMember(id, name, email, phone, password));
-                    System.out.println("user created");
+                    //System.out.println("user created");
                 }
             }
         } catch (ParserConfigurationException | IOException | SAXException ignored) {
