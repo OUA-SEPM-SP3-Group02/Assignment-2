@@ -99,7 +99,7 @@ public class User {
 
     public boolean validateTicketSelectionForUser(int id){
         boolean outcome = false;
-        for(Ticket ticket : Ticket.getWhereName(this.getName())){
+        for(Ticket ticket : Ticket.getWhereName(this)){
             if(ticket.getID() == id){
                 outcome = true;
             }
