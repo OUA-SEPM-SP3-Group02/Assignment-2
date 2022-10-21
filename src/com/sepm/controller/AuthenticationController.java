@@ -5,7 +5,9 @@ import com.sepm.core.Request;
 import com.sepm.core.Response;
 import com.sepm.core.Application;
 import com.sepm.model.ServiceDeskMember;
+import com.sepm.model.StaffMember;
 import com.sepm.model.Ticket;
+import com.sepm.model.User;
 import com.sepm.service.XMLWriterService;
 import com.sepm.view.AuthenticationView;
 
@@ -149,7 +151,6 @@ public class AuthenticationController extends Controller {
 
         if (request.containsUserInput()) {
             if (request.get("input").equals("X")) {
-                this.registerPassword = null;
                 this.registerEmail = null;
                 this.registerPhone = null;
                 this.registerPassword = null;
@@ -220,10 +221,17 @@ public class AuthenticationController extends Controller {
                 return response;
             }
 
-
             this.registerPassword = request.get("input").toString();
 
 
+            User.addStaffMember(new StaffMember(String.valueOf(User.getAllStaffMembers().length),this.registerName,this.registerEmail, this.registerPhone, this.registerPassword));
+            XMLWriterService.saveStaffMembersToXML();
+            response.add("notification","new account created '"+this.registerEmail+"'");
+            this.registerEmail = null;
+            this.registerPhone = null;
+            this.registerPassword = null;
+            this.registerName = null;
+            this.activeSubView = "welcome";
 
         }
 
