@@ -7,6 +7,7 @@ import javax.xml.transform.stream.*;
 
 import com.sepm.model.StaffMember;
 import com.sepm.model.Ticket;
+import com.sepm.model.User;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
@@ -71,14 +72,6 @@ public class XMLWriterService {
                 ticketAssignedTo.appendChild(document.createTextNode(ticket.getAssignedTo()));
                 newTicket.appendChild(ticketAssignedTo);
 
-                Element ticketCreated = document.createElement("created");
-                ticketCreated.appendChild(document.createTextNode(ticket.getTicketCreated()));
-                newTicket.appendChild(ticketCreated);
-
-                Element ticketClosed = document.createElement("closed");
-                ticketClosed.appendChild(document.createTextNode(ticket.getTicketclosed()));
-                newTicket.appendChild(ticketClosed);
-
                 root.appendChild(newTicket);
             }
             DOMSource source = new DOMSource(document);
@@ -103,21 +96,23 @@ public class XMLWriterService {
         }
     }
 
-    public static void saveStaffMemberToXML(String id, String name, String email, String phone, String password, String xml) {
+    public static void saveStaffMembersToXML(){
+
+        File tickets = new File("staffMembers.xml");
+        if (!tickets.delete()) {
+            System.out.println("Failed to delete old staff members file");
+        }
+
         try {
             // instance of a DocumentBuilderFactory
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = dbf.newDocumentBuilder();
-            Document document = documentBuilder.parse(xml);
-            Element root = document.getDocumentElement();
+            Document document = documentBuilder.newDocument();
+            Element root = document.createElement("class");
+            document.appendChild(root);
 
-            // Creating a collection of tickets.
-            Collection<StaffMember> staffMembers = new ArrayList<>();
 
-            // Adding a new staff member to the StaffMember ArrayList. The StaffMember class' constructor requires 5 parameters.
-            staffMembers.add(new StaffMember(id, name, email, phone, password));
-
-            for (StaffMember staffMember : staffMembers) {
+            for (StaffMember staffMember : User.getAllStaffMembers()) {
                 //Fetching and adding ticket elements
                 Element newStaffMember = document.createElement("StaffMember");
 
@@ -134,32 +129,34 @@ public class XMLWriterService {
                 newStaffMember.appendChild(registerEmail);
 
                 Element registerPhNumber = document.createElement("phone");
-                registerPhNumber.appendChild(document.createTextNode(staffMember.getPhone()));
+                registerPhNumber.appendChild(document.createTextNode("temp phone"));
                 newStaffMember.appendChild(registerPhNumber);
 
                 Element registerPassword = document.createElement("password");
-                registerPassword.appendChild(document.createTextNode(staffMember.getPassword()));
+                registerPassword.appendChild(document.createTextNode("temp password"));
                 newStaffMember.appendChild(registerPassword);
 
 
                 root.appendChild(newStaffMember);
             }
+
             DOMSource source = new DOMSource(document);
 
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer;
             try {
                 transformer = transformerFactory.newTransformer();
+
             } catch (TransformerConfigurationException ex) {
                 throw new RuntimeException(ex);
             }
-            StreamResult result = new StreamResult(xml);
+            StreamResult result = new StreamResult(new File("staffMembers.xml"));
             try {
                 transformer.transform(source, result);
             } catch (TransformerException ex) {
                 throw new RuntimeException(ex);
             }
-        } catch (ParserConfigurationException | SAXException ex) {
+        } catch (ParserConfigurationException ex) {
             //throw new RuntimeException(ex);
             System.out.println("Could not parse XM file");
         } catch (IOException ex) {
@@ -167,6 +164,7 @@ public class XMLWriterService {
             System.out.println("Could not read XML file.");
         }
     }
+
 
 }
 
