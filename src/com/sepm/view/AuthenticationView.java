@@ -37,6 +37,10 @@ public class AuthenticationView extends View {
 
         Request request = new Request();
 
+        System.out.println("------------------------------------");
+        System.out.println("Service Desk Application (SEPM v0.1)");
+        System.out.println("------------------------------------\n");
+
         if(response.contains("error")){
             System.out.println(Ascii.RED+response.get("error")+Ascii.RESET+"\n");
         }
@@ -51,9 +55,9 @@ public class AuthenticationView extends View {
 
         Request request = new Request();
 
-        /*System.out.println("------------------------------------");
+        System.out.println("------------------------------------");
         System.out.println("Service Desk Application (SEPM v0.1)");
-        System.out.println("------------------------------------\n");*/
+        System.out.println("------------------------------------\n");
         System.out.println("Register:\n");
 
         if(response.contains("notification")){
@@ -76,9 +80,9 @@ public class AuthenticationView extends View {
 
         Request request = new Request();
 
-        /*System.out.println("------------------------------------");
+        System.out.println("------------------------------------");
         System.out.println("Service Desk Application (SEPM v0.1)");
-        System.out.println("------------------------------------\n");*/
+        System.out.println("------------------------------------\n");
         System.out.println("Forgot Password:\n");
 
         if(response.contains("notification")){
