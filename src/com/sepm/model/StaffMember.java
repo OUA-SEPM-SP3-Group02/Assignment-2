@@ -10,12 +10,4 @@ public class StaffMember extends User {
         this.phone = phone;
         this.password = password;
     }
-
-    public String getStaffMemberEmail() {
-        return this.email;
-    }
-
-
-
-
 }
