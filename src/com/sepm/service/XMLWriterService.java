@@ -9,15 +9,8 @@ import com.sepm.model.StaffMember;
 import com.sepm.model.Ticket;
 import com.sepm.model.User;
 import org.w3c.dom.*;
-import org.xml.sax.SAXException;
-
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
 
-// Currently duplicates entries, so loads existing entries and writes them back at the end with anything new.
-// Need to work out how to avoid this.
 public class XMLWriterService {
 
     public static void saveAllTickets() {
@@ -71,6 +64,14 @@ public class XMLWriterService {
                 Element ticketAssignedTo = document.createElement("assigned");
                 ticketAssignedTo.appendChild(document.createTextNode(ticket.getAssignedTo()));
                 newTicket.appendChild(ticketAssignedTo);
+
+                Element ticketCreatedAt = document.createElement("created");
+                ticketCreatedAt.appendChild(document.createTextNode(ticket.getTicketCreated()));
+                newTicket.appendChild(ticketCreatedAt);
+
+                Element ticketClosedAt = document.createElement("closed");
+                ticketClosedAt.appendChild(document.createTextNode(ticket.getTicketclosed()));
+                newTicket.appendChild(ticketClosedAt);
 
                 root.appendChild(newTicket);
             }
@@ -159,9 +160,6 @@ public class XMLWriterService {
         } catch (ParserConfigurationException ex) {
             //throw new RuntimeException(ex);
             System.out.println("Could not parse XM file");
-        } catch (IOException ex) {
-            //throw new RuntimeException(ex);
-            System.out.println("Could not read XML file.");
         }
     }
 
