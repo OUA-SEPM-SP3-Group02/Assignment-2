@@ -32,15 +32,7 @@ public class ServiceDeskMember extends User{
         return count;
     }
 
-    public boolean validateTicketSelectionForUser(int id){
-        boolean outcome = false;
-        for(Ticket ticket : Ticket.getWhereName(this.getName())){
-            if(ticket.getID() == id){
-                outcome = true;
-            }
-        }
-        return outcome;
-    }
+
 
 
 
