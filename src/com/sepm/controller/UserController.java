@@ -4,7 +4,6 @@ import com.sepm.core.Controller;
 import com.sepm.core.Request;
 import com.sepm.core.Response;
 import com.sepm.core.Application;
-import com.sepm.model.ServiceDeskMember;
 import com.sepm.model.Ticket;
 import com.sepm.view.UserView;
 
@@ -49,11 +48,8 @@ public class UserController extends Controller {
         Response response = new Response();
         String setUserType = String.valueOf(request.get("userType"));
 
-        if (setUserType.equals("serviceDeskUser")) {
-            response.add("tickets", Ticket.getWhereName(this.app.getServiceDeskUser().getName()));
-        } else if (setUserType.equals("staffUser")){
-            response.add("tickets", Ticket.getWhereName(this.app.getStaffUser().getName()));
-        }
+        response.add("tickets", Ticket.getWhereName(this.app.getUser().getName()));
+
 
 
         switch (request.get("input").toString()) {
@@ -68,8 +64,7 @@ public class UserController extends Controller {
                 this.app.setActiveController("authenticationController");
                 this.app.setActiveSubView("welcome");
                 response.add("notification", "User successfully logged out");
-                this.app.setServiceDeskUser(null);
-                this.app.setStaffUser(null);
+                this.app.setUser(null);
             }
 
             default -> response.add("error", "Invalid input, please select A, B, E or X!");
