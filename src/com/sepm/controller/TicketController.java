@@ -10,7 +10,6 @@ import com.sepm.view.TicketView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
 
@@ -24,10 +23,16 @@ public class TicketController extends Controller {
 
     public int selectedTicketId;
 
+    private final SimpleDateFormat simpleDateFormat;
+    private final Date date;
+
     public TicketController(Application ticketManager) {
         super(ticketManager);
         this.view = new TicketView();
         this.activeSubView = "addNewTicket";
+
+        this.date =  new Date();
+        this.simpleDateFormat =  new SimpleDateFormat("dd/MM/yyyy");
     }
 
     @Override
@@ -63,8 +68,8 @@ public class TicketController extends Controller {
             switch (request.get("input").toString()) {
                 case "X" -> {
                     this.app.setActiveController("userController");
-                    response.add("tickets", Ticket.getWhereName(this.app.getServiceDeskUser().getName()));
-                    response.add("notification", "Welcome " + this.app.getServiceDeskUser().getName() + "!");
+                    response.add("tickets", Ticket.getWhereName(this.app.getUser().getName()));
+                    response.add("notification", "Welcome " + this.app.getUser().getName() + "!");
                     this.app.setActiveSubView("mainMenu");
                 }
                 case "A" -> {
@@ -72,10 +77,14 @@ public class TicketController extends Controller {
                         case "open" -> {
                             ticket.setTicketStatus("closed");
                             response.add("notification", "Ticket status updated to 'closed'");
+                            ticket.setTicketClosed(this.simpleDateFormat.format(this.date));
+
                         }
                         case "closed" -> {
                             ticket.setTicketStatus("open");
                             response.add("notification", "Ticket status updated to 'open'");
+                            ticket.setTicketClosed("{{NULL}}");
+
                         }
                     }
                 }
@@ -250,11 +259,6 @@ public class TicketController extends Controller {
                 //Process our "Y" (Save new ticket)
                 case "Y" -> {
 
-                    String datePattern = "dd-mm-yyy";
-                    Date currentDate = new Date();
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePattern);
-                    String dateCreated = simpleDateFormat.format(currentDate);
-
                     //As we currently do not have time to program the medium ticket level, all
                     //medium tickets are set to low.
                     if (this.ticketLevel.equals("medium")) {
@@ -270,7 +274,7 @@ public class TicketController extends Controller {
                             this.ticketLevel,
                             "open",
                             "{{PENDING}}",
-                            dateCreated,
+                            this.simpleDateFormat.format(date),
                             "{{NULL}}")
                     );
 
