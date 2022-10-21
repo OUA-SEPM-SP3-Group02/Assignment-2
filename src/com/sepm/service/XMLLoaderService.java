@@ -142,7 +142,7 @@ public class XMLLoaderService {
             doc.getDocumentElement().normalize();
 
             // Here nodeList contains all the nodes with name ticket.
-            NodeList nodeList = doc.getElementsByTagName("staffmember");
+            NodeList nodeList = doc.getElementsByTagName("StaffMember");
 
             // Iterate through all the nodes in NodeList using a for loop.
             for (int i = 0; i < nodeList.getLength(); ++i) {
