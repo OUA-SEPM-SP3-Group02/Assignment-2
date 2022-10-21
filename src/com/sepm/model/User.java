@@ -35,6 +35,10 @@ public class User {
         return this.password;
     }
 
+    public void setPassword(String password){
+        this.password = password;
+    }
+
     public static ServiceDeskMember[] getServiceDeskMembers() {
         return serviceDeskMembers;
     }
@@ -101,5 +105,23 @@ public class User {
             }
         }
         return outcome;
+    }
+
+    public static User getUserByEmail(String email){
+
+
+        for (User user : User.serviceDeskMembers){
+            if(user.getEmail().equals(email)){
+                return user;
+            }
+        }
+
+        for(User user : User.staffMembers){
+            if(user.getEmail().equals(email)){
+                return user;
+            }
+        }
+
+        return null;
     }
 }
