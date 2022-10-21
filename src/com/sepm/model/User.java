@@ -1,5 +1,9 @@
 package com.sepm.model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class User {
 
     protected String id;
@@ -41,8 +45,8 @@ public class User {
 
     //-------------------- STAFF MEMBERS (END USERS) --------------------\\
 
-    public static void bindStaffMemberUserData(StaffMember[] staffMembers){
-        User.staffMembers = staffMembers;
+    public static void bindStaffMemberUserData(){
+        User.staffMembers = new StaffMember[0];
     }
 
     //-------------------- SERVICE DESK MEMBERS --------------------\\
@@ -75,5 +79,17 @@ public class User {
         }
 
         return outcome;
+    }
+
+    public static StaffMember[] getAllStaffMembers(){
+        return User.staffMembers;
+    }
+
+    public static void addStaffMember(StaffMember staffMember){
+        ArrayList<StaffMember> newStaffMembers = new ArrayList<>(Arrays.asList(User.staffMembers));
+
+        newStaffMembers.add(staffMember);
+
+        User.staffMembers = newStaffMembers.toArray(new StaffMember[0]);
     }
 }
