@@ -1,4 +1,5 @@
-﻿<class>
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<class>
     <staffMember>
         <id>1</id>
         <name>Jack Harris</name>
@@ -33,7 +34,7 @@
 
     <staffMember>
         <id>5</id>
-        <name>Karsten Beck</name>
+        <name>Zayn Malik</name>
         <email>k.beck@sepm.com</email>
         <phone>0456789123</phone>
         <password>beck</password>
