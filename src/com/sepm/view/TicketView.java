@@ -66,7 +66,13 @@ public class TicketView extends View {
     public Request showTicketDateRange(Response response) {
         Request request = new Request();
 
+        System.out.println("Ticket Date Range Report:\n");
+        System.out.println("Open tickets: "+Ticket.getOpenDateRangeCount());
+        System.out.println("Closed tickets: "+Ticket.getClosedDateRangeCount()+"\n");
+
+
         Ticket[] tickets = (Ticket[]) response.get("ticket");
+
          int i =0;
          while (i<tickets.length) {
              System.out.println(tickets[i].toString());
