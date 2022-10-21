@@ -228,6 +228,19 @@ public class Ticket {
         return Ticket.closedDateRangeCount;
     }
 
+    //check and archive tickets WIP
+    public static void archiveTicketsCheck(){
+
+        for(Ticket ticket: Ticket.getAll()){
+            if(ticket.ticketStatus.equals("open")){
+                if(ticket.getTicketDuration() > 24){
+                    ticket.setTicketStatus("archived");
+                }
+            }
+        }
+
+    }
+
 
     public static void analyseAndAssignTickets(ServiceDeskMember serviceDeskMember) {
 
