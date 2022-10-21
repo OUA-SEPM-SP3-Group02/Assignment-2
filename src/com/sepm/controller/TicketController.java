@@ -347,6 +347,12 @@ public class TicketController extends Controller {
     private Response showTicketDateRange(Request request) {
         Response response = new Response();
 
+        if(request.containsUserInput() && request.get("input").equals("X")){
+            this.app.setActiveController("userController");
+            this.app.setActiveSubView("mainMenu");
+            return response;
+        }
+
         String start = request.get("startDate").toString();
         String end = request.get("endDate").toString();
 
