@@ -130,11 +130,11 @@ public class XMLWriterService {
                 newStaffMember.appendChild(registerEmail);
 
                 Element registerPhNumber = document.createElement("phone");
-                registerPhNumber.appendChild(document.createTextNode("temp phone"));
+                registerPhNumber.appendChild(document.createTextNode("{{PHONE}}"));
                 newStaffMember.appendChild(registerPhNumber);
 
                 Element registerPassword = document.createElement("password");
-                registerPassword.appendChild(document.createTextNode("temp password"));
+                registerPassword.appendChild(document.createTextNode(staffMember.getPassword()));
                 newStaffMember.appendChild(registerPassword);
 
 
