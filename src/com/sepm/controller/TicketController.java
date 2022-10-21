@@ -68,7 +68,7 @@ public class TicketController extends Controller {
             switch (request.get("input").toString()) {
                 case "X" -> {
                     this.app.setActiveController("userController");
-                    response.add("tickets", Ticket.getWhereName(this.app.getUser().getName()));
+                    response.add("tickets", Ticket.getWhereName(this.app.getUser()));
                     response.add("notification", "Welcome " + this.app.getUser().getName() + "!");
                     this.app.setActiveSubView("mainMenu");
                 }
@@ -284,7 +284,7 @@ public class TicketController extends Controller {
                     this.app.setActiveController("userController");
                     //add the responses stating the new ticket has been successfully created.
                     response.add("notification", "New ticket created '" + this.ticketTitle + "'");
-                    response.add("tickets", Ticket.getWhereName(this.app.getUser().getName()));
+                    response.add("tickets", Ticket.getWhereName(this.app.getUser()));
 
 
                     //finally reset all our values

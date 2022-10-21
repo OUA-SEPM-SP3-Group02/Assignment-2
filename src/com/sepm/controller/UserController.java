@@ -48,7 +48,7 @@ public class UserController extends Controller {
         Response response = new Response();
         String setUserType = String.valueOf(request.get("userType"));
 
-        response.add("tickets", Ticket.getWhereName(this.app.getUser().getName()));
+        response.add("tickets", Ticket.getWhereName(this.app.getUser()));
 
 
 
@@ -78,7 +78,7 @@ public class UserController extends Controller {
 
         if (request.containsUserInput() && request.get("input").toString().equals("X")) {
             this.activeSubView = "mainMenu";
-            response.add("tickets", Ticket.getWhereName(this.app.getUser().getName()));
+            response.add("tickets", Ticket.getWhereName(this.app.getUser()));
             return response;
         }
 

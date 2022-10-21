@@ -138,7 +138,7 @@ public class AuthenticationController extends Controller {
             this.app.setUser(user);
             this.app.setActiveController("userController");
             response.add("notification","Welcome "+user.getName()+"!");
-            response.add("tickets", Ticket.getWhereName(user.getName()));
+            response.add("tickets", Ticket.getWhereName(user));
         }
 
 
