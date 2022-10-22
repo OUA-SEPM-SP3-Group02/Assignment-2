@@ -1,5 +1,8 @@
 package com.sepm.core;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 public class Request {
@@ -43,6 +46,25 @@ public class Request {
 
         return outcome;
     }
+
+    public boolean isValidDate(String key){
+        Date date= new Date();
+        SimpleDateFormat simpleDateFormat =  new SimpleDateFormat("dd/MM/yyyy");
+
+        if(!this.data.containsKey(key)){
+            return false;
+        }
+
+        try {
+            date = simpleDateFormat.parse(this.data.get(key).toString());
+        } catch (ParseException e) {
+            return false;
+        }
+
+        return true;
+    }
+
+
 
 
     public void resetUserInput(){
