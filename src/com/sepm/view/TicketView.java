@@ -6,8 +6,6 @@ import com.sepm.core.Response;
 import com.sepm.core.View;
 import com.sepm.model.Ticket;
 
-import java.util.ArrayList;
-
 public class TicketView extends View {
 
     public Request addNewTicket(Response response) {
@@ -51,13 +49,14 @@ public class TicketView extends View {
         System.out.println("Title: " + ticket.getTicketTitle());
         System.out.println("Description: " + ticket.getTicketDescription());
         System.out.println("Level: " + ticket.getTicketLevel());
-        System.out.println("Status: " + ticket.getTicketStatus() + "\n");
+        System.out.println("Status: " + ticket.getTicketStatus());
+        System.out.println("Resolution Status: "+ ticket.getResolvedStatus()+"\n");
 
         if (response.contains("error")) {
             System.out.println(Ascii.RED + response.get("error") + Ascii.RESET + "\n");
         }
 
-        System.out.println("Press 'X' to return or press 'A' to update the status (switches between closed & open)");
+        System.out.println("Press 'X' to return or press 'A' to update the status (switches between closed & open\nor 'B' to toggle the resolved and unresolved status");
         request.add("input", this.getUserInput());
 
         return request;
@@ -67,9 +66,12 @@ public class TicketView extends View {
         Request request = new Request();
 
         System.out.println("Ticket Date Range Report:\n");
-        System.out.println("Total tickets: "+(Ticket.getOpenDateRangeCount()+Ticket.getClosedDateRangeCount()));
-        System.out.println("Open tickets: "+Ticket.getOpenDateRangeCount());
-        System.out.println("Closed tickets: "+Ticket.getClosedDateRangeCount()+"\n");
+        System.out.println("Total tickets: "+(Ticket.getOpenAndUnResolvedDateRangeCount()+Ticket.getClosedAndUnResolvedDateRangeCount()+Ticket.getOpenAndResolvedDateRangeCount()+Ticket.getClosedAndResolvedDateRangeCount()));
+        System.out.println("Open & UnResolved tickets: "+Ticket.getOpenAndUnResolvedDateRangeCount());
+        System.out.println("Open & Resolved tickets: "+Ticket.getOpenAndResolvedDateRangeCount());
+        System.out.println("Closed & UnResolved tickets: "+Ticket.getClosedAndUnResolvedDateRangeCount());
+        System.out.println("Closed & Resolved tickets: "+Ticket.getClosedAndResolvedDateRangeCount()+"\n");
+
 
 
         Ticket[] tickets = (Ticket[]) response.get("ticket");
