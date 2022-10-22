@@ -88,7 +88,20 @@ public class TicketController extends Controller {
                         }
                     }
                 }
-                default -> response.add("error", "invalid input provided, please select 'X' or 'A'");
+
+                case "B" -> {
+                    switch (ticket.getResolvedStatus()) {
+                        case "false" -> {
+                            ticket.setResolvedStatus("true");
+                            response.add("notification", "Ticket resolved status updated to 'true'");
+                        }
+                        case "true" -> {
+                            ticket.setResolvedStatus("false");
+                            response.add("notification", "Ticket resolved status updated to 'false'");
+                        }
+                    }
+                }
+                default -> response.add("error", "invalid input provided, please select 'X', 'A' or 'B'");
             }
             //save the updated tickets
             XMLWriterService.saveAllTickets();
@@ -275,7 +288,8 @@ public class TicketController extends Controller {
                             "open",
                             "{{PENDING}}",
                             this.simpleDateFormat.format(date),
-                            "{{NULL}}")
+                            "{{NULL}}",
+                            "false")
                     );
 
                     XMLWriterService.saveAllTickets();
