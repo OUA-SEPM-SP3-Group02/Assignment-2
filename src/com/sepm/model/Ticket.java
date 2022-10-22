@@ -1,7 +1,6 @@
 package com.sepm.model;
 
 import com.sepm.service.XMLWriterService;
-import jdk.jfr.Period;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,13 +18,18 @@ public class Ticket {
     private String dateCreated;
     private String dateClosed;
 
-    private static int closedDateRangeCount;
-    private static int openDateRangeCount;
+    private String resolvedStatus;
+
+    private static int closedAndUnResolvedDateRangeCount;
+    private static int closedAndResolvedDateRangeCount;
+
+    private static int openAndUnResolvedDateRangeCount;
+    private static int openAndResolvedDateRangeCount;
 
     //Private Static Global Array of tickets, is accessed via our getters
     private static Ticket[] tickets;
 
-    public Ticket(String id, String title, String description, String issuer, String email, String level, String status, String assignedTo, String dateCreated, String dateClosed) {
+    public Ticket(String id, String title, String description, String issuer, String email, String level, String status, String assignedTo, String dateCreated, String dateClosed, String resolvedStatus) {
         this.ticketId = id;
         this.ticketTitle = title;
         this.ticketDescription = description;
@@ -36,6 +40,7 @@ public class Ticket {
         this.assignedTo = assignedTo;
         this.dateCreated = dateCreated;
         this.dateClosed = dateClosed;
+        this.resolvedStatus = resolvedStatus;
     }
 
     public void setAssignedTo(String name) {
@@ -194,8 +199,10 @@ public class Ticket {
         Date startDate = simpleDateFormat.parse(created);
         Date endDate = simpleDateFormat.parse(closed);
 
-        int openCount = 0;
-        int closedCount = 0;
+        int openAndUnResolvedCount = 0;
+        int openAndResolvedCount = 0;
+        int closedAndUnResolvedCount = 0;
+        int closedAndResolvedCount = 0;
 
 
         ArrayList<Ticket> ticketRange = new ArrayList<>();
@@ -204,28 +211,47 @@ public class Ticket {
 
                 ticketRange.add(ticket);
 
-                if(ticket.ticketStatus.equals("open")){
-                    openCount++;
+                if(ticket.ticketStatus.equals("open") && ticket.resolvedStatus.equals("false")){
+                    openAndUnResolvedCount++;
                 }
 
-                if(ticket.ticketStatus.equals("closed")){
-                    closedCount++;
+                if(ticket.ticketStatus.equals("open") && ticket.resolvedStatus.equals("true")){
+                    openAndResolvedCount++;
+                }
+
+                if(ticket.ticketStatus.equals("closed") && ticket.resolvedStatus.equals("false")){
+                    closedAndUnResolvedCount++;
+                }
+
+                if(ticket.ticketStatus.equals("closed") && ticket.resolvedStatus.equals("true")){
+                    closedAndUnResolvedCount++;
                 }
             }
         }
 
-        Ticket.openDateRangeCount = openCount;
-        Ticket.closedDateRangeCount = closedCount;
+        Ticket.openAndUnResolvedDateRangeCount = openAndUnResolvedCount;
+        Ticket.openAndResolvedDateRangeCount = openAndResolvedCount;
+
+        Ticket.closedAndUnResolvedDateRangeCount = closedAndUnResolvedCount;
+        Ticket.closedAndResolvedDateRangeCount = closedAndResolvedCount;
 
         return ticketRange.toArray(new Ticket[0]);
     }
 
-    public static int getOpenDateRangeCount(){
-        return Ticket.openDateRangeCount;
+    public static int getOpenAndUnResolvedDateRangeCount(){
+        return Ticket.openAndUnResolvedDateRangeCount;
     }
 
-    public static int getClosedDateRangeCount(){
-        return Ticket.closedDateRangeCount;
+    public static int getOpenAndResolvedDateRangeCount(){
+        return Ticket.openAndResolvedDateRangeCount;
+    }
+
+    public static int getClosedAndResolvedDateRangeCount(){
+        return Ticket.closedAndResolvedDateRangeCount;
+    }
+
+    public static int getClosedAndUnResolvedDateRangeCount(){
+        return Ticket.closedAndUnResolvedDateRangeCount;
     }
 
     //check and archive tickets WIP
@@ -354,6 +380,14 @@ public class Ticket {
 
 
         return (int) (today.getTime() - opened.getTime()) / MILLI_TO_HOUR;
+    }
+
+    public String getResolvedStatus(){
+        return this.resolvedStatus;
+    }
+
+    public void setResolvedStatus(String string){
+        this.resolvedStatus = string;
     }
 }
 
