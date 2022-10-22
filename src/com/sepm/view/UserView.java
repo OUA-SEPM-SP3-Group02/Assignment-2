@@ -123,10 +123,21 @@ public class UserView extends View {
             System.out.println(Ascii.RED + response.get("error") + Ascii.RESET + "\n");
         }
 
-        System.out.println("Please enter the start date (dd-mm-yyy): ");
-        request.add("startDate", this.getUserInput());
-        System.out.println("Please enter the end date (dd-mm-yyy): ");
-        request.add("endDate", this.getUserInput());
+
+        System.out.println("Please enter the start date (dd/mm/yyyy): ");
+
+
+        while(!request.isValidDate("startDate")){
+            System.out.println(Ascii.RED + "please enter a valid start date '01/10/2022'" + Ascii.RESET + "\n");
+            request.add("startDate", this.getUserInput());
+        }
+
+        System.out.println("Please enter the end date (dd/mm/yyyy): ");
+        while(!request.isValidDate("endDate")) {
+            System.out.println(Ascii.RED + "please enter a valid end date '23/10/2022'" + Ascii.RESET + "\n");
+            request.add("endDate", this.getUserInput());
+        }
+
 
         return request;
     }
