@@ -64,9 +64,11 @@ public class XMLLoaderService {
                     String assignedTo = tElement.getElementsByTagName("assigned").item(0).getTextContent();
                     String created = tElement.getElementsByTagName("created").item(0).getTextContent();
                     String closed = tElement.getElementsByTagName("closed").item(0).getTextContent();
+                    String resolved = tElement.getElementsByTagName("resolved").item(0).getTextContent();
 
 
-                    tickets.add(new Ticket(ticketId, title, description, issuedBy, email, level, status, assignedTo, created, closed));
+
+                    tickets.add(new Ticket(ticketId, title, description, issuedBy, email, level, status, assignedTo, created, closed, resolved));
                 }
             }
         } catch (ParserConfigurationException | IOException | SAXException ignored) {
