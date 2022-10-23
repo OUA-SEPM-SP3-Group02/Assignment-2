@@ -50,7 +50,7 @@ public class TicketView extends View {
         System.out.println("Description: " + ticket.getTicketDescription());
         System.out.println("Level: " + ticket.getTicketLevel());
         System.out.println("Status: " + ticket.getTicketStatus());
-        System.out.println("Resolution Status: "+ ticket.getResolvedStatus()+"\n");
+        System.out.println("Resolution Status: " + ticket.getResolvedStatus() + "\n");
 
         if (response.contains("error")) {
             System.out.println(Ascii.RED + response.get("error") + Ascii.RESET + "\n");
@@ -66,21 +66,35 @@ public class TicketView extends View {
         Request request = new Request();
 
         System.out.println("Ticket Date Range Report:\n");
-        System.out.println("Total tickets: "+(Ticket.getOpenAndUnResolvedDateRangeCount()+Ticket.getClosedAndUnResolvedDateRangeCount()+Ticket.getOpenAndResolvedDateRangeCount()+Ticket.getClosedAndResolvedDateRangeCount()));
-        System.out.println("Open & UnResolved tickets: "+Ticket.getOpenAndUnResolvedDateRangeCount());
-        System.out.println("Open & Resolved tickets: "+Ticket.getOpenAndResolvedDateRangeCount());
-        System.out.println("Closed & UnResolved tickets: "+Ticket.getClosedAndUnResolvedDateRangeCount());
-        System.out.println("Closed & Resolved tickets: "+Ticket.getClosedAndResolvedDateRangeCount()+"\n");
-
+        System.out.println("Total tickets: " + (Ticket.getOpenAndUnResolvedDateRangeCount() + Ticket.getClosedAndUnResolvedDateRangeCount() + Ticket.getOpenAndResolvedDateRangeCount() + Ticket.getClosedAndResolvedDateRangeCount()));
+        System.out.println("Open & UnResolved tickets: " + Ticket.getOpenAndUnResolvedDateRangeCount());
+        System.out.println("Open & Resolved tickets: " + Ticket.getOpenAndResolvedDateRangeCount());
+        System.out.println("Closed & UnResolved tickets: " + Ticket.getClosedAndUnResolvedDateRangeCount());
+        System.out.println("Closed & Resolved tickets: " + Ticket.getClosedAndResolvedDateRangeCount() + "\n");
 
 
         Ticket[] tickets = (Ticket[]) response.get("ticket");
 
-         int i =0;
-         while (i<tickets.length) {
-             System.out.println(tickets[i].toString());
-             i += 1;
-         }
+        System.out.printf("%-5s %-50s %-50s %-20s %-20s %-10s %-10s %-25s %-15s %-15s\n", "ID", "Title", "Description", "Issuer", "Email", "Level", "Status", "Assigned", "Date Created", "Date Closed");
+
+        int i = 0;
+        while (i < tickets.length) {
+            String[] explodedArray = tickets[i].toString().split(":");
+            System.out.printf("%-5s %-50s %-50s %-20s %-20s %-10s %-10s %-25s %-15s %-15s\n",
+                    explodedArray[0],
+                    explodedArray[1].substring(0, Math.min(explodedArray[1].length(), 40)) + "...",
+                    explodedArray[2].substring(0, Math.min(explodedArray[2].length(), 40)) + "...",
+                    explodedArray[3],
+                    explodedArray[4],
+                    explodedArray[5],
+                    explodedArray[6],
+                    explodedArray[7],
+                    explodedArray[8],
+                    explodedArray[9]);
+
+            //System.out.println(tickets[i].toString());
+            i += 1;
+        }
 
 
         System.out.println("Enter X to return to previous screen.");
@@ -89,12 +103,12 @@ public class TicketView extends View {
         return request;
     }
 
-    public Request showArchivedTicket(Response response){
+    public Request showArchivedTicket(Response response) {
         Request request = new Request();
 
         Ticket ticket = (Ticket) response.get("ticket");
 
-        System.out.println("Showing Archived Ticket :'"+ticket.getTicketTitle()+"'");
+        System.out.println("Showing Archived Ticket :'" + ticket.getTicketTitle() + "'");
 
         System.out.println("Title: " + ticket.getTicketTitle());
         System.out.println("Description: " + ticket.getTicketDescription());

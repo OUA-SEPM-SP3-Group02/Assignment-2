@@ -34,10 +34,10 @@ public class AuthenticationController extends Controller {
 
         Request request = new Request();
         switch (this.activeSubView) {
-            case "welcome" -> request = ((AuthenticationView)this.view).welcome(response);
-            case "login" -> request = ((AuthenticationView)this.view).login(response);
-            case "register" -> request = ((AuthenticationView)this.view).register(response);
-            case "forgotPassword" -> request = ((AuthenticationView)this.view).forgotPassword(response);
+            case "welcome" -> request = ((AuthenticationView) this.view).welcome(response);
+            case "login" -> request = ((AuthenticationView) this.view).login(response);
+            case "register" -> request = ((AuthenticationView) this.view).register(response);
+            case "forgotPassword" -> request = ((AuthenticationView) this.view).forgotPassword(response);
         }
         this.app.processInput(request);
     }
@@ -54,53 +54,64 @@ public class AuthenticationController extends Controller {
         this.app.updateView(response);
     }
 
-    private Response welcome(Request request){
+    private Response welcome(Request request) {
 
         Response response = new Response();
 
-        if(!request.containsUserInput()){
+        if (!request.containsUserInput()) {
             return response;
         }
 
-        switch(request.get("input").toString()){
-            case "A" -> {this.activeSubView = "login"; response.add("header","Please enter your email address");}
-            case "B" -> {this.activeSubView = "register";response.add("header","Please enter your full name"); request.resetUserInput();}
-            case "C" -> {this.activeSubView = "forgotPassword"; request.resetUserInput();  response.add("header", "Please enter your email");}
+        switch (request.get("input").toString()) {
+            case "A" -> {
+                this.activeSubView = "login";
+                response.add("header", "Please enter your email address");
+            }
+            case "B" -> {
+                this.activeSubView = "register";
+                response.add("header", "Please enter your full name");
+                request.resetUserInput();
+            }
+            case "C" -> {
+                this.activeSubView = "forgotPassword";
+                request.resetUserInput();
+                response.add("header", "Please enter your email");
+            }
             case "X" -> System.exit(0);
 
-            default -> response.add("error","Invalid input provided!\nplease select a option from the menu");
+            default -> response.add("error", "Invalid input provided!\nplease select a option from the menu");
         }
 
         return response;
     }
 
-    private Response login(Request request){
+    private Response login(Request request) {
         Response response = new Response();
 
-        if(request.containsUserInput()){
-            if(request.get("input").equals("X")){
+        if (request.containsUserInput()) {
+            if (request.get("input").equals("X")) {
                 this.activeSubView = "welcome";
-                response.add("notification","Login cancelled");
+                response.add("notification", "Login cancelled");
                 return response;
             }
         }
 
-        if(loginEmail == null){
-            response.add("header","Please enter your email address");
+        if (loginEmail == null) {
+            response.add("header", "Please enter your email address");
 
-            if(!request.containsUserInput()) {
+            if (!request.containsUserInput()) {
                 response.add("error", "Please enter your email");
                 return response;
             }
 
             this.loginEmail = request.get("input").toString();
-            response.add("header","Please enter your password");
+            response.add("header", "Please enter your password");
 
-        }else{
-            response.add("header","Please enter your password");
+        } else {
+            response.add("header", "Please enter your password");
 
-            if(!request.containsUserInput()){
-                response.add("error","Please enter your password");
+            if (!request.containsUserInput()) {
+                response.add("error", "Please enter your password");
                 return response;
             }
 
@@ -108,9 +119,9 @@ public class AuthenticationController extends Controller {
 
             User user = User.getUserByEmail(this.loginEmail);
 
-            if(user == null){
-                response.add("error","Login Failed! Please check your details and try again!");
-                response.add("header","Please enter your email address");
+            if (user == null) {
+                response.add("error", "Login Failed! Please check your details and try again!");
+                response.add("header", "Please enter your email address");
 
                 this.loginEmail = null;
                 this.loginPassword = null;
@@ -121,9 +132,9 @@ public class AuthenticationController extends Controller {
 
             }
 
-            if(!user.getPassword().equals(this.loginPassword)){
-                response.add("error","Login Failed! Please check your details and try again!");
-                response.add("header","Please enter your email address");
+            if (!user.getPassword().equals(this.loginPassword)) {
+                response.add("error", "Login Failed! Please check your details and try again!");
+                response.add("header", "Please enter your email address");
 
                 this.loginEmail = null;
                 this.loginPassword = null;
@@ -137,7 +148,7 @@ public class AuthenticationController extends Controller {
             //else if we get here then the user is valid!
             this.app.setUser(user);
             this.app.setActiveController("userController");
-            response.add("notification","Welcome "+user.getName()+"!");
+            response.add("notification", "Welcome " + user.getName() + "!");
             response.add("tickets", Ticket.getWhereName(user));
         }
 
@@ -224,9 +235,9 @@ public class AuthenticationController extends Controller {
             this.registerPassword = request.get("input").toString();
 
 
-            User.addStaffMember(new StaffMember(String.valueOf(User.getAllStaffMembers().length),this.registerName,this.registerEmail, this.registerPhone, this.registerPassword));
+            User.addStaffMember(new StaffMember(String.valueOf(User.getAllStaffMembers().length), this.registerName, this.registerEmail, this.registerPhone, this.registerPassword));
             XMLWriterService.saveStaffMembersToXML();
-            response.add("notification","new account created '"+this.registerEmail+"'");
+            response.add("notification", "new account created '" + this.registerEmail + "'");
             this.registerEmail = null;
             this.registerPhone = null;
             this.registerPassword = null;
@@ -246,11 +257,11 @@ public class AuthenticationController extends Controller {
         //      Check for X to cancel
         //----------------------------------
 
-        if(request.containsUserInput() && request.get("input").equals("X")){
+        if (request.containsUserInput() && request.get("input").equals("X")) {
             this.forgotPasswordUser = null;
             this.forgotEmail = null;
             this.app.setActiveSubView("welcome");
-            response.add("notification","Password reset cancelled");
+            response.add("notification", "Password reset cancelled");
             return response;
         }
 
@@ -267,31 +278,31 @@ public class AuthenticationController extends Controller {
 
             this.forgotPasswordUser = User.getUserByEmail(request.get("input").toString());
 
-            if(this.forgotPasswordUser == null){
+            if (this.forgotPasswordUser == null) {
                 response.add("error", "Invalid email, please enter a valid email");
                 return response;
             }
 
             this.forgotEmail = request.get("input").toString();
-            response.add("header","Please enter your new password");
+            response.add("header", "Please enter your new password");
             return response;
         }
 
         //If we get here then the user has been found, and we move onto password validation.
 
-        if(!request.containsUserInput()){
-            response.add("error","New password cannot be null!");
+        if (!request.containsUserInput()) {
+            response.add("error", "New password cannot be null!");
             return response;
         }
 
-        if(request.get("input").toString().length() < 19){
-            response.add("error","Error, new password must be 20 characters or longer!");
+        if (request.get("input").toString().length() < 19) {
+            response.add("error", "Error, new password must be 20 characters or longer!");
             return response;
         }
 
         //if we reach here then the user password has been updated, we set the save and return.
 
-        response.add("notification","User password updated for '"+this.forgotPasswordUser.getEmail()+"'");
+        response.add("notification", "User password updated for '" + this.forgotPasswordUser.getEmail() + "'");
         this.forgotPasswordUser.setPassword(request.get("input").toString());
 
         XMLWriterService.saveStaffMembersToXML();

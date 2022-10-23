@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <class>
     <ticket>
         <id>0</id>
@@ -8,8 +8,11 @@
         <email>j.doe@sepm.com</email>
         <level>low</level>
         <status>open</status>
+        <assigned>Zayn Malik</assigned>
+        <created>27/09/2022</created>
+        <closed>03/10/2022</closed>
+        <resolved>false</resolved>
     </ticket>
-
     <ticket>
         <id>1</id>
         <title>Can't log in to computer.</title>
@@ -18,25 +21,75 @@
         <email>m.cassar@sepm.com</email>
         <level>medium</level>
         <status>closed</status>
+        <assigned>Zayn Malik</assigned>
+        <created>01/10/2022</created>
+        <closed>09/10/2022</closed>
+        <resolved>true</resolved>
     </ticket>
-
     <ticket>
         <id>2</id>
-        <title>IntelliJ IDEA not updating properly.</title>
-        <description>My IntelliJ software cannot be updated to the latest version.</description>
+        <title>Broken laptop</title>
+        <description>My laptop is over heating</description>
         <issuedBy>Jack Harris</issuedBy>
         <email>j.harris@sepm.com</email>
-        <level>high</level>
-        <status>archived</status>
+        <level>low</level>
+        <status>closed</status>
+        <assigned>Harry Styles</assigned>
+        <created>03/10/2022</created>
+        <closed>13/10/2022</closed>
+        <resolved>false</resolved>
     </ticket>
-
     <ticket>
         <id>3</id>
         <title>Word enters text by itself</title>
-        <description>When I write in word, text suddenly appears on the screen, without me having entered it.</description>
+        <description>When I write in word, text suddenly appears on the screen, without me having entered it.
+        </description>
         <issuedBy>Karsten Beck</issuedBy>
         <email>k.beck@sepm.com</email>
         <level>high</level>
         <status>open</status>
+        <assigned>Zayn Malik</assigned>
+        <created>11/10/2022</created>
+        <closed>12/10/2022</closed>
+        <resolved>false</resolved>
+    </ticket>
+    <ticket>
+        <id>6</id>
+        <title>Reminder!</title>
+        <description>Update windows server</description>
+        <issuedBy>Karsten Beck</issuedBy>
+        <email>h.styles@sepm.com</email>
+        <level>low</level>
+        <status>closed</status>
+        <assigned>Harry Styles</assigned>
+        <created>13/10/2022</created>
+        <closed>20/10/2022</closed>
+        <resolved>true</resolved>
+    </ticket>
+    <ticket>
+        <id>7</id>
+        <title>test</title>
+        <description>test2</description>
+        <issuedBy>Harry Styles</issuedBy>
+        <email>h.styles@sepm.com</email>
+        <level>high</level>
+        <status>open</status>
+        <assigned>owner</assigned>
+        <created>12/10/2022</created>
+        <closed>15/10/2022</closed>
+        <resolved>false</resolved>
+    </ticket>
+    <ticket>
+        <id>8</id>
+        <title>Date Test</title>
+        <description>Checking if date is written</description>
+        <issuedBy>Zayn Malik</issuedBy>
+        <email>z.malik@sepm.com</email>
+        <level>high</level>
+        <status>open</status>
+        <assigned>owner</assigned>
+        <created>18/09/2022</created>
+        <closed>20/09/2022</closed>
+        <resolved>false</resolved>
     </ticket>
 </class>
